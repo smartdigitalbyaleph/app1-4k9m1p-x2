@@ -1069,7 +1069,102 @@
 </head>
 <body>
 
-<div class="app">
+<!-- ===== Écran de code d'accès ===== -->
+<style>
+  #app-root{ display:none; }
+  #kleo-lock{
+    position:fixed; inset:0; z-index:99999;
+    display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(160deg,#7164A8,#57497f);
+    padding:24px; font-family:inherit;
+  }
+  #kleo-lock .lock-card{
+    background:#fff; border-radius:20px; padding:36px 28px;
+    max-width:360px; width:100%; text-align:center;
+    box-shadow:0 20px 60px rgba(0,0,0,.25);
+  }
+  #kleo-lock .lock-mark{
+    width:56px; height:56px; border-radius:14px; margin:0 auto 18px;
+    background:#7164A8; display:flex; align-items:center; justify-content:center;
+    color:#fff; font-weight:700; font-size:26px;
+  }
+  #kleo-lock h2{ margin:0 0 8px; font-size:19px; color:#2b2b2b; }
+  #kleo-lock p{ margin:0 0 20px; font-size:14px; color:#6b6b6b; line-height:1.5; }
+  #kleo-lock input{
+    width:100%; box-sizing:border-box; padding:12px 14px; font-size:15px;
+    border:1.5px solid #ddd; border-radius:10px; text-align:center;
+    letter-spacing:0.5px; margin-bottom:12px;
+  }
+  #kleo-lock input:focus{ outline:none; border-color:#7164A8; }
+  #kleo-lock button{
+    width:100%; padding:12px; font-size:15px; font-weight:600;
+    background:#7164A8; color:#fff; border:none; border-radius:10px;
+    cursor:pointer;
+  }
+  #kleo-lock button:active{ opacity:.85; }
+  #kleo-lock .lock-error{
+    color:#c0392b; font-size:13px; margin-top:10px; min-height:16px;
+  }
+</style>
+<div id="kleo-lock">
+  <div class="lock-card">
+    <div class="lock-mark">K</div>
+    <h2>Accès à Kleo Budget</h2>
+    <p>Entrez le code d'accès fourni avec votre achat.</p>
+    <input id="kleo-lock-input" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Code d'accès">
+    <button id="kleo-lock-submit">Déverrouiller</button>
+    <div class="lock-error" id="kleo-lock-error"></div>
+  </div>
+</div>
+<script>
+(function(){
+  // Empreinte SHA-256 du code d'accès — le code en clair n'apparaît jamais ici.
+  var KLEO_CODE_HASH = "ffe6c324c7bb831d32cbc9d562f6c43491a34c0e9cb38a0e98c9fc107869a411";
+  var STORAGE_KEY = "kleo_unlocked_v1";
+
+  function showApp(){
+    document.getElementById('kleo-lock').style.display = 'none';
+    document.getElementById('app-root').style.display = '';
+  }
+
+  // Accès déjà déverrouillé précédemment sur cet appareil
+  try{
+    if (localStorage.getItem(STORAGE_KEY) === '1'){ showApp(); return; }
+  }catch(e){}
+
+  async function sha256Hex(text){
+    var enc = new TextEncoder().encode(text);
+    var buf = await crypto.subtle.digest('SHA-256', enc);
+    return Array.from(new Uint8Array(buf)).map(function(b){
+      return b.toString(16).padStart(2,'0');
+    }).join('');
+  }
+
+  async function tryUnlock(){
+    var input = document.getElementById('kleo-lock-input');
+    var errorEl = document.getElementById('kleo-lock-error');
+    var value = (input.value || '').trim();
+    if (!value){ return; }
+    var hash = await sha256Hex(value);
+    if (hash === KLEO_CODE_HASH){
+      try{ localStorage.setItem(STORAGE_KEY, '1'); }catch(e){}
+      showApp();
+    } else {
+      errorEl.textContent = "Code incorrect. Vérifiez et réessayez.";
+      input.value = '';
+      input.focus();
+    }
+  }
+
+  document.getElementById('kleo-lock-submit').addEventListener('click', tryUnlock);
+  document.getElementById('kleo-lock-input').addEventListener('keydown', function(e){
+    if (e.key === 'Enter'){ tryUnlock(); }
+  });
+})();
+</script>
+<!-- ===== Fin écran de code d'accès ===== -->
+
+<div class="app" id="app-root">
   <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="brand">
