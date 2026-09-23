@@ -6,7 +6,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
 <title>Kleo Budget</title>
 
 <!-- PWA : installation et couleur du navigateur -->
@@ -89,6 +89,19 @@
   .app{
     min-height:100vh;
     min-width:0;
+  }
+
+  /* Zone de sécurité iPhone (encoche / Dynamic Island) en mode "Sur l'écran d'accueil".
+     Sans effet dans Safari normal : les valeurs env(safe-area-inset-*) valent 0
+     tant que l'app n'est pas lancée en plein écran depuis l'icône. */
+  @supports (padding: max(0px)) {
+    #app-root{
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+      box-sizing: border-box;
+    }
   }
 
   /* ---------- SIDEBAR ---------- */
