@@ -1116,7 +1116,7 @@
   </div>
 </div>
 <script>
-(function(){
+document.addEventListener('DOMContentLoaded', function(){
   // Empreinte SHA-256 du code d'accès — le code en clair n'apparaît jamais ici.
   var KLEO_CODE_HASH = "ffe6c324c7bb831d32cbc9d562f6c43491a34c0e9cb38a0e98c9fc107869a411";
   var STORAGE_KEY = "kleo_unlocked_v1";
@@ -1159,7 +1159,7 @@
   document.getElementById('kleo-lock-input').addEventListener('keydown', function(e){
     if (e.key === 'Enter'){ tryUnlock(); }
   });
-})();
+});
 </script>
 <!-- ===== Fin écran de code d'accès ===== -->
 
