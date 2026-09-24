@@ -3469,7 +3469,7 @@ function renderDashboardAnnuel(){
 
 /** Graphique combiné : les 4 types, 12 mois, en % du prévu atteint (évite que Revenus écrase les autres en euros bruts). */
 function trendChartSVG(yd){
-  const w = 720, h = 230, pad = {l:38, r:8, t:16, b:24};
+  const w = 720, h = 230, pad = {l:52, r:8, t:16, b:30};
   const types = ['revenu','besoin','envie','epargne'];
   const colors = {revenu:'var(--revenus)', besoin:'var(--besoins)', envie:'var(--envies)', epargne:'var(--epargne)'};
   const plotW = w-pad.l-pad.r, plotH = h-pad.t-pad.b;
@@ -3504,14 +3504,14 @@ function trendChartSVG(yd){
   const names = currentLang==='fr' ? monthNames : monthNamesEN;
   const monthLabels = yd.months.map((m,i)=>{
     const x = pad.l + i*groupW + groupW/2;
-    return `<text x="${x.toFixed(1)}" y="${h-6}" font-size="8.5" fill="#8A87A3" font-family="sans-serif" text-anchor="middle">${names[i].slice(0,3)}</text>`;
+    return `<text x="${x.toFixed(1)}" y="${h-8}" font-size="15" fill="#8A87A3" font-family="sans-serif" text-anchor="middle">${names[i].slice(0,3)}</text>`;
   }).join('');
   // Repères d'échelle en Y (2 paliers) pour donner un ordre de grandeur en euros.
   const yTicks = [0.5, 1].map(f=>{
     const val = Math.round(maxVal*f);
     const y = y0 - f*plotH;
     return `<line x1="${pad.l}" y1="${y.toFixed(1)}" x2="${w-pad.r}" y2="${y.toFixed(1)}" stroke="var(--line)" stroke-width="1"/>
-      <text x="2" y="${(y+3).toFixed(1)}" font-size="8" fill="#8A87A3" font-family="sans-serif">${val.toLocaleString('fr-FR')}</text>`;
+      <text x="2" y="${(y+4).toFixed(1)}" font-size="14" fill="#8A87A3" font-family="sans-serif">${val.toLocaleString('fr-FR')}</text>`;
   }).join('');
 
   return `<svg viewBox="0 0 ${w} ${h}" width="100%" style="display:block;">
