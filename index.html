@@ -3721,6 +3721,16 @@ function renderRecapTable(yd){
 }
 
 document.addEventListener('click', (e)=>{
+  const useReco = e.target.closest('[data-use-recommended]');
+  if(useReco){
+    const goalId = useReco.dataset.useRecommended;
+    const input = document.querySelector(`[data-goal-contrib="${goalId}"]`);
+    if(input){
+      input.value = useReco.dataset.amount;
+      input.dispatchEvent(new Event('change', {bubbles:true}));
+    }
+    return;
+  }
   const toggle = e.target.closest('[data-recap-toggle]');
   if(toggle){
     const key = toggle.dataset.recapToggle;
@@ -4527,6 +4537,7 @@ const dict = {
     'ep.goals.title':'Objectifs d\'épargne','ep.goals.note':'Triés par priorité',
     'ep.repartition.title':'Répartition de l\'épargne',
     'ep.target.date':'Date cible','ep.recommend':'Recommandé :',
+    'budget.userecommended':'Utiliser',
     'ep.movements.title':'Mouvements du mois',
     'filter.allgoals':'Tous les objectifs',
     'ep.col.goal':'Objectif','ep.general':'Épargne générale',
@@ -4730,6 +4741,7 @@ const dict = {
     'ep.goals.title':'Savings goals','ep.goals.note':'Sorted by priority',
     'ep.repartition.title':'Savings breakdown',
     'ep.target.date':'Target date','ep.recommend':'Recommended:',
+    'budget.userecommended':'Use',
     'ep.movements.title':'This month\'s contributions',
     'filter.allgoals':'All goals',
     'ep.col.goal':'Goal','ep.general':'General savings',
@@ -5836,10 +5848,16 @@ function renderBudgetTab(){
     goalWrap.innerHTML = '';
     goals.filter(g=>!g.achievedAt).forEach(g=>{
       const val = eff.goalContribs[g._id]!=null ? eff.goalContribs[g._id] : '';
+      const remaining = Math.max(0, g.target - g.current);
+      const monthsLeft = computeMonthsLeftLive(g.targetDate);
+      const recommended = monthsLeft>0 ? Math.ceil(remaining/monthsLeft) : 0;
+      const recoText = recommended>0
+        ? `<div style="font-size:11px; color:var(--ink-faint); margin-top:4px;">${t('ep.recommend')} ${recommended.toLocaleString('fr-FR')} ${curr()}${t('kpi.permonth')} <span data-use-recommended="${g._id}" data-amount="${recommended}" style="color:var(--action-dark); font-weight:600; cursor:pointer; text-decoration:underline;">${t('budget.userecommended')}</span></div>`
+        : '';
       goalWrap.insertAdjacentHTML('beforeend', `
         <tr>
           <td>${g.name[currentLang]}</td>
-          <td><input type="number" data-goal-contrib="${g._id}" value="${val}" min="0" step="1" style="width:110px; padding:7px 10px; border:1px solid var(--line); border-radius:8px; font-family:inherit;"></td>
+          <td><input type="number" data-goal-contrib="${g._id}" value="${val}" min="0" step="1" style="width:110px; padding:7px 10px; border:1px solid var(--line); border-radius:8px; font-family:inherit;">${recoText}</td>
         </tr>`);
     });
     const genVal = eff.epargneGenerale || '';
