@@ -1,6 +1,6 @@
 <!--
   Kleo Budget — application locale, fichier unique (HTML/CSS/JS)
-  Version : 1.6.0
+  Version : 1.6.1
 -->
 <!DOCTYPE html>
 <html lang="fr">
@@ -1232,7 +1232,7 @@ document.addEventListener('DOMContentLoaded', function(){
         </div>
         <div class="nav-item" data-view="guide">
           <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 2-3 4"/><path d="M12 17h.01"/></svg></span>
-          <span class="nav-label" data-i18n="nav.guide">Aide &amp; Support</span>
+          <span class="nav-label" data-i18n="nav.guide">Guide &amp; Support</span>
         </div>
       </div>
 
@@ -1260,8 +1260,10 @@ document.addEventListener('DOMContentLoaded', function(){
       </div>
       <div class="nav-item mobile-more-item" data-view="guide">
         <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 2-3 4"/><path d="M12 17h.01"/></svg></span>
-        <span class="nav-label" data-i18n="nav.guide">Aide &amp; Support</span>
+        <span class="nav-label" data-i18n="nav.guide">Guide &amp; Support</span>
       </div>
+      <div id="mobileMoreDateBox" class="sidebar-date-box" style="margin:16px 12px 4px 12px;"></div>
+      <div class="sidebar-foot-text" id="mobileMoreVersionTag" style="opacity:.6; text-align:center; margin:6px 0 10px 0;"></div>
     </div>
   </div>
 
@@ -2018,14 +2020,6 @@ document.addEventListener('DOMContentLoaded', function(){
             </select>
           </div>
           <div class="modal-field">
-            <label data-i18n="param.fiscalyear">Année fiscale de référence</label>
-            <select id="paramFiscalYear">
-              <option value="0" data-i18n="param.fiscalyear.calendar">Année calendaire (Jan–Déc)</option>
-              <option value="3" data-i18n="param.fiscalyear.april">Avril–Mars</option>
-              <option value="6" data-i18n="param.fiscalyear.july">Juillet–Juin</option>
-            </select>
-          </div>
-          <div class="modal-field">
             <label data-i18n="param.language">Langue</label>
             <select id="paramLanguage">
               <option value="fr">Français</option>
@@ -2159,13 +2153,16 @@ document.addEventListener('DOMContentLoaded', function(){
 /* ---------------- APP VERSION ---------------- */
 // Bump this on any release; stored alongside the data on export/save so a future
 // version of this file can detect and migrate an older backup if needed.
-const APP_VERSION = '1.6.0';
+const APP_VERSION = '1.6.1';
 {
-  const tag = document.getElementById('appVersionTag');
-  if(tag){
-    tag.style.textAlign = 'center';
-    tag.textContent = '© 2026 Kleo Budget · v' + APP_VERSION;
-  }
+  const versionText = '© 2026 Kleo Budget · v' + APP_VERSION;
+  ['appVersionTag','mobileMoreVersionTag'].forEach(id=>{
+    const tag = document.getElementById(id);
+    if(tag){
+      tag.style.textAlign = 'center';
+      tag.textContent = versionText;
+    }
+  });
 }
 
 /* ---------------- NAVIGATION ---------------- */
@@ -2236,7 +2233,6 @@ const monthNames = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','
 let currentCurrency = 'USD';
 let userName = '';
 let isDemoActive = false;
-let fiscalYearStartMonth = 0; // 0=calendar (Jan), 3=April, 6=July
 const currencySymbols = {EUR:'€', USD:'$', CHF:'CHF', CAD:'CA$'};
 /**
  * Canonical bilingual payment methods. The French value is the stable identifier
@@ -2256,13 +2252,6 @@ function paymentMethodByFr(fr){
   return PAYMENT_METHODS.find(m=>m.fr===fr) || {fr, en:fr};
 }
 function curr(){ return currencySymbols[currentCurrency] || '€'; }
-function rotFiscal(arr){
-  return fiscalYearStartMonth===0 ? arr : arr.slice(fiscalYearStartMonth).concat(arr.slice(0,fiscalYearStartMonth));
-}
-function fiscalMonthNames(){
-  const names = currentLang==='fr' ? monthNames : monthNamesEN;
-  return rotFiscal(names);
-}
 function refreshAllMoneyDisplays(){
   renderDashboardKpis();
   renderMonthDetail();
@@ -2524,11 +2513,11 @@ function renderGreeting(){
       el.style.display = 'block';
     }
   }
-  const dateBoxEl = document.getElementById('sidebarDateBox');
-  if(dateBoxEl){
-    const today = new Date();
-    dateBoxEl.textContent = today.toLocaleDateString(currentLang==='en' ? 'en-US' : 'fr-FR', {day:'numeric', month:'short', year:'numeric'});
-  }
+  const todayStr = new Date().toLocaleDateString(currentLang==='en' ? 'en-US' : 'fr-FR', {day:'numeric', month:'short', year:'numeric'});
+  ['sidebarDateBox','mobileMoreDateBox'].forEach(id=>{
+    const dateBoxEl = document.getElementById(id);
+    if(dateBoxEl) dateBoxEl.textContent = todayStr;
+  });
 }
 
 function renderDashboardKpis(){
@@ -4452,8 +4441,7 @@ const dict = {
     'empty.breakdown.title':'Rien à répartir pour l\'instant','empty.breakdown.text':'Cette vue se remplira dès que tu auras des transactions.',
     'param.sub':'Configuration de votre budget',
     'param.profile.title':'Profil budgétaire',
-    'param.currency':'Devise','param.fiscalyear':'Année fiscale de référence',
-    'param.fiscalyear.calendar':'Année calendaire (Jan–Déc)','param.fiscalyear.april':'Avril–Mars','param.fiscalyear.july':'Juillet–Juin',
+    'param.currency':'Devise',
     'param.sum.ok':'Total = 100%','param.sum.warn':'Le total doit faire 100%',
     'param.budgets.monthly':'Budget mensuel',
     'param.envelope.title':'Répartition induite par vos budgets',
@@ -4656,8 +4644,7 @@ const dict = {
     'empty.breakdown.title':'Nothing to break down yet','empty.breakdown.text':'This view will fill up once you have some transactions.',
     'param.sub':'Configure your budget',
     'param.profile.title':'Budget profile',
-    'param.currency':'Currency','param.fiscalyear':'Reference fiscal year',
-    'param.fiscalyear.calendar':'Calendar year (Jan–Dec)','param.fiscalyear.april':'April–March','param.fiscalyear.july':'July–June',
+    'param.currency':'Currency',
     'param.sum.ok':'Total = 100%','param.sum.warn':'Total must equal 100%',
     'param.budgets.monthly':'Monthly budget',
     'param.envelope.title':'Split implied by your budgets',
@@ -6034,14 +6021,6 @@ function bindParamProfile(){
       saveState();
     });
   }
-  const fiscalSelect = document.getElementById('paramFiscalYear');
-  if(fiscalSelect && !fiscalSelect.dataset.bound){
-    fiscalSelect.dataset.bound = '1';
-    fiscalSelect.addEventListener('change', (e)=>{
-      fiscalYearStartMonth = parseInt(e.target.value);
-        saveState();
-    });
-  }
   const languageSelect = document.getElementById('paramLanguage');
   if(languageSelect && !languageSelect.dataset.bound){
     languageSelect.dataset.bound = '1';
@@ -6269,7 +6248,7 @@ function serializeState(){
     recurringExpenses, recurringIncome, recurringSavings,
     categoryDefs, goals,
     monthlyBudgets,
-    currentCurrency, fiscalYearStartMonth, userName, isDemoActive,
+    currentCurrency, userName, isDemoActive,
     currentLang,
     idCounter: _idCounter,
   };
@@ -6340,12 +6319,9 @@ function applyLoadedState(data){
   if(data.currentLang==='fr' || data.currentLang==='en') currentLang = data.currentLang;
   if(typeof data.userName === 'string') userName = data.userName;
   if(typeof data.isDemoActive === 'boolean') isDemoActive = data.isDemoActive;
-  if(typeof data.fiscalYearStartMonth === 'number') fiscalYearStartMonth = data.fiscalYearStartMonth;
   if(typeof data.idCounter === 'number') _idCounter = Math.max(_idCounter, data.idCounter);
   const currSel = document.getElementById('paramCurrency');
   if(currSel) currSel.value = currentCurrency;
-  const fiscalSel = document.getElementById('paramFiscalYear');
-  if(fiscalSel) fiscalSel.value = String(fiscalYearStartMonth);
 }
 
 /** Minimal shape check — enough to reject corrupted/foreign JSON without being pedantic. */
