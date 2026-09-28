@@ -3457,8 +3457,18 @@ function renderDashboardAnnuel(){
 }
 
 /** Graphique combiné : les 4 types, 12 mois, en % du prévu atteint (évite que Revenus écrase les autres en euros bruts). */
-function trendChartSVG(yd){
+function trendChartSVG(yd, renderedWidth){
   const w = 720, h = 230, pad = {l:52, r:8, t:16, b:30};
+  // Le SVG est mis à l'échelle par le navigateur (viewBox + width:100%) pour occuper toute
+  // la largeur de sa carte : ~320-380px sur mobile, ~550-650px sur desktop. Comme cette
+  // mise à l'échelle est uniforme, un texte défini en unités fixes du viewBox s'affiche
+  // 2 fois plus grand sur desktop que sur mobile. On calcule donc la taille de police à
+  // partir de la largeur réellement rendue, pour viser une taille constante à l'écran
+  // (~11px pour les mois, ~10px pour les montants) aussi bien sur mobile que sur desktop.
+  const rw = renderedWidth>0 ? renderedWidth : (window.innerWidth<=860 ? 340 : 620);
+  const scale = w/rw;
+  const monthFontSize = Math.max(8, Math.min(15, 11*scale)).toFixed(1);
+  const yFontSize = Math.max(8, Math.min(14, 10*scale)).toFixed(1);
   const types = ['revenu','besoin','envie','epargne'];
   const colors = {revenu:'var(--revenus)', besoin:'var(--besoins)', envie:'var(--envies)', epargne:'var(--epargne)'};
   const plotW = w-pad.l-pad.r, plotH = h-pad.t-pad.b;
@@ -3493,14 +3503,14 @@ function trendChartSVG(yd){
   const names = currentLang==='fr' ? monthNames : monthNamesEN;
   const monthLabels = yd.months.map((m,i)=>{
     const x = pad.l + i*groupW + groupW/2;
-    return `<text x="${x.toFixed(1)}" y="${h-8}" font-size="15" fill="#8A87A3" font-family="sans-serif" text-anchor="middle">${names[i].slice(0,3)}</text>`;
+    return `<text x="${x.toFixed(1)}" y="${h-8}" font-size="${monthFontSize}" fill="#8A87A3" font-family="sans-serif" text-anchor="middle">${names[i].slice(0,3)}</text>`;
   }).join('');
   // Repères d'échelle en Y (2 paliers) pour donner un ordre de grandeur en euros.
   const yTicks = [0.5, 1].map(f=>{
     const val = Math.round(maxVal*f);
     const y = y0 - f*plotH;
     return `<line x1="${pad.l}" y1="${y.toFixed(1)}" x2="${w-pad.r}" y2="${y.toFixed(1)}" stroke="var(--line)" stroke-width="1"/>
-      <text x="2" y="${(y+4).toFixed(1)}" font-size="14" fill="#8A87A3" font-family="sans-serif">${val.toLocaleString('fr-FR')}</text>`;
+      <text x="2" y="${(y+4).toFixed(1)}" font-size="${yFontSize}" fill="#8A87A3" font-family="sans-serif">${val.toLocaleString('fr-FR')}</text>`;
   }).join('');
 
   return `<svg viewBox="0 0 ${w} ${h}" width="100%" style="display:block;">
@@ -3515,8 +3525,18 @@ function trendChartSVG(yd){
 }
 function renderTrendChart(yd){
   const el = document.getElementById('dashTrendChart');
-  if(el) el.innerHTML = trendChartSVG(yd);
+  if(!el) return;
+  const rw = el.clientWidth || (el.parentElement ? el.parentElement.clientWidth : 0);
+  el.innerHTML = trendChartSVG(yd, rw);
 }
+let trendChartResizeTimer = null;
+window.addEventListener('resize', ()=>{
+  clearTimeout(trendChartResizeTimer);
+  trendChartResizeTimer = setTimeout(()=>{
+    const el = document.getElementById('dashboardAnnuel');
+    if(el && el.style.display!=='none') renderDashboardAnnuel();
+  }, 200);
+});
 
 /** Breakdown de l'année : même modèle visuel que "Détail du mois", sommé sur les 12 mois. */
 function renderYearBreakdown(yd){
