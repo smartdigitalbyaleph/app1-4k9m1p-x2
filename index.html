@@ -1,6 +1,6 @@
 <!--
   Kleo Budget — application locale, fichier unique (HTML/CSS/JS)
-  Version : 1.6.1
+  Version : 1.6.6
 -->
 <!DOCTYPE html>
 <html lang="fr">
@@ -30,6 +30,7 @@
     --revenus-light:#C2F0E2;
     --revenus-lighter:#EBFAF5;
     --besoins:#9786E0;
+    --depenses:#7164A8; /* total des dépenses (bandeau Dépenses + Dépenses annuelles) — même violet qu'avant la v1.6.5 */
     --besoins-light:#CBC2F0;
     --besoins-lighter:#EEEBFA;
     --envies:#BE7AAD;
@@ -819,6 +820,7 @@
     gap:8px;
   }
   .goal-recommend{font-weight:600; color:var(--epargne);}
+  .goal-full-top .goal-recommend{font-size:12px;}
   .goal-item{padding-bottom:12px; border-bottom:1px solid var(--line);}
   .goal-item:last-child{border-bottom:none; padding-bottom:0;}
   .goal-top{display:flex; justify-content:space-between; font-size:13.5px; margin-bottom:7px;}
@@ -1041,6 +1043,55 @@
     cursor:pointer;
   }
   .modal-checkbox-field input[type="checkbox"]{width:auto; accent-color:var(--action);}
+  .filter-empty{text-align:center; color:var(--ink-faint); padding:24px; line-height:1.6;}
+  .link-btn{background:none; border:none; padding:0; font:inherit; font-weight:600; color:var(--action-dark); text-decoration:underline; cursor:pointer;}
+  /* v1.6.5 — sélecteur de devise avec recherche intégrée */
+  .currency-combo{position:relative;}
+  .currency-combo-btn{width:100%; display:flex; justify-content:space-between; align-items:center; gap:8px; padding:9px 12px; border:1px solid var(--line); border-radius:8px; background:var(--card); font:inherit; font-size:13.5px; color:var(--ink); cursor:pointer; text-align:left;}
+  .currency-combo-btn:focus-visible{outline:2px solid var(--action); outline-offset:1px;}
+  .currency-combo-btn .chev{color:var(--ink-faint); font-size:11px;}
+  .currency-pop{position:absolute; z-index:60; left:0; right:0; top:calc(100% + 4px); background:var(--card); border:1px solid var(--line); border-radius:10px; box-shadow:0 12px 32px rgba(20,15,60,0.16); padding:8px;}
+  .currency-pop input{width:100%; padding:8px 10px; border:1px solid var(--line); border-radius:8px; font:inherit; font-size:13px; margin-bottom:6px;}
+  .currency-list{max-height:260px; overflow-y:auto;}
+  .currency-group{font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.4px; color:var(--ink-faint); padding:8px 8px 4px;}
+  .currency-opt{padding:7px 8px; border-radius:6px; font-size:13px; cursor:pointer; display:flex; justify-content:space-between; gap:10px;}
+  .currency-opt .code{color:var(--ink-faint); white-space:nowrap;}
+  .currency-opt:hover, .currency-opt.active{background:var(--action-light);}
+  .currency-opt.selected{font-weight:700;}
+  .currency-empty{padding:10px 8px; font-size:12.5px; color:var(--ink-faint);}
+  /* v1.6.5 — bandeaux des onglets au format du Dashboard */
+  .tab-kpi-row{margin-bottom:20px;}
+  .tab-kpi-row .kpi-card{display:flex; flex-direction:column;}
+  .tab-kpi-row .kpi-value{white-space:nowrap;}
+  .card-band.on-light{color:var(--ink);}
+  .tab-kpi-row .kpi-card:not(:has(.env-bar-track)) .kpi-value{margin-top:auto;}
+  .tab-kpi-row .kpi-card:not(:has(.env-bar-track)) > :last-child{margin-bottom:auto;}
+  @media (max-width:640px){
+    .kpi-row.kpi-row-3col.tab-kpi-row{grid-template-columns:1fr 1fr; gap:12px;}
+    .tab-kpi-row .kpi-card:first-child{grid-column:1 / -1;}
+    .tab-kpi-row .kpi-card:not(:first-child){padding:16px 12px;}
+    .tab-kpi-row .kpi-card:not(:first-child) .card-band{margin:-16px -12px 12px -12px; font-size:11px; padding:9px 8px;}
+    .tab-kpi-row .kpi-card:not(:first-child) .kpi-value{font-size:20px;}
+  }
+  /* v1.6.5 — carte « Épargne générale » parmi les objectifs */
+  .goal-assign-btn{font-size:12px; padding:6px 12px;}
+  .ep-transfer-tag{color:var(--ink-faint);}
+  /* v1.6.5 — tableaux Revenus/Dépenses : toutes les colonnes visibles sur ordinateur */
+  @media (min-width:861px){
+    .two-col-wide .table-card table{min-width:0;}
+    .two-col-wide .table-card thead th{padding:11px 9px; letter-spacing:.2px; white-space:normal; vertical-align:bottom;}
+    .two-col-wide .table-card tbody td{padding-left:9px; padding-right:9px; white-space:normal;}
+    .two-col-wide .table-card tbody td.amount-cell{white-space:nowrap;}
+  }
+  /* Écrans d'ordinateur moyens : la répartition passe sous le tableau pour lui laisser toute la largeur. */
+  @media (min-width:861px) and (max-width:1340px){
+    .two-col.two-col-wide{grid-template-columns:1fr;}
+  }
+  .achieved-year-card .achieved-year-body{display:grid; grid-template-columns:minmax(0,1.7fr) minmax(0,1fr); gap:28px; align-items:center;}
+  @media (max-width:900px){ .achieved-year-card .achieved-year-body{grid-template-columns:1fr;} }
+  .achieved-year-card .thin-sep-table th, .achieved-year-card .thin-sep-table td{width:auto;}
+  .achieved-year-card .thin-sep-table td:first-child{white-space:normal;}
+  .achieved-year-empty{font-size:12.5px; color:var(--ink-faint); text-align:center; padding:6px 0 2px;}
   .modal-actions button{flex:1; padding:11px; border-radius:9px; font-size:13px; font-weight:700; cursor:pointer; border:none;}
   .modal-cancel{background:#F2F0FA; color:var(--ink);}
   .modal-submit{background:linear-gradient(135deg,var(--action),var(--action-dark)); color:#fff;}
@@ -1374,7 +1425,7 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="kpi-value" id="dashYearKpiRevenu">0 €</div>
           </div>
           <div class="kpi-card" style="text-align:center;">
-            <div class="card-band" style="background:var(--action);" data-i18n="dash.annual.depenses">Dépenses annuelles</div>
+            <div class="card-band" style="background:var(--depenses);" data-i18n="dash.annual.depenses">Dépenses annuelles</div>
             <div class="kpi-value" id="dashYearKpiDepenses">0 €</div>
           </div>
           <div class="kpi-card" style="text-align:center;">
@@ -1409,6 +1460,11 @@ document.addEventListener('DOMContentLoaded', function(){
           <h2 data-i18n="dash.catdetail.title">Détail par catégorie</h2>
         </div>
         <div class="cat-detail-grid" id="dashYearCatDetailCards"></div>
+
+        <div class="section-heading" id="dashYearAchievedHeading">
+          <h2 data-i18n="ach.section.title">Objectifs atteints</h2>
+        </div>
+        <div id="dashYearAchievedCard"></div>
 
         <div class="section-heading">
           <h2 data-i18n="dash.recap.title">Tableau récapitulatif</h2>
@@ -1583,10 +1639,9 @@ document.addEventListener('DOMContentLoaded', function(){
         </div>
       </div>
 
-      <div class="chart-card" style="margin-bottom:20px;">
-        <div class="kpi-merged-row">
-          <div style="text-align:center;">
-            <div class="kpi-label" style="color:var(--revenus); font-weight:700;" data-i18n="kpi.revenu">Revenu du mois</div>
+      <div class="kpi-row kpi-row-3col tab-kpi-row">
+          <div class="kpi-card" style="text-align:center;">
+            <div class="card-band" style="background:var(--revenus);" data-i18n="kpi.revenu">Revenu du mois</div>
             <div class="kpi-value" id="revKpiTotal">0 €</div>
             <div class="kpi-delta kpi-delta-compact" id="revKpiTotalDelta"></div>
             <div class="env-bar-track thin" style="margin-top:14px; margin-bottom:0;">
@@ -1609,17 +1664,17 @@ document.addEventListener('DOMContentLoaded', function(){
               </span>
             </div>
           </div>
-          <div style="text-align:center;">
-            <div class="kpi-label" style="color:var(--revenus); font-weight:700;" data-i18n="rev.fixed">Revenus fixes</div>
+          <div class="kpi-card" style="text-align:center;">
+            <div class="card-band on-light" style="background:var(--revenus-light);" data-i18n="rev.fixed">Revenus fixes</div>
             <div class="kpi-value" id="revKpiFixed">0 €</div>
             <div class="kpi-delta kpi-delta-compact" id="revKpiFixedPct"></div>
           </div>
-          <div style="text-align:center;">
-            <div class="kpi-label" style="color:var(--revenus); font-weight:700;" data-i18n="rev.variable">Revenus variables</div>
+          <div class="kpi-card" style="text-align:center;">
+            <div class="card-band on-light" style="background:var(--revenus-lighter);" data-i18n="rev.variable">Revenus variables</div>
             <div class="kpi-value" id="revKpiVariable">0 €</div>
             <div class="kpi-delta kpi-delta-compact" id="revKpiVariablePct"></div>
           </div>
-        </div>
+        
       </div>
 
       <div class="section-heading">
@@ -1713,19 +1768,18 @@ document.addEventListener('DOMContentLoaded', function(){
         </div>
       </div>
 
-      <div class="chart-card" style="margin-bottom:20px;">
-        <div class="kpi-merged-row">
-          <div style="text-align:center;">
-            <div class="kpi-label" style="color:var(--action); font-weight:700;" data-i18n="kpi.depenses">Dépenses totales</div>
+      <div class="kpi-row kpi-row-3col tab-kpi-row">
+          <div class="kpi-card" style="text-align:center;">
+            <div class="card-band" style="background:var(--depenses);" data-i18n="kpi.depenses">Dépenses totales</div>
             <div class="kpi-value" id="depKpiTotal">0 €</div>
             <div class="kpi-delta kpi-delta-compact" id="depKpiTotalDelta"></div>
             <div class="env-bar-track thin" style="margin-top:12px; margin-bottom:0; background:var(--gauge-track);">
-              <div class="env-bar-fill" id="depTotalBarFill" style="width:0%; background:var(--action);"></div>
+              <div class="env-bar-fill" id="depTotalBarFill" style="width:0%; background:var(--depenses);"></div>
             </div>
             <div class="kpi-prevu-legend" style="display:flex; justify-content:space-between; align-items:flex-start; font-size:10px; color:var(--ink-faint); margin-top:7px;">
               <span style="text-align:left;">
                 <span style="display:inline-flex; align-items:center; gap:5px;">
-                  <span style="width:8px; height:8px; border-radius:2px; background:var(--action); display:inline-block;"></span>
+                  <span style="width:8px; height:8px; border-radius:2px; background:var(--depenses); display:inline-block;"></span>
                   <span data-i18n="rev.paid.short">Payé</span>
                 </span>
                 <div id="depTotalPaidPctInline" style="font-weight:600; color:var(--ink-soft);">—</div>
@@ -1739,8 +1793,8 @@ document.addEventListener('DOMContentLoaded', function(){
               </span>
             </div>
           </div>
-          <div style="text-align:center;">
-            <div class="kpi-label" style="color:var(--besoins); font-weight:700;" data-i18n="env.besoin">Besoin</div>
+          <div class="kpi-card" style="text-align:center;">
+            <div class="card-band" style="background:var(--besoins);" data-i18n="env.besoin">Besoin</div>
             <div class="kpi-value" id="depKpiBesoin">0 €</div>
             <div class="kpi-delta kpi-delta-compact" id="depKpiBesoinPct"></div>
             <div class="env-bar-track thin" style="margin-top:12px; margin-bottom:0; background:var(--gauge-track);">
@@ -1763,8 +1817,8 @@ document.addEventListener('DOMContentLoaded', function(){
               </span>
             </div>
           </div>
-          <div style="text-align:center;">
-            <div class="kpi-label" style="color:var(--envies); font-weight:700;" data-i18n="env.envie">Envie</div>
+          <div class="kpi-card" style="text-align:center;">
+            <div class="card-band" style="background:var(--envies);" data-i18n="env.envie">Envie</div>
             <div class="kpi-value" id="depKpiEnvie">0 €</div>
             <div class="kpi-delta kpi-delta-compact" id="depKpiEnviePct"></div>
             <div class="env-bar-track thin" style="margin-top:12px; margin-bottom:0; background:var(--gauge-track);">
@@ -1787,7 +1841,7 @@ document.addEventListener('DOMContentLoaded', function(){
               </span>
             </div>
           </div>
-        </div>
+        
       </div>
 
       <div class="section-heading" style="margin-top:26px;">
@@ -1883,10 +1937,9 @@ document.addEventListener('DOMContentLoaded', function(){
       </div>
 
       <!-- Bloc A — Bandeau résumé -->
-      <div class="chart-card" style="margin-bottom:20px;">
-        <div class="kpi-merged-row" style="grid-template-columns:1fr 1fr 1fr;">
-          <div style="text-align:center;">
-            <div class="kpi-label" style="color:var(--epargne); font-weight:700;" data-i18n="kpi.epargne">Épargne du mois</div>
+      <div class="kpi-row kpi-row-3col tab-kpi-row">
+          <div class="kpi-card" style="text-align:center;">
+            <div class="card-band" style="background:var(--epargne);" data-i18n="kpi.epargne">Épargne du mois</div>
             <div class="kpi-value" id="epKpiMonth">0 €</div>
             <div class="kpi-delta pos kpi-delta-compact" id="epKpiMonthPct"></div>
             <div class="env-bar-track thin" style="margin-top:14px; margin-bottom:0; background:var(--gauge-track);">
@@ -1909,17 +1962,17 @@ document.addEventListener('DOMContentLoaded', function(){
               </span>
             </div>
           </div>
-          <div style="text-align:center;">
-            <div class="kpi-label" style="color:var(--epargne); font-weight:700;" data-i18n="ep.cumulative">Épargne cumulée</div>
+          <div class="kpi-card" style="text-align:center;">
+            <div class="card-band on-light" style="background:var(--epargne-light);" data-i18n="ep.cumulative">Total épargné</div>
             <div class="kpi-value" id="epKpiCumulative">0 €</div>
             <div class="kpi-delta kpi-delta-compact" id="epKpiUnallocated"></div>
           </div>
-          <div style="text-align:center;">
-            <div class="kpi-label" style="color:var(--epargne); font-weight:700;" data-i18n="ep.rate">Taux d'épargne</div>
+          <div class="kpi-card" style="text-align:center;">
+            <div class="card-band on-light" style="background:var(--epargne-lighter);" data-i18n="ep.rate">Taux d'épargne</div>
             <div class="kpi-value" id="epKpiRate">0 %</div>
             <div class="kpi-delta kpi-delta-compact" id="epKpiRateTarget"></div>
           </div>
-        </div>
+        
       </div>
 
       <!-- Bloc B+D — Objectifs + répartition -->
@@ -2012,12 +2065,14 @@ document.addEventListener('DOMContentLoaded', function(){
           </div>
           <div class="modal-field">
             <label data-i18n="param.currency">Devise</label>
-            <select id="paramCurrency">
-              <option value="EUR">Euro (€)</option>
-              <option value="USD" selected>Dollar US ($)</option>
-              <option value="CHF">Franc suisse (CHF)</option>
-              <option value="CAD">Dollar canadien (CAD)</option>
-            </select>
+            <div class="currency-combo" id="currencyCombo">
+              <button type="button" class="currency-combo-btn" id="currencyComboBtn" aria-haspopup="listbox" aria-expanded="false"><span id="currencyComboLabel">US Dollar — USD ($)</span><span class="chev">▾</span></button>
+              <div class="currency-pop" id="currencyPop" hidden>
+                <input type="search" id="paramCurrencySearch" autocomplete="off">
+                <div class="currency-list" id="currencyList" role="listbox"></div>
+              </div>
+              <select id="paramCurrency" hidden aria-hidden="true" tabindex="-1"><option value="USD" selected>USD</option></select>
+            </div>
           </div>
           <div class="modal-field">
             <label data-i18n="param.language">Langue</label>
@@ -2149,11 +2204,24 @@ document.addEventListener('DOMContentLoaded', function(){
 </div>
 
 
+<script id="kleo-seed">window.__KLEO_SEED__ = null;</script>
 <script>
+/* ---------------- SOURCE DU FICHIER (v1.6.3) ----------------
+ * Copie du HTML d'origine, capturée AVANT que le script ne modifie la page : c'est
+ * elle (et non la page affichée, déjà modifiée) que « Exporter en HTML » réutilise. */
+const KLEO_SOURCE_HTML = (function(){
+  let out = '';
+  document.childNodes.forEach(n=>{
+    if(n.nodeType===10) out += '<!DOCTYPE html>\n';
+    else if(n.nodeType===8) out += '<!--' + n.data + '-->\n';
+    else if(n.nodeType===1) out += n.outerHTML;
+  });
+  return out;
+})();
 /* ---------------- APP VERSION ---------------- */
 // Bump this on any release; stored alongside the data on export/save so a future
 // version of this file can detect and migrate an older backup if needed.
-const APP_VERSION = '1.6.1';
+const APP_VERSION = '1.6.6';
 {
   const versionText = '© 2026 Kleo Budget · v' + APP_VERSION;
   ['appVersionTag','mobileMoreVersionTag'].forEach(id=>{
@@ -2251,7 +2319,122 @@ function paymentMethodOptionsHTML(selectedFr){
 function paymentMethodByFr(fr){
   return PAYMENT_METHODS.find(m=>m.fr===fr) || {fr, en:fr};
 }
-function curr(){ return currencySymbols[currentCurrency] || '€'; }
+const _currencySymbolCache = {};
+/** Symbole de la devise choisie (toutes les devises ISO via Intl, repli sur le code). */
+function curr(){
+  const code = currentCurrency || 'USD';
+  if(currencySymbols[code]) return currencySymbols[code];
+  if(!_currencySymbolCache[code]){
+    let sym = code;
+    try{
+      const p = new Intl.NumberFormat('en-US', {style:'currency', currency:code, currencyDisplay:'symbol'}).formatToParts(0).find(x=>x.type==='currency');
+      if(p && p.value) sym = p.value;
+    }catch(e){}
+    _currencySymbolCache[code] = sym;
+  }
+  return _currencySymbolCache[code];
+}
+/** Montants : avec symbole (bandeaux, KPI, phrases) ou nombre seul (tableaux, listes, jauges). */
+function fmtMoney(v){ return Math.round(v).toLocaleString('fr-FR')+' '+curr(); }
+function fmtNum(v){ return Math.round(v).toLocaleString('fr-FR'); }
+function fmtNum2(v){ return v.toLocaleString('fr-FR',{minimumFractionDigits:2, maximumFractionDigits:2}); }
+
+const COMMON_CURRENCIES = ['EUR','USD','GBP','CHF','CAD','AUD','JPY','CNY','MAD','DZD','TND','XOF','XAF','AED','SAR','INR','BRL','MXN','SEK','NOK','DKK','PLN','TRY','ZAR'];
+const FALLBACK_CURRENCIES = ['AED','ARS','AUD','BGN','BRL','CAD','CHF','CLP','CNY','COP','CZK','DKK','DZD','EGP','EUR','GBP','HKD','HUF','IDR','ILS','INR','ISK','JPY','KRW','MAD','MXN','MYR','NGN','NOK','NZD','PEN','PHP','PKR','PLN','QAR','RON','RSD','RUB','SAR','SEK','SGD','THB','TND','TRY','TWD','UAH','USD','VND','XAF','XOF','ZAR'];
+function allCurrencyCodes(){
+  try{ if(Intl.supportedValuesOf) return Intl.supportedValuesOf('currency'); }catch(e){}
+  return FALLBACK_CURRENCIES;
+}
+function currencyDisplayName(code){
+  try{ return new Intl.DisplayNames([currentLang==='fr'?'fr':'en'], {type:'currency'}).of(code) || code; }catch(e){ return code; }
+}
+/** Remplit la liste des devises (avec recherche par nom, code ou symbole). */
+function currencyOption(code){
+  const prev = currentCurrency; currentCurrency = code; const sym = curr(); currentCurrency = prev;
+  return {code, name:currencyDisplayName(code), sym, label:`${currencyDisplayName(code)} — ${code}${sym!==code?' ('+sym+')':''}`};
+}
+/** Remplit la liste de devises (recherche par nom, code ou symbole) et le select caché. */
+function populateCurrencySelect(filterText){
+  const sel = document.getElementById('paramCurrency');
+  const list = document.getElementById('currencyList');
+  const label = document.getElementById('currencyComboLabel');
+  const saved = currentCurrency;
+  if(label) label.textContent = currencyOption(saved).label;
+  if(sel){
+    // Le select (caché) garde la valeur courante : c'est lui qui déclenche la mise à jour.
+    if(![...sel.options].some(o=>o.value===saved)){ const o = document.createElement('option'); o.value = saved; o.textContent = saved; sel.appendChild(o); }
+    sel.value = saved;
+  }
+  if(!list) return;
+  const q = (filterText||'').trim().toLowerCase();
+  const match = o=> !q || o.label.toLowerCase().includes(q) || o.sym.toLowerCase()===q;
+  const commonSet = new Set(COMMON_CURRENCIES);
+  const common = COMMON_CURRENCIES.map(currencyOption).filter(match);
+  const others = allCurrencyCodes().filter(c=>!commonSet.has(c)).map(currencyOption).filter(match).sort((a,b)=>a.name.localeCompare(b.name, currentLang));
+  const item = o=>`<div class="currency-opt${o.code===saved?' selected':''}" role="option" data-currency="${o.code}"><span>${o.name}</span><span class="code">${o.code}${o.sym!==o.code?' · '+o.sym:''}</span></div>`;
+  let out = '';
+  if(common.length) out += `<div class="currency-group">${t('currency.common')}</div>${common.map(item).join('')}`;
+  if(others.length) out += `<div class="currency-group">${t('currency.all')}</div>${others.map(item).join('')}`;
+  list.innerHTML = out || `<div class="currency-empty">${t('currency.none')}</div>`;
+  const firstOpt = list.querySelector('.currency-opt');
+  if(firstOpt && q) firstOpt.classList.add('active');
+}
+function openCurrencyPop(open){
+  const pop = document.getElementById('currencyPop');
+  const btn = document.getElementById('currencyComboBtn');
+  const search = document.getElementById('paramCurrencySearch');
+  if(!pop) return;
+  pop.hidden = !open;
+  if(btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  if(open){
+    search.value = '';
+    populateCurrencySelect('');
+    const sel = pop.querySelector('.currency-opt.selected');
+    if(sel) sel.scrollIntoView({block:'nearest'});
+    setTimeout(()=> search.focus(), 0);
+  }
+}
+function chooseCurrency(code){
+  const sel = document.getElementById('paramCurrency');
+  if(!sel) return;
+  if(![...sel.options].some(o=>o.value===code)){ const o = document.createElement('option'); o.value = code; o.textContent = code; sel.appendChild(o); }
+  sel.value = code;
+  sel.dispatchEvent(new Event('change', {bubbles:true}));
+  openCurrencyPop(false);
+  populateCurrencySelect('');
+  const btn = document.getElementById('currencyComboBtn'); if(btn) btn.focus();
+}
+document.addEventListener('click', (e)=>{
+  if(e.target.closest('#currencyComboBtn')){
+    const pop = document.getElementById('currencyPop');
+    openCurrencyPop(pop && pop.hidden);
+    return;
+  }
+  const opt = e.target.closest('.currency-opt');
+  if(opt){ chooseCurrency(opt.dataset.currency); return; }
+  if(!e.target.closest('#currencyCombo')) openCurrencyPop(false);
+});
+document.addEventListener('keydown', (e)=>{
+  if(!e.target.closest || !e.target.closest('#currencyPop')) return;
+  const list = document.getElementById('currencyList');
+  const opts = [...list.querySelectorAll('.currency-opt')];
+  let i = opts.findIndex(o=>o.classList.contains('active'));
+  if(e.key==='ArrowDown' || e.key==='ArrowUp'){
+    e.preventDefault();
+    if(!opts.length) return;
+    if(i>=0) opts[i].classList.remove('active');
+    i = e.key==='ArrowDown' ? Math.min(opts.length-1, i+1) : Math.max(0, i-1);
+    opts[i].classList.add('active'); opts[i].scrollIntoView({block:'nearest'});
+  } else if(e.key==='Enter'){
+    e.preventDefault();
+    const pick = opts[i>=0 ? i : 0];
+    if(pick) chooseCurrency(pick.dataset.currency);
+  } else if(e.key==='Escape'){
+    openCurrencyPop(false);
+    const btn = document.getElementById('currencyComboBtn'); if(btn) btn.focus();
+  }
+});
+
 function refreshAllMoneyDisplays(){
   renderDashboardKpis();
   renderMonthDetail();
@@ -2450,8 +2633,20 @@ document.addEventListener('click', (e)=>{
     return;
   }
   if(e.target.closest('#goalAchievedLink')){
+    // Ouvre le Dashboard annuel de l'année affichée, directement sur la carte « Objectifs atteints ».
+    dashAnnualYear = currentYear;
     document.querySelector('.nav-item[data-view="dashboard"]').click();
     setDashboardSub('annuel');
+    setTimeout(()=>{ const card = document.getElementById('dashYearAchievedCard'); if(card) card.scrollIntoView({behavior:'smooth', block:'start'}); }, 60);
+    return;
+  }
+  if(e.target.closest('#goalGeneralAssignBtn')){
+    openAssignGeneralModal();
+    return;
+  }
+  if(e.target.closest('#depClearFiltersBtn')){
+    ['depCatFilter','depEnvFilter','depSearchInput'].forEach(id=>{ const el = document.getElementById(id); if(el) el.value = ''; });
+    renderExpenses();
     return;
   }
   if(e.target.closest('#btnDashPrint')){
@@ -2523,7 +2718,7 @@ function renderGreeting(){
 function renderDashboardKpis(){
   const monthExpenses = filterByCurrentMonth(expenses);
   const monthIncome = filterByCurrentMonth(incomeEntries);
-  const monthSavings = filterByCurrentMonth(savingsMovements);
+  const monthSavings = contributions(filterByCurrentMonth(savingsMovements));
   const totalBesoin = monthExpenses.filter(e=>e.env==='besoin').reduce((s,e)=>s+e.montant,0);
   const totalEnvie = monthExpenses.filter(e=>e.env==='envie').reduce((s,e)=>s+e.montant,0);
   const totalRevenu = monthIncome.reduce((s,e)=>s+e.montant,0);
@@ -2576,14 +2771,16 @@ function renderEpargneKpis(){
   const elMonth = document.getElementById('epKpiMonth');
   if(!elMonth) return;
 
-  const monthSavings = filterByCurrentMonth(savingsMovements);
+  const monthSavings = contributions(filterByCurrentMonth(savingsMovements));
   const monthIncome = filterByCurrentMonth(incomeEntries);
-  const prevMonthSavings = filterByPrevMonth(savingsMovements);
+  const prevMonthSavings = contributions(filterByPrevMonth(savingsMovements));
   const prevEpargneMonth = prevMonthSavings.reduce((s,m)=>s+m.montant,0);
   const epargneMonth = monthSavings.reduce((s,m)=>s+m.montant,0);
   const revenuMonth = monthIncome.reduce((s,e)=>s+e.montant,0);
-  const cumulative = savingsMovements.reduce((s,m)=>s+m.montant,0);
-  const unallocated = savingsMovements.filter(m=>!m.goal || !m.goal.fr).reduce((s,m)=>s+m.montant,0);
+  // Total épargné à la fin du mois affiché (montants de départ des objectifs + versements jusque-là).
+  const kpiKey = viewedKey();
+  const unallocated = generalSavedAsOf(kpiKey);
+  const cumulative = goals.filter(g=>goalCreatedKey(g)<=kpiKey).reduce((s,g)=>s+goalSavedAsOf(g, kpiKey),0) + unallocated;
   const rate = revenuMonth>0 ? (epargneMonth/revenuMonth*100) : 0;
   const target = getCurrentTargets();
   const fmt = v => Math.round(v).toLocaleString('fr-FR')+' '+curr();
@@ -2722,6 +2919,38 @@ function deriveShadeSet(baseHex, count){
   return shades;
 }
 const TYPE_BASE_COLORS = {revenu:'#35CC9D', besoin:'#9786E0', envie:'#BE7AAD', epargne:'#AFCC35'};
+/** v1.6.3 — nuances de catégories : luminosité répartie régulièrement du foncé au clair,
+ *  alternée (foncé, clair, foncé…) pour que deux catégories voisines ne se confondent
+ *  jamais, avec un léger décalage de teinte. La 1re reste la couleur de base du type. */
+/* v1.6.6 — nuances de données (catégories, objectifs, sources) : jamais quasi noires,
+ * pour rester dans l'esprit clair de la palette. */
+const DATA_SHADE_MIN_L = 50, DATA_SHADE_MAX_L = 82;
+/** Éclaircit une couleur trop foncée (luminosité < 50 %) en gardant sa teinte : sert à
+ *  adoucir les couleurs déjà enregistrées par les versions précédentes. */
+function softenDataColor(hex){
+  if(typeof hex!=='string' || !/^#[0-9a-f]{6}$/i.test(hex)) return hex;
+  const {h,s,l} = hexToHSL(hex);
+  if(l >= DATA_SHADE_MIN_L) return hex;
+  return hslToHex(h, Math.min(s, 75), DATA_SHADE_MIN_L + l*0.3);
+}
+function categoryShadeSet(baseHex, count){
+  if(count<=1) return [baseHex];
+  const {h,s,l} = hexToHSL(baseHex);
+  const lo = DATA_SHADE_MIN_L, hi = DATA_SHADE_MAX_L, n = count-1;
+  // n niveaux répartis régulièrement entre lo et hi, en évitant une bande de ±6 % autour
+  // de la luminosité de la couleur de base (pour qu'aucune nuance ne s'y confonde).
+  const gap = 6;
+  const ranges = [[lo, Math.min(hi, l-gap)], [Math.max(lo, l+gap), hi]].filter(r=>r[1]>r[0]);
+  const totalLen = ranges.reduce((t,r)=>t+(r[1]-r[0]), 0) || 1;
+  const levels = Array.from({length:n}, (_,i)=>{
+    let pos = n===1 ? totalLen/2 : totalLen*i/(n-1);
+    for(const r of ranges){ const len = r[1]-r[0]; if(pos<=len+1e-9) return r[0]+pos; pos -= len; }
+    return hi;
+  });
+  const order = []; let a = 0, b = n-1;
+  while(a<=b){ order.push(levels[a++]); if(a<=b) order.push(levels[b--]); }
+  return [baseHex, ...order.map((lv,i)=> hslToHex((h + [-20,20,0,-10,10][i%5] + 360)%360, Math.max(30, Math.min(90, s - Math.abs(lv-62)*0.15)), lv))];
+}
 const revenusShades = deriveShadeSet(TYPE_BASE_COLORS.revenu, 6);
 const besoinsShades = deriveShadeSet(TYPE_BASE_COLORS.besoin, 6);
 const enviesShades = deriveShadeSet(TYPE_BASE_COLORS.envie, 6);
@@ -2740,7 +2969,7 @@ function shadeSetForEnv(env){
 }
 /** Couleur à assigner à la N-ième catégorie/source/objectif créé(e) pour un type donné. */
 function shadeForIndex(env, index){
-  const set = shadeSetForEnv(env);
+  const set = categoryShadeSet(TYPE_BASE_COLORS[env] || TYPE_BASE_COLORS.besoin, 10);
   return set[index % set.length];
 }
 /** Nuance par défaut d'un type, utilisée en secours (catégorie supprimée, donnée orpheline...). */
@@ -2770,7 +2999,7 @@ function colorForSource(nameFr){
     if(!seenSet.has(e.source.fr)){ seenSet.add(e.source.fr); seen.push(e.source.fr); }
   });
   if(!seenSet.has(nameFr)) seen.push(nameFr);
-  const shades = deriveShadeSet(TYPE_BASE_COLORS.revenu, Math.max(seen.length, 1));
+  const shades = categoryShadeSet(TYPE_BASE_COLORS.revenu, Math.max(seen.length, 1));
   return shades[seen.indexOf(nameFr)];
 }
 function computeIncomeSourceTotals(){
@@ -2862,7 +3091,7 @@ function computeMonthAggregates(month1based, year){
   const inMonth = (dateStr) => { const d = parseFRDate(dateStr); return d.month===month1based && d.year===year; };
   const mExp = expenses.filter(e=>inMonth(e.date));
   const mInc = incomeEntries.filter(e=>inMonth(e.date));
-  const mSav = savingsMovements.filter(m=>inMonth(m.date));
+  const mSav = contributions(savingsMovements.filter(m=>inMonth(m.date)));
   const revenu = mInc.reduce((s,e)=>s+e.montant,0);
   const depenses = mExp.reduce((s,e)=>s+e.montant,0);
   const epargne = mSav.reduce((s,e)=>s+e.montant,0);
@@ -2912,8 +3141,11 @@ function incomeSourceAmountForYear(sourceFr, year){
 // Category-level monthly breakdown (mock), used for Top 5 / Top categories features
 const categoryDefs = [
   {key:'logement', name:{fr:'Logement',en:'Housing'}, fixed:720, budget:750, env:'besoin'},
+  {key:'factures', name:{fr:'Factures & Énergie',en:'Bills & Utilities'}, fixed:0, budget:150, env:'besoin'},
   {key:'assurances', name:{fr:'Assurances',en:'Insurance'}, fixed:64, budget:80, env:'besoin'},
   {key:'alimentation', name:{fr:'Alimentation',en:'Groceries'}, weight:0.30, budget:250, env:'besoin'},
+  {key:'restaurants', name:{fr:'Restaurants & Cafés',en:'Dining Out'}, fixed:0, budget:120, env:'envie'},
+  {key:'abonnements', name:{fr:'Abonnements',en:'Subscriptions'}, fixed:0, budget:40, env:'envie'},
   {key:'loisirs', name:{fr:'Loisirs',en:'Leisure'}, weight:0.24, budget:150, env:'envie'},
   {key:'transport', name:{fr:'Transport',en:'Transport'}, weight:0.18, budget:90, env:'besoin'},
   {key:'sante', name:{fr:'Santé',en:'Health'}, weight:0.10, budget:60, env:'besoin'},
@@ -2929,16 +3161,36 @@ const categoryDefs = [
 // (désactivées, mais jamais effacées en mémoire — voir section Budget) pour ne jamais
 // scinder l'historique d'une catégorie recréée sous le même nom en deux entités distinctes.
 (function assignCategoryColors(list){
-  const counters = {};
+  // Une nuance distincte par catégorie par défaut : le jeu est calculé sur le nombre
+  // réel de catégories de chaque enveloppe (plus de répétition au-delà de 6).
+  const counts = {}, counters = {};
+  list.forEach(c=>{ const env = c.env || 'besoin'; counts[env] = (counts[env]||0) + 1; });
+  const sets = {};
+  Object.keys(counts).forEach(env=>{ sets[env] = categoryShadeSet(TYPE_BASE_COLORS[env], counts[env]); });
   list.forEach(c=>{
     const env = c.env || 'besoin';
     counters[env] = counters[env] || 0;
-    c.color = shadeForIndex(env, counters[env]);
+    c.color = sets[env][counters[env]];
     counters[env]++;
     if(c.active===undefined) c.active = true;
   });
 })(categoryDefs);
 const DEFAULT_CATEGORY_DEFS = JSON.parse(JSON.stringify(categoryDefs));
+/** v1.6.3 — catégories ajoutées aux choix par défaut : ajoutées aussi aux budgets
+ *  existants (sans budget, en fin de liste) si elles n'y figurent pas déjà. */
+const ADDED_DEFAULT_CATEGORY_KEYS = ['factures','restaurants','abonnements'];
+function ensureDefaultCategories(){
+  const norm = v=> (v||'').trim().toLowerCase();
+  ADDED_DEFAULT_CATEGORY_KEYS.forEach(key=>{
+    const def = DEFAULT_CATEGORY_DEFS.find(c=>c.key===key);
+    if(!def) return;
+    const names = [norm(def.name.fr), norm(def.name.en)];
+    const exists = categoryDefs.some(c=> c.key===key || names.includes(norm(c.name.fr)) || names.includes(norm(c.name.en)));
+    if(exists) return;
+    categoryDefs.push({key, name:{...def.name}, fixed:0, budget:0, env:def.env, active:true,
+      color: shadeForIndex(def.env, categoryDefs.filter(c=>c.env===def.env).length)});
+  });
+}
 /**
  * Same category names/colors/needs-or-wants as the demo set, but with every budget
  * and fixed amount zeroed out. Used for any "start fresh" path (blank welcome
@@ -3026,7 +3278,7 @@ function getCategoryBudget(nameFr){
  * mirroring the envelope-bar visual language: fill vs. budget, self-scaled per row.
  */
 function categoryBudgetBarHTML(name, amount, budget, color, env){
-  const fmt = v => Math.round(v).toLocaleString('fr-FR')+' '+curr();
+  const fmt = fmtNum;
   const track = 'var(--gauge-track)';
   const scale = budget ? Math.max(amount, budget) * 1.15 : amount * 1.3;
   const fillPct = budget ? Math.min(amount, scale)/scale*100 : 100;
@@ -3064,89 +3316,374 @@ function catColorFor(nameFr){
 }
 const expenses = [];
 
+/* ---------------- ÉPARGNE À LA DATE DU MOIS AFFICHÉ (v1.6.3) ----------------
+ * Tout ce que l'onglet Épargne affiche (montant épargné, avancement, répartition,
+ * objectifs atteints) est recalculé « à la fin du mois affiché », à
+ * partir de l'historique des versements — revenir en arrière montre donc la
+ * situation de l'époque, sans rien effacer. Clé de mois = année*100 + mois. */
+function monthKeyOf(year, month1){ return year*100 + month1; }
+function dateKeyFR(dateStr){ const d = parseFRDate(dateStr); return d.year*100 + d.month; }
+function viewedKey(){ return currentYear*100 + currentMonthIdx + 1; }
+function keyLabel(key){ const names = currentLang==='fr' ? monthNames : monthNamesEN; return `${names[(key%100)-1]} ${Math.floor(key/100)}`; }
+function goalMovements(g){ return savingsMovements.filter(m=>m.goal && m.goal.fr===g.name.fr); }
+/* v1.6.5 — Affectation depuis l'épargne générale : un mouvement marqué
+ * transferFromGeneral, rattaché à l'objectif choisi. L'argent était déjà épargné :
+ * il fait avancer l'objectif et baisse d'autant l'épargne générale, mais ce n'est
+ * PAS une nouvelle épargne — il est exclu de l'épargne du mois, du taux d'épargne,
+ * du solde, des dashboards et du récapitulatif (voir contributions()). */
+function isTransfer(m){ return !!(m && m.transferFromGeneral); }
+function contributions(arr){ return arr.filter(m=>!isTransfer(m)); }
+/** Épargne générale disponible au mois `key`, en ignorant éventuellement un mouvement (édition). */
+function generalAvailableAt(key, excludeId){
+  // Disponible = le plus petit solde d'épargne générale entre ce mois et la fin des
+  // données : une affectation ne doit jamais rendre l'épargne générale négative plus tard.
+  const keys = new Set([key]);
+  savingsMovements.forEach(m=>{ const k = dateKeyFR(m.date); if(k>key) keys.add(k); });
+  let min = Infinity;
+  keys.forEach(k=>{
+    const bal = savingsMovements.filter(m=>m._id!==excludeId && dateKeyFR(m.date)<=k).reduce((s,m)=>{
+      if(isTransfer(m)) return s - m.montant;
+      if(!m.goal || !m.goal.fr) return s + m.montant;
+      return s;
+    }, 0);
+    min = Math.min(min, bal);
+  });
+  return Math.max(0, Math.round(min*100)/100);
+}
+/** Montant de départ (déjà épargné avant les versements enregistrés). */
+function goalBase(g){ return (g.current||0) - goalMovements(g).reduce((s,m)=>s+m.montant,0); }
+function goalSavedAsOf(g, key){ return goalBase(g) + goalMovements(g).filter(m=>dateKeyFR(m.date)<=key).reduce((s,m)=>s+m.montant,0); }
+function goalCreatedKey(g){ return g.createdAt ? monthKeyOf(g.createdAt.year, g.createdAt.month) : 0; }
+function generalSavedAsOf(key){ return Math.max(0, savingsMovements.filter(m=>dateKeyFR(m.date)<=key).reduce((s,m)=> isTransfer(m) ? s - m.montant : ((!m.goal || !m.goal.fr) ? s + m.montant : s), 0)); }
+/** Épargne générale versée pendant un mois donné (hors affectations). */
+function generalPaidInMonth(key){ return savingsMovements.filter(m=>!isTransfer(m) && (!m.goal || !m.goal.fr) && dateKeyFR(m.date)===key).reduce((s,m)=>s+m.montant,0); }
+/** Premier mois où l'objectif a atteint sa cible (0 = déjà atteint avant tout versement enregistré, null = jamais). */
+function goalAchievedKey(g){
+  if(!(g.target>0)) return null;
+  let run = goalBase(g);
+  if(run >= g.target) return goalCreatedKey(g);
+  const byMonth = {};
+  goalMovements(g).forEach(m=>{ const k = dateKeyFR(m.date); byMonth[k] = (byMonth[k]||0) + m.montant; });
+  const keys = Object.keys(byMonth).map(Number).sort((a,b)=>a-b);
+  for(const k of keys){ run += byMonth[k]; if(run >= g.target - 0.005) return k; }
+  return null;
+}
+/** Objectif à afficher parmi les objectifs « en cours » du mois : créé, et pas atteint avant ce mois. */
+function goalShownAsActive(g, key){
+  if(goalCreatedKey(g) > key) return false;
+  const ak = goalAchievedKey(g);
+  return ak===null || ak >= key;
+}
+function goalsAchievedInYear(year, key){
+  const last = Math.min(key, year*100+12);
+  return goals.filter(g=>{ const ak = goalAchievedKey(g); return ak && ak >= year*100+1 && ak <= last; });
+}
+/** Total versé sur un objectif pendant une année donnée. */
+function goalPaidInYear(g, year){ return goalMovements(g).filter(m=>!isTransfer(m) && parseFRDate(m.date).year===year).reduce((s,m)=>s+m.montant,0); }
 /**
  * Populates the app with realistic sample data (August 2026) so a new user can
  * explore every feature before entering their own numbers. Never runs automatically —
  * only triggered by explicit user choice (first-run welcome screen or Paramètres).
  */
 function loadDemoData(){
+  // Démo complète sur les 12 mois de l'année en cours (revenus, dépenses, épargne,
+  // objectifs atteints, budgets, récurrences). Toutes les
+  // occurrences récurrentes sont déjà présentes et étiquetées : naviguer d'un mois
+  // à l'autre ne crée ni doublon ni perte.
+  const keepName = userName, keepLang = currentLang, keepCurrency = currentCurrency;
+  const data = buildDemoState(REAL_TODAY.getFullYear());
+  data.userName = keepName; data.currentLang = keepLang; data.currentCurrency = keepCurrency;
+  applyLoadedState(data);
   isDemoActive = true;
-  // Always start from a clean slate — never mix demo entries with anything the user
-  // (or a previous tester) may have already added manually.
-  expenses.length = 0;
-  incomeEntries.length = 0;
-  savingsMovements.length = 0;
-  recurringExpenses.length = 0;
-  recurringIncome.length = 0;
-  recurringSavings.length = 0;
-  goals.length = 0;
-  categoryDefs.length = 0;
-  categoryDefs.push(...JSON.parse(JSON.stringify(DEFAULT_CATEGORY_DEFS)));
+  currentMonthIdx = REAL_TODAY.getMonth();
+  currentYear = REAL_TODAY.getFullYear();
+}
 
-  incomeEntries.push(
-    {date:'01/08/2026', source:{fr:'Salaire',en:'Salary'}, montant:1980, type:'fixe', note:{fr:'Virement employeur',en:'Employer transfer'}},
-    {date:'14/08/2026', source:{fr:'Freelance',en:'Freelance'}, montant:320, type:'variable', note:{fr:'Mission graphisme',en:'Design project'}},
-    {date:'22/08/2026', source:{fr:'Freelance',en:'Freelance'}, montant:180, type:'variable', note:{fr:'Relecture texte',en:'Proofreading'}},
-  );
-  assignIds(incomeEntries);
+/* ---------------- DÉMO (v1.6.3, v1.6.4) : année complète, générée pour l'année en cours ---------------- */
+function buildDemoState(YEAR){
+  // ---------- deterministic RNG ----------
+  let seed = 20260101;
+  const rnd = () => { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
+  const between = (a, b) => a + rnd() * (b - a);
+  const money = (a, b) => Math.round(between(a, b) * 100) / 100;
+  const pick = arr => arr[Math.floor(rnd() * arr.length)];
+  const dim = m => new Date(YEAR, m, 0).getDate(); // m = 1..12
+  const d = (day, m) => `${String(Math.min(day, dim(m))).padStart(2, '0')}/${String(m).padStart(2, '0')}/${YEAR}`;
+  const rday = (m, lo = 1, hi = 28) => Math.floor(between(lo, Math.min(hi, dim(m)) + 1));
 
-  recurringIncome.push(
-    {source:{fr:'Salaire',en:'Salary'}, montant:1980, day:1, type:'fixe', active:true, startMonthIdx:DEMO_BASELINE_MONTH_IDX, startYear:DEMO_BASELINE_YEAR},
-  );
-  assignIds(recurringIncome);
+  let id = 1;
+  const nid = () => id++;
 
-  recurringExpenses.push(
-    {desc:{fr:'Loyer',en:'Rent'}, montant:720, day:1, env:'besoin', cat:{fr:'Logement',en:'Housing'}, moyen:{fr:'Virement',en:'Transfer'}, active:true, startMonthIdx:DEMO_BASELINE_MONTH_IDX, startYear:DEMO_BASELINE_YEAR},
-    {desc:{fr:'Assurance auto',en:'Car insurance'}, montant:64, day:2, env:'besoin', cat:{fr:'Assurances',en:'Insurance'}, moyen:{fr:'Prélèvement',en:'Direct debit'}, active:true, startMonthIdx:DEMO_BASELINE_MONTH_IDX, startYear:DEMO_BASELINE_YEAR},
-    {desc:{fr:'Abonnement streaming',en:'Streaming subscription'}, montant:14.99, day:9, env:'envie', cat:{fr:'Loisirs',en:'Leisure'}, moyen:{fr:'Carte',en:'Card'}, active:true, startMonthIdx:DEMO_BASELINE_MONTH_IDX, startYear:DEMO_BASELINE_YEAR},
-  );
-  assignIds(recurringExpenses);
+  // ---------- categories ----------
+  const catList = [
+    // besoin (needs)
+    ['logement', 'Logement', 'Housing', 'besoin', 960],
+    ['factures', 'Factures & Énergie', 'Bills & Utilities', 'besoin', 210],
+    ['alimentation', 'Alimentation', 'Groceries', 'besoin', 340],
+    ['transport', 'Transport', 'Transport', 'besoin', 180],
+    ['assurances', 'Assurances', 'Insurance', 'besoin', 120],
+    ['sante', 'Santé', 'Health', 'besoin', 90],
+    ['dettes', 'Dettes & Crédits', 'Debts & Loans', 'besoin', 320],
+    ['education', 'Éducation', 'Education', 'besoin', 30],
+    // envie (wants)
+    ['restaurants', 'Restaurants & Cafés', 'Dining Out', 'envie', 130],
+    ['loisirs', 'Loisirs', 'Leisure', 'envie', 90],
+    ['shopping', 'Shopping', 'Shopping', 'envie', 100],
+    ['abonnements', 'Abonnements', 'Subscriptions', 'envie', 40],
+    ['voyages', 'Voyages', 'Travel', 'envie', 80],
+    ['cadeaux', 'Cadeaux & Dons', 'Gifts & Donations', 'envie', 50],
+    ['autres', 'Autres', 'Other', 'envie', 50],
+  ];
+  const nB = catList.filter(c => c[3] === 'besoin').length, nE = catList.length - nB;
+  const shB = categoryShadeSet(TYPE_BASE_COLORS.besoin, nB), shE = categoryShadeSet(TYPE_BASE_COLORS.envie, nE);
+  let iB = 0, iE = 0;
+  const categoryDefs = catList.map(([key, fr, en, env, budget]) => ({
+    key, name: { fr, en }, fixed: 0, budget, env, color: env === 'besoin' ? shB[iB++] : shE[iE++], active: true,
+  }));
+  const C = Object.fromEntries(categoryDefs.map(c => [c.key, c]));
 
-  goals.push(
-    {name:{fr:'Fonds d\'urgence',en:'Emergency fund'}, current:2400, target:5000, color:shadeForIndex('epargne',0), priority:1, targetDate:'12/2026', status:'warn'},
-    {name:{fr:'Vacances été',en:'Summer trip'}, current:850, target:1500, color:shadeForIndex('epargne',1), priority:2, targetDate:'06/2027', status:'ok'},
-    {name:{fr:'Apport immobilier',en:'Home down payment'}, current:6200, target:20000, color:shadeForIndex('epargne',2), priority:3, targetDate:'01/2029', status:'ok'},
-  );
-  assignIds(goals);
+  const PM = { card: { fr: 'Carte', en: 'Card' }, cash: { fr: 'Espèces', en: 'Cash' }, transfer: { fr: 'Virement', en: 'Transfer' }, debit: { fr: 'Prélèvement', en: 'Direct debit' } };
 
-  // Budget mensuel de démo, pour que l'onglet Budget ne soit pas vide en mode démo.
-  Object.keys(monthlyBudgets).forEach(k=> delete monthlyBudgets[k]);
-  const demoCatBudgets = {};
-  categoryDefs.forEach(c=>{ if(c.budget) demoCatBudgets[c.key] = c.budget; });
-  monthlyBudgets[budgetMonthKey(DEMO_BASELINE_YEAR, DEMO_BASELINE_MONTH_IDX+1)] = {
-    revenuPrevu: 2480,
-    categoryBudgets: demoCatBudgets,
-    goalContribs: {[goals[0]._id]:200, [goals[2]._id]:150},
-    epargneGenerale: 50,
+  const expenses = [], incomeEntries = [], savingsMovements = [];
+  const recurringExpenses = [], recurringIncome = [], recurringSavings = [];
+
+  const addExp = (date, en, fr, catKey, amount, pm = 'card', recurringId) => {
+    const c = C[catKey];
+    const e = { _id: nid(), date, desc: { fr, en }, cat: { ...c.name }, catColor: c.color, montant: Math.round(amount * 100) / 100, moyen: { ...PM[pm] }, env: c.env };
+    if (recurringId) e.recurringId = recurringId;
+    expenses.push(e);
+  };
+  const addInc = (date, srcEn, srcFr, amount, type, noteEn, noteFr, recurringId) => {
+    const e = { _id: nid(), date, source: { fr: srcFr, en: srcEn }, montant: Math.round(amount * 100) / 100, type, note: { fr: noteFr, en: noteEn } };
+    if (recurringId) e.recurringId = recurringId;
+    incomeEntries.push(e);
   };
 
-  savingsMovements.push(
-    {date:'21/08/2026', montant:250, goal:{fr:'Fonds d\'urgence',en:'Emergency fund'}, note:{fr:'Virement mensuel',en:'Monthly transfer'}},
-    {date:'15/08/2026', montant:120, goal:{fr:'Vacances été',en:'Summer trip'}, note:{fr:'Prime freelance',en:'Freelance bonus'}},
-    {date:'05/08/2026', montant:76, goal:{fr:'',en:''}, note:{fr:'Épargne générale',en:'General savings'}},
-  );
-  assignIds(savingsMovements);
+  // ---------- goals ----------
+  const epShades = categoryShadeSet(TYPE_BASE_COLORS.epargne, 5);
+  const goalDefs = [
+    { fr: "Fonds d'urgence", en: 'Emergency fund', start: 3800, target: 7000, targetDate: '12/' + (YEAR + 1) },
+    { fr: 'Apport immobilier', en: 'Home down payment', start: 4200, target: 15000, targetDate: '12/' + (YEAR + 2) },
+    { fr: 'Vacances d\'été', en: 'Summer vacation', start: 600, target: 1500, targetDate: '06/' + YEAR },
+    { fr: 'Voyage au Japon', en: 'Japan trip', start: 0, target: 1000, targetDate: '09/' + (YEAR + 1) },
+    { fr: 'Nouvel ordinateur', en: 'New laptop', start: 150, target: 990, targetDate: '11/' + YEAR },
+  ];
+  const goals = goalDefs.map((g, i) => ({
+    _id: nid(), id: 'goal_demo_' + (i + 1), name: { fr: g.fr, en: g.en }, current: g.start, target: g.target,
+    color: epShades[i], priority: i + 1, targetDate: g.targetDate, status: 'warn', createdAt: { month: 1, year: YEAR },
+  }));
+  const G = Object.fromEntries(goalDefs.map((g, i) => [g.en, goals[i]]));
+  const addSav = (date, goalEn, amount, noteEn, noteFr, recurringId) => {
+    const g = goalEn ? G[goalEn] : null;
+    const m = { _id: nid(), date, montant: amount, goal: g ? { ...g.name } : { fr: '', en: '' }, note: { fr: noteFr, en: noteEn } };
+    if (recurringId) m.recurringId = recurringId;
+    if (g) g.current += amount;
+    savingsMovements.push(m);
+  };
 
-  recurringSavings.push(
-    {goal:{fr:'Fonds d\'urgence',en:'Emergency fund'}, montant:200, day:5, active:true, startMonthIdx:DEMO_BASELINE_MONTH_IDX, startYear:DEMO_BASELINE_YEAR},
-    {goal:{fr:'Apport immobilier',en:'Home down payment'}, montant:150, day:5, active:true, startMonthIdx:DEMO_BASELINE_MONTH_IDX, startYear:DEMO_BASELINE_YEAR},
-  );
-  assignIds(recurringSavings);
+  // ---------- recurring rules ----------
+  const ruleBase = { active: true, startMonthIdx: 0, startYear: YEAR };
+  const rInc = (en, fr, amount, day, type) => { const r = { _id: nid(), source: { fr, en }, montant: amount, frequency: 'monthly', day, month: null, startDate: null, type, ...ruleBase }; recurringIncome.push(r); return r; };
+  const rExp = (en, fr, amount, catKey, pm, freq, day, month) => {
+    const c = C[catKey];
+    const r = { _id: nid(), desc: { fr, en }, montant: amount, frequency: freq, day, month: month || null, startDate: null, env: c.env, cat: { ...c.name }, moyen: { ...PM[pm] }, ...ruleBase };
+    recurringExpenses.push(r); return r;
+  };
+  const rSav = (goalEn, amount, freq, day, startDate) => {
+    const g = G[goalEn];
+    const r = { _id: nid(), goal: { ...g.name }, montant: amount, frequency: freq, day: day || null, month: null, startDate: startDate || null, ...ruleBase };
+    recurringSavings.push(r); return r;
+  };
 
-  expenses.push(
-    {date:'21/08/2026', desc:{fr:'Loyer',en:'Rent'}, cat:{fr:'Logement',en:'Housing'}, catColor:catColorFor('Logement'), montant:720, moyen:{fr:'Virement',en:'Transfer'}, env:'besoin'},
-    {date:'19/08/2026', desc:{fr:'Courses Carrefour',en:'Grocery shopping'}, cat:{fr:'Alimentation',en:'Groceries'}, catColor:catColorFor('Alimentation'), montant:64.5, moyen:{fr:'Carte',en:'Card'}, env:'besoin'},
-    {date:'17/08/2026', desc:{fr:'Cinéma',en:'Cinema'}, cat:{fr:'Loisirs',en:'Leisure'}, catColor:catColorFor('Loisirs'), montant:22, moyen:{fr:'Espèces',en:'Cash'}, env:'envie'},
-    {date:'15/08/2026', desc:{fr:'Essence',en:'Fuel'}, cat:{fr:'Transport',en:'Transport'}, catColor:catColorFor('Transport'), montant:58, moyen:{fr:'Carte',en:'Card'}, env:'besoin'},
-    {date:'12/08/2026', desc:{fr:'Restaurant',en:'Restaurant'}, cat:{fr:'Loisirs',en:'Leisure'}, catColor:catColorFor('Loisirs'), montant:47, moyen:{fr:'Carte',en:'Card'}, env:'envie'},
-    {date:'09/08/2026', desc:{fr:'Abonnement streaming',en:'Streaming subscription'}, cat:{fr:'Loisirs',en:'Leisure'}, catColor:catColorFor('Loisirs'), montant:14.99, moyen:{fr:'Carte',en:'Card'}, env:'envie'},
-    {date:'05/08/2026', desc:{fr:'Pharmacie',en:'Pharmacy'}, cat:{fr:'Santé',en:'Health'}, catColor:catColorFor('Santé'), montant:31, moyen:{fr:'Carte',en:'Card'}, env:'besoin'},
-    {date:'02/08/2026', desc:{fr:'Assurance auto',en:'Car insurance'}, cat:{fr:'Assurances',en:'Insurance'}, catColor:catColorFor('Assurances'), montant:64, moyen:{fr:'Prélèvement',en:'Direct debit'}, env:'besoin'},
-  );
-  assignIds(expenses);
+  const salary = rInc('Salary', 'Salaire', 3250, 1, 'fixe');
+  const rent = rExp('Rent', 'Loyer', 950, 'logement', 'transfer', 'monthly', 1);
+  const renters = rExp("Renter's insurance", 'Assurance habitation', 24, 'assurances', 'debit', 'monthly', 3);
+  const carIns = rExp('Car insurance', 'Assurance auto', 84, 'assurances', 'debit', 'monthly', 5);
+  const lifeIns = rExp('Life insurance', 'Assurance vie', 18, 'assurances', 'debit', 'monthly', 5);
+  const gym = rExp('Gym membership', 'Abonnement salle de sport', 29, 'sante', 'card', 'monthly', 8);
+  const netflix = rExp('Netflix', 'Netflix', 15.49, 'abonnements', 'card', 'monthly', 9);
+  const carLoan = rExp('Car loan', 'Crédit auto', 210, 'dettes', 'debit', 'monthly', 10);
+  const internet = rExp('Internet', 'Box internet', 55, 'factures', 'debit', 'monthly', 12);
+  const spotify = rExp('Spotify', 'Spotify', 11.99, 'abonnements', 'card', 'monthly', 14);
+  const phone = rExp('Phone plan', 'Forfait mobile', 35, 'factures', 'debit', 'monthly', 15);
+  const course = rExp('Online course subscription', 'Abonnement formation en ligne', 19, 'education', 'card', 'monthly', 18);
+  const studentLoan = rExp('Student loan', 'Prêt étudiant', 110, 'dettes', 'debit', 'monthly', 20);
+  const icloud = rExp('Cloud storage', 'Stockage cloud', 2.99, 'abonnements', 'card', 'monthly', 22);
+  const prime = rExp('Amazon Prime (annual)', 'Amazon Prime (annuel)', 139, 'abonnements', 'card', 'yearly', 12, 3);
+  const carReg = rExp('Car registration', 'Carte grise / vignette', 150, 'transport', 'card', 'yearly', 14, 5);
+  const svEmergency = rSav('Emergency fund', 200, 'monthly', 2);
+  const svHome = rSav('Home down payment', 150, 'monthly', 2);
+  const firstFriday = new Date(YEAR, 0, 1); while (firstFriday.getDay() !== 5) firstFriday.setDate(firstFriday.getDate() + 1);
+  const svJapan = rSav('Japan trip', 10, 'weekly', null, `${String(firstFriday.getDate()).padStart(2, '0')}/01/${YEAR}`);
 
-  currentMonthIdx = 7;
-  currentYear = 2026;
+  const monthlyRules = [rent, renters, carIns, lifeIns, gym, netflix, carLoan, internet, spotify, phone, course, studentLoan, icloud];
+
+  // ---------- month-by-month ----------
+  const groceryShops = ['Whole Foods', 'Trader Joe\'s', 'Costco', 'Safeway', 'Farmers market', 'Aldi'];
+  const dining = [['Coffee shop', 'Café'], ['Sushi dinner', 'Dîner sushi'], ['Pizza night', 'Soirée pizza'], ['Brunch with friends', 'Brunch entre amis'], ['Lunch at work', 'Déjeuner au travail'], ['Thai takeout', 'Plats thaï à emporter'], ['Burger & fries', 'Burger frites'], ['Date night dinner', 'Dîner en amoureux']];
+  const leisure = [['Movie tickets', 'Places de cinéma', 18, 32], ['Bowling', 'Bowling', 28, 45], ['Concert tickets', 'Billets de concert', 65, 120], ['Museum visit', 'Visite de musée', 20, 35], ['Board game', 'Jeu de société', 25, 55], ['Video game', 'Jeu vidéo', 30, 70], ['Escape room', 'Escape game', 35, 60], ['Books', 'Livres', 15, 40]];
+  const shopping = [['Clothing', 'Vêtements', 45, 140], ['Sneakers', 'Baskets', 80, 140], ['Home decor', 'Déco maison', 25, 90], ['Kitchen gadget', 'Ustensile de cuisine', 20, 60], ['Headphones', 'Casque audio', 60, 150], ['Skincare', 'Soins beauté', 18, 55]];
+  const elec = [0, 148, 136, 112, 88, 76, 96, 138, 142, 104, 84, 118, 152]; // seasonal electricity
+  const water = [0, 38, 36, 37, 39, 42, 48, 52, 50, 44, 40, 37, 38];
+
+  for (let m = 1; m <= 12; m++) {
+    // Recurring monthly occurrences (tagged so the app never duplicates them)
+    addInc(d(1, m), 'Salary', 'Salaire', salary.montant, 'fixe', 'Employer payroll', 'Virement employeur', salary._id);
+    monthlyRules.forEach(r => addExp(d(r.day, m), r.desc.en, r.desc.fr, Object.keys(C).find(k => C[k].name.fr === r.cat.fr), r.montant, PM.transfer.fr === r.moyen.fr ? 'transfer' : PM.debit.fr === r.moyen.fr ? 'debit' : 'card', r._id));
+    if (m === 3) addExp(d(12, 3), prime.desc.en, prime.desc.fr, 'abonnements', prime.montant, 'card', prime._id);
+    if (m === 5) addExp(d(14, 5), carReg.desc.en, carReg.desc.fr, 'transport', carReg.montant, 'card', carReg._id);
+    addSav(d(2, m), 'Emergency fund', svEmergency.montant, 'Monthly transfer', 'Virement mensuel', svEmergency._id);
+    addSav(d(2, m), 'Home down payment', svHome.montant, 'Monthly transfer', 'Virement mensuel', svHome._id);
+
+    // Freelance income (1–2 missions)
+    const missions = [['Logo design', 'Création de logo'], ['Website update', 'Mise à jour site web'], ['Photo shoot', 'Shooting photo'], ['Copywriting', 'Rédaction'], ['Consulting call', 'Session de conseil'], ['Social media kit', 'Kit réseaux sociaux']];
+    const nMissions = m === 8 ? 1 : (rnd() < 0.3 ? 2 : 1);
+    for (let i = 0; i < nMissions; i++) { const [en, fr] = pick(missions); addInc(d(rday(m, 6, 26), m), 'Freelance', 'Freelance', Math.round(between(110, 330)), 'variable', en, fr); }
+
+    // Utilities
+    addExp(d(rday(m, 16, 19), m), 'Electricity bill', 'Facture d\'électricité', 'factures', Math.round(elec[m] * 0.8) + money(-5, 5), 'debit');
+    addExp(d(rday(m, 23, 26), m), 'Water & gas', 'Eau & gaz', 'factures', Math.round(water[m] * 0.85) + money(-3, 3), 'debit');
+
+    // Groceries
+    const trips = m === 11 || m === 12 ? 6 : 5;
+    const base = m === 12 ? [60, 105] : m === 11 ? [55, 95] : [48, 85];
+    for (let i = 0; i < trips; i++) { const s = pick(groceryShops); addExp(d(Math.min(dim(m), 2 + i * 6 + Math.floor(rnd() * 4)), m), `Groceries – ${s}`, `Courses – ${s}`, 'alimentation', money(...base), 'card'); }
+
+    // Transport
+    const fuel = Math.floor(between(2, 4));
+    for (let i = 0; i < fuel; i++) addExp(d(rday(m, 3 + i * 9, 10 + i * 9), m), 'Gas station', 'Plein d\'essence', 'transport', money(36, 52), 'card');
+    addExp(d(rday(m), m), pick(['Parking', 'Rideshare', 'Car wash', 'Train ticket']), pick(['Parking', 'VTC', 'Lavage auto', 'Billet de train']), 'transport', money(12, 38), 'card');
+    if (m === 6) addExp(d(18, 6), 'Car service & oil change', 'Révision & vidange', 'transport', 169, 'card');
+
+    // Dining out
+    const nDine = m === 7 || m === 12 ? 5 : Math.floor(between(3, 5));
+    for (let i = 0; i < nDine; i++) { const [en, fr] = pick(dining); addExp(d(rday(m), m), en, fr, 'restaurants', en === 'Coffee shop' ? money(5, 12) : money(16, 58), pick(['card', 'card', 'card', 'cash'])); }
+
+    // Leisure
+    const nLeis = m >= 6 && m <= 8 ? 3 : Math.floor(between(1, 3));
+    for (let i = 0; i < nLeis; i++) { const [en, fr, lo, hi] = pick(leisure); addExp(d(rday(m), m), en, fr, 'loisirs', money(lo, hi), pick(['card', 'card', 'cash'])); }
+
+    // Shopping
+    const nShop = rnd() < 0.6 ? 1 : 2;
+    for (let i = 0; i < nShop; i++) { const [en, fr, lo, hi] = pick(shopping); addExp(d(rday(m), m), en, fr, 'shopping', money(lo, hi), 'card'); }
+
+    // Health
+    addExp(d(rday(m), m), 'Pharmacy', 'Pharmacie', 'sante', money(12, 42), 'card');
+    // Personal care (Other)
+    addExp(d(rday(m, 3, 12), m), 'Haircut', 'Coiffeur', 'autres', money(32, 45), pick(['card', 'cash']));
+    if (rnd() < 0.5) addExp(d(rday(m, 14, 27), m), pick(['Dry cleaning', 'Post office', 'Pet supplies']), pick(['Pressing', 'La Poste', 'Animalerie']), 'autres', money(14, 48), 'card');
+
+    // General savings (small one-offs some months)
+    if ([2, 5, 8, 10].includes(m)) addSav(d(rday(m, 26, 28), m), null, Math.round(between(50, 110)), 'Leftover budget', 'Reste du budget');
+  }
+
+  // ---------- seasonal & one-off events ----------
+  // Income
+  [3, 6, 9, 12].forEach(m => addInc(d(28, m), 'Investments', 'Investissements', money(38, 58), 'variable', 'Quarterly dividends', 'Dividendes trimestriels'));
+  addInc(d(15, 4), 'Reimbursements', 'Remboursements', 650, 'variable', 'Tax refund', 'Remboursement d\'impôts');
+  addInc(d(9, 2), 'Reimbursements', 'Remboursements', 86.4, 'variable', 'Health insurance refund', 'Remboursement mutuelle');
+  addInc(d(22, 9), 'Reimbursements', 'Remboursements', 142, 'variable', 'Work travel expenses', 'Frais de déplacement pro');
+  addInc(d(20, 5), 'Side sales', 'Ventes occasionnelles', 180, 'variable', 'Sold old bike', 'Vente vieux vélo');
+  addInc(d(12, 10), 'Side sales', 'Ventes occasionnelles', 95, 'variable', 'Sold books & games', 'Vente livres & jeux');
+  addInc(d(18, 12), 'Salary', 'Salaire', 1000, 'variable', 'Year-end bonus', 'Prime de fin d\'année');
+
+  // Health
+  addExp(d(14, 4), 'Dentist check-up', 'Contrôle dentiste', 'sante', 95, 'card');
+  addExp(d(8, 9), 'New glasses', 'Nouvelles lunettes', 'sante', 160, 'card');
+  addExp(d(21, 1), 'Doctor visit copay', 'Consultation médecin', 'sante', 30, 'card');
+  addExp(d(10, 11), 'Flu shot', 'Vaccin grippe', 'sante', 25, 'card');
+
+  // Housing & home
+  addExp(d(19, 3), 'Spring cleaning supplies', 'Produits de ménage', 'logement', 64.3, 'card');
+  addExp(d(12, 9), 'New desk chair', 'Nouvelle chaise de bureau', 'logement', 129, 'card');
+  addExp(d(7, 10), 'Plumber repair', 'Réparation plombier', 'logement', 110, 'transfer');
+
+  // Education
+  addExp(d(25, 1), 'Design book', 'Livre de design', 'education', 34.9, 'card');
+  addExp(d(6, 9), 'Weekend workshop', 'Atelier week-end', 'education', 80, 'card');
+
+  // Travel
+  addExp(d(10, 4), 'Weekend getaway – hotel', 'Week-end – hôtel', 'voyages', 190, 'card');
+  addExp(d(11, 4), 'Weekend getaway – train', 'Week-end – train', 'voyages', 64, 'card');
+  addExp(d(9, 12), 'Holiday flights home', 'Vols pour les fêtes', 'voyages', 320, 'card');
+
+  // Gifts & donations
+  addExp(d(12, 2), "Valentine's Day gift", 'Cadeau Saint-Valentin', 'cadeaux', 78, 'card');
+  addExp(d(7, 5), "Mother's Day flowers", 'Fleurs fête des mères', 'cadeaux', 52, 'card');
+  addExp(d(18, 6), "Father's Day gift", 'Cadeau fête des pères', 'cadeaux', 64, 'card');
+  addExp(d(23, 3), 'Birthday gift – Sam', 'Cadeau d\'anniversaire – Sam', 'cadeaux', 45, 'card');
+  addExp(d(16, 8), 'Wedding gift', 'Cadeau de mariage', 'cadeaux', 100, 'transfer');
+  addExp(d(5, 10), 'Charity donation', 'Don à une association', 'cadeaux', 50, 'card');
+  addExp(d(3, 12), 'Holiday gifts – family', 'Cadeaux de Noël – famille', 'cadeaux', 220, 'card');
+  addExp(d(14, 12), 'Holiday gifts – friends', 'Cadeaux de Noël – amis', 'cadeaux', 110, 'card');
+  addExp(d(20, 12), 'Year-end donation', 'Don de fin d\'année', 'cadeaux', 60, 'card');
+
+  // Shopping peaks
+  addExp(d(28, 11), 'Black Friday – headphones', 'Black Friday – casque audio', 'shopping', 129, 'card');
+  addExp(d(29, 11), 'Black Friday – winter coat', 'Black Friday – manteau d\'hiver', 'shopping', 79, 'card');
+  addExp(d(21, 3), 'Spring wardrobe', 'Garde-robe de printemps', 'shopping', 110, 'card');
+  addExp(d(24, 8), 'Back-to-work bag', 'Sac pour la rentrée', 'shopping', 89, 'card');
+
+  // Leisure
+  addExp(d(27, 6), 'Music festival pass', 'Pass festival de musique', 'loisirs', 119, 'card');
+  addExp(d(31, 10), 'Halloween party', 'Soirée Halloween', 'loisirs', 46, 'card');
+  addExp(d(31, 12), "New Year's Eve party", 'Soirée du Nouvel An', 'loisirs', 95, 'card');
+
+  // Savings one-offs
+  for (let m = 1; m <= 6; m++) addSav(d(3, m), 'Summer vacation', 150, 'Vacation savings', 'Épargne vacances');
+  addSav(d(16, 4), null, 300, 'Tax refund saved', 'Remboursement d\'impôts épargné');
+  [4, 5, 6, 7, 8, 9, 10].forEach(m => addSav(d(6, m), 'New laptop', 120, 'Laptop savings', 'Épargne ordinateur'));
+  addSav(d(19, 12), null, 400, 'Part of year-end bonus', 'Part de la prime de fin d\'année');
+  // Weekly Japan-trip savings (every Friday from 2 Jan) — matches the weekly rule
+  for (let t = new Date(firstFriday); t.getFullYear() === YEAR; t.setDate(t.getDate() + 7)) {
+    addSav(`${String(t.getDate()).padStart(2, '0')}/${String(t.getMonth() + 1).padStart(2, '0')}/${YEAR}`, 'Japan trip', 10, 'Weekly round-up', 'Arrondi hebdomadaire', svJapan._id);
+  }
+
+  // Goal status & achievement dates
+  goals.forEach(g => { g.status = g.current >= g.target ? 'ok' : 'warn'; });
+
+  // ---------- monthly budgets (Budget tab) ----------
+  const monthlyBudgets = {};
+  for (let m = 1; m <= 12; m++) {
+    const cb = Object.fromEntries(categoryDefs.map(c => [c.key, c.budget]));
+    if (m === 4) { cb.voyages = 300; cb.sante = 150; }
+    if (m === 7) { cb.voyages = 80; cb.restaurants = 180; cb.loisirs = 150; }
+    if (m === 6) { cb.transport = 350; cb.loisirs = 200; }
+    if (m === 11) { cb.shopping = 450; cb.alimentation = 400; }
+    if (m === 12) { cb.cadeaux = 350; cb.voyages = 350; cb.alimentation = 420; cb.restaurants = 180; }
+    if (m === 9) { cb.education = 100; cb.sante = 200; cb.logement = 1100; }
+    const goalContribs = { [G['Emergency fund']._id]: 200, [G['Home down payment']._id]: 150, [G['Japan trip']._id]: 45 };
+    if (m <= 6) goalContribs[G['Summer vacation']._id] = 150;
+    if (m >= 4 && m <= 10) goalContribs[G['New laptop']._id] = 120;
+    monthlyBudgets[`${YEAR}-${m}`] = {
+      revenuPrevu: m === 12 ? 4500 : 3500,
+      categoryBudgets: cb,
+      goalContribs,
+      epargneGenerale: m === 12 ? 400 : 0,
+      targets: { besoin: 60, envie: 25, epargne: 15 },
+    };
+  }
+
+  // v1.6.5 — exemple d'affectation : une partie de l'épargne générale va au voyage au Japon.
+  { const g = G['Japan trip']; const amt = 250; savingsMovements.push({ _id: nid(), date: d(15, 9), montant: amt, goal: { ...g.name }, note: { fr: 'Part du remboursement d\'impôts', en: 'Part of the tax refund' }, transferFromGeneral: true }); g.current += amt; }
+
+  // Newest first, like the app's own lists
+  const toKey = s => { const [dd, mm, yy] = s.split('/'); return yy + mm + dd; };
+  const byDateDesc = (a, b) => toKey(b.date).localeCompare(toKey(a.date));
+  expenses.sort(byDateDesc); incomeEntries.sort(byDateDesc); savingsMovements.sort(byDateDesc);
+
+  return {
+    version: 1,
+    appVersion: APP_VERSION,
+    savedAt: new Date().toISOString(),
+    expenses, incomeEntries, savingsMovements,
+    recurringExpenses, recurringIncome, recurringSavings,
+    categoryDefs, goals,
+    monthlyBudgets,
+    currentCurrency: 'USD', userName: 'Alex', isDemoActive: false,
+    currentLang: 'en',
+    idCounter: id,
+  };
 }
 
 function computeCategoryTotals(){
@@ -3171,7 +3708,7 @@ function renderIncomeMicroBar(){
   const total = sources.reduce((s,x)=>s+x.amount,0);
   const segments = sources.map(src=>{
     const pct = (src.amount/total*100).toFixed(0);
-    return `<div class="income-micro-seg" style="width:${pct}%; background:${src.color};" title="${src.name[currentLang]} — ${src.amount.toLocaleString('fr-FR')} ${curr()} (${pct}%)"></div>`;
+    return `<div class="income-micro-seg" style="width:${pct}%; background:${src.color};" title="${src.name[currentLang]} — ${src.amount.toLocaleString('fr-FR')} (${pct}%)"></div>`;
   }).join('');
   const legend = sources.map(src=>{
     const pct = (src.amount/total*100).toFixed(0);
@@ -3189,21 +3726,24 @@ function getCSS(varName){ return getComputedStyle(document.documentElement).getP
  * cette date, cohérent avec le fait qu'il n'est alors plus réellement atteint.
  */
 function syncGoalAchievements(){
+  // achievedAt est déduit de l'historique (mois où la cible a été atteinte), et non
+  // plus du mois affiché au moment où on ouvre l'onglet. Conservé pour compatibilité.
   goals.forEach(g=>{
-    if(g.current >= g.target){
-      if(!g.achievedAt) g.achievedAt = {month: currentMonthIdx+1, year: currentYear};
-    } else if(g.achievedAt){
-      delete g.achievedAt;
-    }
+    const k = goalAchievedKey(g);
+    if(k>0) g.achievedAt = {month:k%100, year:Math.floor(k/100)};
+    else if(k===0){ if(!g.achievedAt) g.achievedAt = {month:REAL_TODAY.getMonth()+1, year:REAL_TODAY.getFullYear()}; }
+    else delete g.achievedAt;
   });
 }
 
-function computeGoalStatus(g){
-  if(g.current >= g.target) return 'ok';
+function computeGoalStatus(g, key){
+  key = key || viewedKey();
+  if(goalSavedAsOf(g, key) >= g.target) return 'ok';
   const monthsLeft = computeMonthsLeftLive(g.targetDate);
   if(monthsLeft <= 0) return 'bad';
   return 'progress';
 }
+
 function goalStatusLabelKey(s){
   if(s==='ok') return 'status.goal.reached';
   if(s==='bad') return 'status.goal.missed';
@@ -3236,7 +3776,7 @@ function donutSVG(segments, size){
   return `<svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">${circles}</svg>`;
 }
 function donutLegendHTML(segments){
-  const fmt = v => Math.round(v).toLocaleString('fr-FR')+' '+curr();
+  const fmt = fmtNum;
   return `<div class="donut-legend">${segments.map(s=>
     `<div class="donut-legend-item"><span class="donut-legend-dot" style="background:${s.color};"></span><span>${s.label} · ${fmt(s.value)}</span></div>`
   ).join('')}</div>`;
@@ -3246,7 +3786,7 @@ function donutLegendHTML(segments){
 function computeMonthDetailData(){
   const monthExpenses = filterByCurrentMonth(expenses);
   const monthIncome = filterByCurrentMonth(incomeEntries);
-  const monthSavings = filterByCurrentMonth(savingsMovements);
+  const monthSavings = contributions(filterByCurrentMonth(savingsMovements));
   const totalRevenu = monthIncome.reduce((s,e)=>s+e.montant,0);
   const totalBesoin = monthExpenses.filter(e=>e.env==='besoin').reduce((s,e)=>s+e.montant,0);
   const totalEnvie = monthExpenses.filter(e=>e.env==='envie').reduce((s,e)=>s+e.montant,0);
@@ -3280,7 +3820,7 @@ function renderMonthDetail(){
   const barsWrap = document.getElementById('monthDetailBars');
   if(!barsWrap) return;
   const data = computeMonthDetailData();
-  const fmt = v => Math.round(v).toLocaleString('fr-FR')+' '+curr();
+  const fmt = fmtNum;
   // Échelle commune aux 4 lignes, calée sur le Revenu (référence) : la partie non
   // remplie d'une jauge montre volontairement le poids de ce poste par rapport au
   // revenu — ex. si Besoins ne remplit que 60% de la largeur, c'est qu'il ne
@@ -3341,8 +3881,8 @@ function renderDashCategoryDetails(){
   const data = computeMonthDetailData();
   const budgetEff = getEffectiveMonthlyBudget(currentYear, currentMonthIdx+1);
   const monthExpenses = filterByCurrentMonth(expenses);
-  const monthSavings = filterByCurrentMonth(savingsMovements);
-  const fmt = v => Math.round(v).toLocaleString('fr-FR')+' '+curr();
+  const monthSavings = contributions(filterByCurrentMonth(savingsMovements));
+  const fmt = fmtNum;
   const bandTextColor = {besoin:'#fff', envie:'#fff', epargne:'#fff', revenu:'#fff'};
 
   function cardHTML({env, titleKey, color, lighter, gaugeData, typeLabel, tableHead, tableRows, totalRow, donutSegments, paidLabel}){
@@ -3411,7 +3951,10 @@ function renderDashCategoryDetails(){
   const besoinData = envCardData('besoin');
   const envieData = envCardData('envie');
 
-  const activeGoals = goals.filter(g=>!g.achievedAt);
+  const cardKey = viewedKey();
+  const activeGoals = goals.filter(g=> goalShownAsActive(g, cardKey)
+    || monthSavings.some(m=>m.goal && m.goal.fr===g.name.fr)
+    || (budgetEff.goalContribs[g._id]||0)>0);
   const goalRows = activeGoals.map(g=>{
     const prevu = budgetEff.goalContribs[g._id] || 0;
     const verse = monthSavings.filter(m=>m.goal && m.goal.fr===g.name.fr).reduce((s,m)=>s+m.montant,0);
@@ -3453,6 +3996,7 @@ function renderDashboardAnnuel(){
   renderTrendChart(yd);
   renderYearBreakdown(yd);
   renderYearCatDetails(yd);
+  renderYearAchievedGoals();
   renderRecapTable(yd);
 }
 
@@ -3542,7 +4086,7 @@ window.addEventListener('resize', ()=>{
 function renderYearBreakdown(yd){
   const barsWrap = document.getElementById('yearDetailBars');
   if(!barsWrap) return;
-  const fmt = v => Math.round(v).toLocaleString('fr-FR')+' '+curr();
+  const fmt = fmtNum;
   const scaleMax = Math.max(yd.totals.revenu.prevu, yd.totals.revenu.paye, 1);
   barsWrap.innerHTML = MONTH_DETAIL_ROWS.map(r=>{
     const d = yd.totals[r.key];
@@ -3569,6 +4113,42 @@ function renderYearBreakdown(yd){
 }
 
 /** Variante de cardHTML sans jauge (Dashboard Annuel : juste tableau + anneau). */
+/** Carte « Objectifs atteints » du Dashboard annuel : objectifs ayant atteint leur
+ *  cible pendant l'année affichée — mois d'atteinte, versé dans l'année, cible. */
+function renderYearAchievedGoals(){
+  const wrap = document.getElementById('dashYearAchievedCard');
+  if(!wrap) return;
+  const year = dashAnnualYear;
+  const names = currentLang==='fr' ? monthNames : monthNamesEN;
+  const list = goalsAchievedInYear(year, year*100+12)
+    .map(g=>({g, ak:goalAchievedKey(g), paid:goalPaidInYear(g, year)}))
+    .sort((a,b)=>a.ak-b.ak);
+  const head = [t('ep.col.goal'), t('ach.col.reached'), t('ach.col.paid').replace('{year}', year), t('ep.goal.short')];
+  const lighter = 'var(--epargne-lighter)';
+  const rowsHTML = list.map(x=>`<tr><td>${x.g.name[currentLang]}</td><td>${names[(x.ak%100)-1]}</td><td>${x.paid?fmtNum(x.paid):'–'}</td><td>${fmtNum(x.g.target)}</td></tr>`).join('');
+  const fillerCount = Math.max(0, 3 - list.length);
+  const filler = Array.from({length:fillerCount}).map(()=>`<tr class="filler-row"><td>–</td><td>–</td><td>–</td><td>–</td></tr>`).join('');
+  const totalPaid = list.reduce((s,x)=>s+x.paid,0), totalTarget = list.reduce((s,x)=>s+x.g.target,0);
+  const segments = list.map(x=>({value:x.g.target, color:x.g.color, label:x.g.name[currentLang]}));
+  wrap.innerHTML = `
+    <div class="cat-detail-card achieved-year-card">
+      <div class="card-band env" style="background:var(--epargne); color:#fff;">${t('ach.card.title').replace('{year}', year)}</div>
+      <div class="achieved-year-body">
+        <div class="cat-detail-table">
+          <table class="thin-sep-table">
+            <thead><tr>${head.map(h=>`<th style="background:${lighter};">${h}</th>`).join('')}</tr></thead>
+            <tbody>
+              ${rowsHTML}${filler}
+              <tr class="total-row" style="background:${lighter};"><td>${t('dash.total')}${list.length?` · ${list.length}`:''}</td><td></td><td>${totalPaid?fmtNum(totalPaid):'–'}</td><td>${totalTarget?fmtNum(totalTarget):'–'}</td></tr>
+            </tbody>
+          </table>
+          ${list.length ? '' : `<div class="achieved-year-empty">${t('ach.none').replace('{year}', year)}</div>`}
+        </div>
+        <div class="cat-detail-donut">${donutSVG(segments)}${segments.length ? donutLegendHTML(segments) : ''}</div>
+      </div>
+    </div>`;
+}
+
 function yearCardHTML({titleKey, color, lighter, textColor, tableHead, tableRows, totalRow, donutSegments}){
   const colCount = tableHead.length;
   const fillerCount = Math.max(0, 5 - tableRows.length);
@@ -3595,10 +4175,10 @@ function yearCardHTML({titleKey, color, lighter, textColor, tableHead, tableRows
 function renderYearCatDetails(yd){
   const wrap = document.getElementById('dashYearCatDetailCards');
   if(!wrap) return;
-  const fmt = v => Math.round(v).toLocaleString('fr-FR')+' '+curr();
+  const fmt = fmtNum;
   const yearExpenses = expenses.filter(e=>parseFRDate(e.date).year===dashAnnualYear);
   const yearIncome = incomeEntries.filter(e=>parseFRDate(e.date).year===dashAnnualYear);
-  const yearSavings = savingsMovements.filter(m=>parseFRDate(m.date).year===dashAnnualYear);
+  const yearSavings = contributions(savingsMovements).filter(m=>parseFRDate(m.date).year===dashAnnualYear);
 
   const sourceMap = {};
   yearIncome.forEach(e=>{
@@ -3681,7 +4261,7 @@ function recapSourceRowsFor(year){
 function recapGoalRowsFor(year){
   const rows = goals.map(g=>({label:g.name[currentLang], fr:g.name.fr, monthly:Array(12).fill(0), total:0}));
   const generale = {label:t('ep.general'), monthly:Array(12).fill(0), total:0};
-  savingsMovements.forEach(m=>{
+  contributions(savingsMovements).forEach(m=>{
     const d = parseFRDate(m.date);
     if(d.year!==year) return;
     const target = m.goal && m.goal.fr ? rows.find(r=>r.fr===m.goal.fr) : null;
@@ -3832,7 +4412,7 @@ function renderExpenses(){
     return;
   }
   if(filtered.length===0){
-    rowsWrap.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--ink-faint); padding:24px;">${t('filter.noresults')}</td></tr>`;
+    rowsWrap.innerHTML = `<tr><td colspan="7" class="filter-empty">${t('filter.noresults')}<br>${t('filter.hidden').replace('{n}', monthExpenses.length)} <button type="button" class="link-btn" id="depClearFiltersBtn">${t('filter.clear')}</button></td></tr>`;
     return;
   }
 
@@ -3842,7 +4422,7 @@ function renderExpenses(){
       <td>${e.date}</td>
       <td>${e.desc[currentLang]}</td>
       <td><span class="cat-chip"><span class="cat-dot" style="background:${e.catColor}"></span>${e.cat[currentLang]}</span></td>
-      <td class="amount-cell">${e.montant.toLocaleString('fr-FR',{minimumFractionDigits:2, maximumFractionDigits:2})} ${curr()}</td>
+      <td class="amount-cell">${fmtNum2(e.montant)}</td>
       <td>${e.moyen[currentLang]}</td>
       <td><span class="env-chip ${e.env}">${e.env==='besoin'? t('env.besoin') : t('env.envie')}</span></td>
       <td><div class="row-actions"><button title="${t('modal.edit.title')}" data-edit-table="expenses" data-id="${e._id}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></button><button title="${t('modal.delete.title')}" data-delete-table="expenses" data-id="${e._id}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button></div></td>
@@ -3859,7 +4439,7 @@ function renderRecurringExpenses(){
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${r.desc[currentLang]}</td>
-      <td class="amount-cell">${r.montant.toLocaleString('fr-FR',{minimumFractionDigits:2, maximumFractionDigits:2})} ${curr()}</td>
+      <td class="amount-cell">${fmtNum2(r.montant)}</td>
       <td>${recurrenceLabel(r)}</td>
       <td><span class="env-chip ${r.env}">${r.env==='besoin'? t('env.besoin') : t('env.envie')}</span></td>
       <td><span class="env-status ${r.active?'ok':'bad'}">${r.active? t('status.active') : t('status.inactive')}</span></td>
@@ -3937,7 +4517,7 @@ function renderBreakdown(){
     div.innerHTML = `
       <div class="breakdown-top">
         <span class="breakdown-cat">${c.name[currentLang]}</span>
-        <span class="breakdown-amt">${Math.round(c.amount).toLocaleString('fr-FR')} ${curr()} · ${share.toFixed(1)}%</span>
+        <span class="breakdown-amt">${fmtNum(c.amount)} · ${share.toFixed(1)}%</span>
       </div>
       <div class="bar-track"><div class="bar-fill" style="width:${share}%; background:${c.color}"></div></div>
     `;
@@ -4018,7 +4598,7 @@ function renderIncomeRows(){
     tr.innerHTML = `
       <td>${e.date}</td>
       <td>${e.source[currentLang]}</td>
-      <td class="amount-cell">${e.montant.toLocaleString('fr-FR',{minimumFractionDigits:2, maximumFractionDigits:2})} ${curr()}</td>
+      <td class="amount-cell">${fmtNum2(e.montant)}</td>
       <td><span class="env-chip ${e.type==='fixe'?'besoin':'envie'}">${e.type==='fixe'? t('rev.fixed.single') : t('rev.variable.single')}</span></td>
       <td style="color:var(--ink-faint); font-size:12.5px;">${e.note[currentLang]}</td>
       <td><div class="row-actions"><button title="${t('modal.edit.title')}" data-edit-table="incomeEntries" data-id="${e._id}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></button><button title="${t('modal.delete.title')}" data-delete-table="incomeEntries" data-id="${e._id}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button></div></td>
@@ -4056,7 +4636,7 @@ function renderIncomeBreakdown(){
     div.innerHTML = `
       <div class="breakdown-top">
         <span class="breakdown-cat">${s.name[currentLang]}</span>
-        <span class="breakdown-amt">${Math.round(s.amount).toLocaleString('fr-FR')} ${curr()} · ${share.toFixed(1)}%</span>
+        <span class="breakdown-amt">${fmtNum(s.amount)} · ${share.toFixed(1)}%</span>
       </div>
       <div class="bar-track"><div class="bar-fill" style="width:${share}%; background:${s.color}"></div></div>
     `;
@@ -4072,7 +4652,7 @@ function renderRecurringIncome(){
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${r.source[currentLang]}</td>
-      <td class="amount-cell">${r.montant.toLocaleString('fr-FR')} ${curr()}</td>
+      <td class="amount-cell">${fmtNum2(r.montant)}</td>
       <td>${recurrenceLabel(r)}</td>
       <td><span class="env-chip ${r.type==='fixe'?'besoin':'envie'}">${r.type==='fixe'? t('rev.fixed.single') : t('rev.variable.single')}</span></td>
       <td><span class="env-status ${r.active?'ok':'bad'}">${r.active? t('status.active') : t('status.inactive')}</span></td>
@@ -4092,20 +4672,23 @@ function renderGoalsFull(){
   const wrap = document.getElementById('goalsFull');
   if(!wrap) return;
   syncGoalAchievements();
-  const achievedCount = goals.filter(g=>g.achievedAt).length;
-  const active = goals.filter(g=>!g.achievedAt);
+  const key = viewedKey();
+  const achievedCount = goalsAchievedInYear(currentYear, key).length;
+  const active = goals.filter(g=>goalShownAsActive(g, key));
+  const generalCard = generalSavingsCardHTML(key);
   if(active.length===0){
-    wrap.innerHTML = emptyStateHTML('🎯','empty.goals.title','empty.goals.text');
+    wrap.innerHTML = (generalCard ? `<div class="goal-full-list">${generalCard}</div>` : emptyStateHTML('🎯','empty.goals.title','empty.goals.text'));
     if(achievedCount>0) wrap.innerHTML += achievedGoalsLinkHTML(achievedCount);
     return;
   }
   const sorted = [...active].sort((a,b)=>a.priority-b.priority);
   wrap.innerHTML = `<div class="goal-full-list">${sorted.map(g=>{
-    const pct = Math.min(100,(g.current/g.target*100));
-    const remaining = Math.max(0, g.target - g.current);
+    const saved = goalSavedAsOf(g, key);
+    const pct = g.target>0 ? Math.min(100, Math.max(0, saved/g.target*100)) : 0;
+    const remaining = Math.max(0, g.target - saved);
     const monthsLeft = computeMonthsLeftLive(g.targetDate);
     const recommended = monthsLeft>0 ? Math.ceil(remaining/monthsLeft) : 0;
-    const liveStatus = computeGoalStatus(g);
+    const liveStatus = computeGoalStatus(g, key);
     return `
       <div class="goal-full-item">
         <div class="goal-full-top">
@@ -4123,7 +4706,7 @@ function renderGoalsFull(){
         </div>
         <div class="goal-full-meta" style="margin-bottom:6px;">
           <span>${t('ep.target.date')} : ${g.targetDate}</span>
-          <span class="goal-recommend">${t('ep.recommend')} ${recommended.toLocaleString('fr-FR')} ${curr()}${t('kpi.permonth')}</span>
+          <span class="goal-recommend">${liveStatus==='ok' ? t('ach.reached.in')+' '+keyLabel(goalAchievedKey(g)||key) : t('ep.recommend')+' '+fmtMoney(recommended)+t('kpi.permonth')}</span>
         </div>
         <div class="env-bar-track thin" style="margin:0;">
           <div class="env-bar-fill" style="width:${pct}%; background:${g.color};"></div>
@@ -4134,45 +4717,165 @@ function renderGoalsFull(){
               <span style="width:8px; height:8px; border-radius:2px; background:${g.color}; display:inline-block;"></span>
               <span>${t('ep.saved.short')}</span>
             </span>
-            <div style="font-weight:600; color:var(--ink-soft);">${Math.round(g.current).toLocaleString('fr-FR')} ${curr()} · ${pct.toFixed(0)}%</div>
+            <div style="font-weight:600; color:var(--ink-soft);">${fmtNum(saved)} · ${pct.toFixed(0)}%</div>
           </span>
           <span style="text-align:right;">
             <span style="display:inline-flex; align-items:center; gap:5px; justify-content:flex-end;">
               <span style="width:8px; height:8px; border-radius:2px; background:var(--gauge-track); display:inline-block;"></span>
               <span>${t('ep.goal.short')}</span>
             </span>
-            <div style="font-weight:600; color:var(--ink-soft);">${Math.round(g.target).toLocaleString('fr-FR')} ${curr()}</div>
+            <div style="font-weight:600; color:var(--ink-soft);">${fmtNum(g.target)}</div>
           </span>
         </div>
       </div>
     `;
-  }).join('')}</div>${achievedCount>0 ? achievedGoalsLinkHTML(achievedCount) : ''}`;
+  }).join('')}${generalCard}</div>${achievedCount>0 ? achievedGoalsLinkHTML(achievedCount) : ''}`;
 }
 
 /** Ligne discrète renvoyant vers le futur bilan du Dashboard Annuel (bloc 10 — actuellement un placeholder). */
+/** Carte « Épargne générale » (en dernier dans la liste des objectifs) : total à la
+ *  fin du mois affiché, jauge « versé ce mois / prévu ce mois » (budget de l'onglet
+ *  Budget), bouton « Affecter ». Affichée dès qu'il y a un total ou un budget prévu. */
+function generalSavingsCardHTML(key){
+  const total = generalSavedAsOf(key);
+  const planned = getEffectiveMonthlyBudget(currentYear, currentMonthIdx+1).epargneGenerale || 0;
+  const paid = generalPaidInMonth(key);
+  if(total<=0.004 && planned<=0 && paid<=0) return '';
+  const color = 'var(--epargne-s1)';
+  const pct = planned>0 ? Math.min(100, paid/planned*100) : 0;
+  const canAssign = total>0.004 && goals.some(g=>goalShownAsActive(g, key));
+  return `
+    <div class="goal-full-item" id="goalGeneralCard">
+      <div class="goal-full-top">
+        <div class="goal-full-name-row">
+          <span class="goal-full-name">${t('ep.general')}</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span class="goal-recommend">${t('ep.general.total')} : ${fmtMoney(total)}</span>
+          ${canAssign ? `<button type="button" class="btn-export goal-assign-btn" id="goalGeneralAssignBtn">${t('ep.assign')}</button>` : ''}
+        </div>
+      </div>
+      <div class="env-bar-track thin" style="margin:6px 0 0;">
+        <div class="env-bar-fill" style="width:${pct}%; background:${color};"></div>
+      </div>
+      <div class="kpi-prevu-legend" style="display:flex; justify-content:space-between; align-items:flex-start; font-size:10px; color:var(--ink-faint); margin-top:7px;">
+        <span style="text-align:left;">
+          <span style="display:inline-flex; align-items:center; gap:5px;">
+            <span style="width:8px; height:8px; border-radius:2px; background:${color}; display:inline-block;"></span>
+            <span>${t('ep.general.paidmonth')}</span>
+          </span>
+          <div style="font-weight:600; color:var(--ink-soft);">${paid ? fmtNum(paid) : '–'}${planned>0 ? ` · ${Math.round(paid/planned*100)}%` : ''}</div>
+        </span>
+        <span style="text-align:right;">
+          <span style="display:inline-flex; align-items:center; gap:5px; justify-content:flex-end;">
+            <span style="width:8px; height:8px; border-radius:2px; background:var(--gauge-track); display:inline-block;"></span>
+            <span>${t('ep.general.plannedmonth')}</span>
+          </span>
+          <div style="font-weight:600; color:var(--ink-soft);">${planned>0 ? fmtNum(planned) : '–'}</div>
+        </span>
+      </div>
+    </div>`;
+}
+
+/** Fenêtre « Affecter » : déplace une partie de l'épargne générale vers un objectif. */
+function openAssignGeneralModal(){
+  const key = viewedKey();
+  const today = todayISO();
+  const mm = String(currentMonthIdx+1).padStart(2,'0');
+  const lastDay = new Date(currentYear, currentMonthIdx+1, 0).getDate();
+  const first = `${currentYear}-${mm}-01`, last = `${currentYear}-${mm}-${String(lastDay).padStart(2,'0')}`;
+  const defDate = (today>=first && today<=last) ? today : (today>last ? last : first);
+  const goalOpts = [...goals].filter(g=>goalShownAsActive(g, key)).sort((a,b)=>a.priority-b.priority)
+    .map(g=>`<option value="${g._id}">${g.name[currentLang]}</option>`).join('');
+  const avail0 = generalAvailableAt(dateKeyFR(isoToFR(defDate)));
+  modalCard.innerHTML = `
+    <div class="modal-title">${t('ep.assign.title')}</div>
+    <form id="addForm">
+      <div class="modal-field"><label>${t('ep.col.goal')}</label><select name="goalId" required>${goalOpts}</select></div>
+      <div class="modal-field"><label>${t('col.amount')}</label><input type="number" step="0.01" min="0.01" name="montant" value="${avail0}" required>
+        <div style="font-size:11.5px; color:var(--ink-faint); margin-top:6px;" id="assignAvailHint">${t('ep.assign.available').replace('{amount}', fmtMoney(avail0))}</div>
+        <div style="font-size:12px; font-weight:600; color:var(--danger); margin-top:6px; display:none;" id="assignError"></div>
+      </div>
+      <div class="modal-field"><label>${t('col.date')}</label><input type="date" name="date" value="${defDate}" required></div>
+      <div class="modal-field"><label>${t('col.note')}</label><input type="text" name="note"></div>
+      <div class="modal-actions">
+        <button type="button" class="modal-cancel" id="modalCancelBtn">${t('modal.cancel')}</button>
+        <button type="submit" class="modal-submit">${t('ep.assign')}</button>
+      </div>
+    </form>`;
+  modalCard.querySelector('#modalCancelBtn').addEventListener('click', closeAddModal);
+  const dateInput = modalCard.querySelector('input[name="date"]');
+  dateInput.addEventListener('change', ()=>{
+    if(!dateInput.value) return;
+    const a = generalAvailableAt(dateKeyFR(isoToFR(dateInput.value)));
+    modalCard.querySelector('#assignAvailHint').textContent = t('ep.assign.available').replace('{amount}', fmtMoney(a));
+  });
+  modalCard.querySelector('#addForm').addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const f = new FormData(e.target);
+    const g = goals.find(x=>x._id===parseInt(f.get('goalId')));
+    const montant = Math.round(parseFloat(f.get('montant'))*100)/100;
+    const dateFR = isoToFR(f.get('date'));
+    const avail = generalAvailableAt(dateKeyFR(dateFR));
+    const err = modalCard.querySelector('#assignError');
+    if(!g || !(montant>0)) return;
+    if(montant > avail + 0.005){
+      err.textContent = t('ep.assign.error').replace('{amount}', fmtMoney(avail));
+      err.style.display = 'block';
+      return;
+    }
+    const note = (f.get('note')||'').trim();
+    savingsMovements.unshift({_id: nextId(), date: dateFR, montant, goal: {...g.name}, note: {fr:note, en:note}, transferFromGeneral: true});
+    g.current += montant;
+    closeAddModal();
+    refreshMonthDependentViews();
+  });
+  modalOverlay.classList.add('open');
+}
+
 function achievedGoalsLinkHTML(count){
-  return `<div class="goal-achieved-link" id="goalAchievedLink">🎉 ${count} ${count>1 ? t('ep.achieved.plural') : t('ep.achieved.singular')} <span class="goal-achieved-arrow">→</span> ${t('ep.achieved.cta')}</div>`;
+  return `<div class="goal-achieved-link" id="goalAchievedLink" role="button" tabindex="0">🎉 ${count} ${count>1 ? t('ep.achieved.plural') : t('ep.achieved.singular')} <span class="goal-achieved-arrow">→</span> ${t('ep.achieved.cta')}</div>`;
 }
 
 function renderGoalsRepartition(){
   const wrap = document.getElementById('goalsRepartition');
   if(!wrap) return;
   wrap.innerHTML = '';
-  if(goals.length===0){
+  // Répartition du total épargné à la fin du mois affiché :
+  //  - objectifs en cours, et objectifs atteints pendant l'année affichée (un par ligne) ;
+  //  - objectifs atteints les années précédentes : regroupés sur une seule ligne ;
+  //  - épargne générale.
+  // Le total reste égal au « Total épargné » du bandeau.
+  const key = viewedKey();
+  const yearStart = currentYear*100 + 1;
+  const rows = [];
+  let olderTotal = 0, olderCount = 0;
+  goals.filter(g=>goalCreatedKey(g)<=key).forEach(g=>{
+    const amount = goalSavedAsOf(g, key);
+    if(amount<=0.004) return;
+    const ak = goalAchievedKey(g);
+    if(ak!==null && ak < yearStart && ak <= key){ olderTotal += amount; olderCount++; return; }
+    rows.push({label:g.name[currentLang], color:g.color, amount});
+  });
+  rows.sort((a,b)=>b.amount-a.amount);
+  if(olderCount>0) rows.push({label:t('ep.rep.older').replace('{year}', currentYear).replace('{n}', olderCount), color:'var(--epargne-light)', amount:olderTotal});
+  const general = generalSavedAsOf(key);
+  if(general>0.004) rows.push({label:t('ep.general'), color:'var(--epargne-s1)', amount:general});
+  if(rows.length===0){
     wrap.innerHTML = ghostBarsHTML('empty.breakdown.title','empty.breakdown.text');
     return;
   }
-  const total = goals.reduce((s,g)=>s+g.current,0);
-  [...goals].sort((a,b)=>b.current-a.current).forEach(g=>{
-    const pct = total>0 ? (g.current/total*100) : 0;
+  const total = rows.reduce((s,r)=>s+r.amount,0);
+  rows.forEach(r=>{
+    const pct = total>0 ? (r.amount/total*100) : 0;
     const div = document.createElement('div');
     div.className='breakdown-row';
     div.innerHTML = `
       <div class="breakdown-top">
-        <span class="breakdown-cat">${g.name[currentLang]}</span>
-        <span class="breakdown-amt">${Math.round(g.current).toLocaleString('fr-FR')} ${curr()} · ${pct.toFixed(1)}%</span>
+        <span class="breakdown-cat">${r.label}</span>
+        <span class="breakdown-amt">${fmtNum(r.amount)} · ${pct.toFixed(1)}%</span>
       </div>
-      <div class="bar-track"><div class="bar-fill" style="width:${pct}%; background:${g.color}"></div></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${pct}%; background:${r.color}"></div></div>
     `;
     wrap.appendChild(div);
   });
@@ -4204,9 +4907,9 @@ function renderSavingsMovements(){
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${m.date}</td>
-      <td class="amount-cell">${m.montant.toLocaleString('fr-FR')} ${curr()}</td>
+      <td class="amount-cell">${fmtNum2(m.montant)}</td>
       <td>${m.goal[currentLang] || `<span style="color:var(--ink-faint)">${t('ep.general')}</span>`}</td>
-      <td style="color:var(--ink-faint); font-size:12.5px;">${m.note[currentLang]}</td>
+      <td style="color:var(--ink-faint); font-size:12.5px;">${isTransfer(m) ? `<span class="ep-transfer-tag">${t('ep.assign.tag')}</span>${m.note[currentLang] ? ' · '+m.note[currentLang] : ''}` : m.note[currentLang]}</td>
       <td><div class="row-actions"><button title="${t('modal.edit.title')}" data-edit-table="savingsMovements" data-id="${m._id}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></button><button title="${t('modal.delete.title')}" data-delete-table="savingsMovements" data-id="${m._id}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button></div></td>
     `;
     wrap.appendChild(tr);
@@ -4229,7 +4932,7 @@ function renderRecurringSavings(){
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${r.goal[currentLang]}</td>
-      <td class="amount-cell">${r.montant.toLocaleString('fr-FR')} ${curr()}</td>
+      <td class="amount-cell">${fmtNum2(r.montant)}</td>
       <td>${recurrenceLabel(r)}</td>
       <td><span class="env-status ${r.active?'ok':'bad'}">${r.active? t('status.active') : t('status.inactive')}</span></td>
       <td><div class="row-actions"><button title="${t('modal.edit.title')}" data-edit-table="recurringSavings" data-id="${r._id}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></button><button title="${t('modal.delete.title')}" data-delete-table="recurringSavings" data-id="${r._id}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button></div></td>
@@ -4300,7 +5003,9 @@ function occurrenceDatesForMonth(rule, monthIdx, year){
 }
 
 function ensureRecurringForSpecificMonth(monthIdx, year){
-  if(monthIdx===DEMO_BASELINE_MONTH_IDX && year===DEMO_BASELINE_YEAR) return;
+  // Ancienne démo (août 2026 saisi à la main) : ne pas dupliquer ce mois-là. Les vraies
+  // données (et la nouvelle démo, déjà complète) ne sont plus concernées.
+  if(isDemoActive && monthIdx===DEMO_BASELINE_MONTH_IDX && year===DEMO_BASELINE_YEAR) return;
   // Never materialize recurring occurrences for a month that hasn't happened yet.
   // Without this guard, simply browsing forward to preview a future month (e.g. to
   // check December) would permanently create "already paid" expenses/income/savings
@@ -4546,12 +5251,34 @@ const dict = {
     'col.frequency':'Fréquence',
     'status.active':'Actif','status.inactive':'Inactif',
     'ep.sub':'Suivi de votre épargne',
-    'ep.cumulative':'Épargne cumulée',
-    'ep.unallocated.prefix':'dont','ep.unallocated.suffix':'non affectés','ep.unallocated.none':'Tout affecté à un objectif',
+    'ep.cumulative':'Total épargné',
+    'ep.unallocated.prefix':'dont','ep.unallocated.suffix':'en épargne générale','ep.unallocated.none':'Tout est affecté à un objectif',
+    'ep.general.total':'Total',
+    'ep.general.paidmonth':'Épargné ce mois',
+    'ep.general.plannedmonth':'Prévu ce mois',
+    'ep.assign':'Affecter',
+    'ep.assign.title':'Affecter l\'épargne générale à un objectif',
+    'ep.assign.edit':'Modifier l\'affectation',
+    'ep.assign.available':'Disponible en épargne générale : {amount}',
+    'ep.assign.error':'Montant supérieur à l\'épargne générale disponible ({amount}).',
+    'ep.assign.tag':'Affecté depuis l\'épargne générale',
+    'ep.rep.older':'Objectifs atteints avant {year} ({n})',
+    'currency.none':'Aucune devise trouvée',
+    'filter.hidden':'{n} dépense(s) ce mois-ci sont masquées par les filtres.',
+    'filter.clear':'Effacer les filtres',
+    'ach.reached.in':'Atteint en',
+    'ach.section.title':'Objectifs atteints',
+    'ach.card.title':'Objectifs atteints en {year}',
+    'ach.col.reached':'Atteint en',
+    'ach.col.paid':'Épargné en {year}',
+    'ach.none':'Aucun objectif atteint en {year} pour le moment.',
+    'currency.search':'Rechercher une devise (nom, code, symbole)…',
+    'currency.common':'Les plus utilisées',
+    'currency.all':'Toutes les devises',
     'ep.rate':'Taux d\'épargne','ep.target.rate.prefix':'Cible :',
     'ep.achieved.singular':'objectif atteint cette année',
     'ep.achieved.plural':'objectifs atteints cette année',
-    'ep.achieved.cta':'Voir le bilan annuel',
+    'ep.achieved.cta':'Voir dans le bilan annuel',
     'ep.saved.short':'Épargné',
     'ep.prevu.notset':'Épargne prévue non définie — à configurer dans Budget',
     'ep.goals.title':'Objectifs d\'épargne','ep.goals.note':'Triés par priorité',
@@ -4751,11 +5478,33 @@ const dict = {
     'status.active':'Active','status.inactive':'Inactive',
     'ep.sub':'Savings tracking',
     'ep.cumulative':'Total savings',
-    'ep.unallocated.prefix':'incl.','ep.unallocated.suffix':'unallocated','ep.unallocated.none':'All allocated to a goal',
+    'ep.unallocated.prefix':'incl.','ep.unallocated.suffix':'in general savings','ep.unallocated.none':'Everything is assigned to a goal',
+    'ep.general.total':'Total',
+    'ep.general.paidmonth':'Saved this month',
+    'ep.general.plannedmonth':'Planned this month',
+    'ep.assign':'Assign',
+    'ep.assign.title':'Assign general savings to a goal',
+    'ep.assign.edit':'Edit assignment',
+    'ep.assign.available':'Available in general savings: {amount}',
+    'ep.assign.error':'Amount is higher than the general savings available ({amount}).',
+    'ep.assign.tag':'Assigned from general savings',
+    'ep.rep.older':'Goals achieved before {year} ({n})',
+    'currency.none':'No currency found',
+    'filter.hidden':'{n} expense(s) this month are hidden by the filters.',
+    'filter.clear':'Clear filters',
+    'ach.reached.in':'Reached in',
+    'ach.section.title':'Goals achieved',
+    'ach.card.title':'Goals achieved in {year}',
+    'ach.col.reached':'Reached in',
+    'ach.col.paid':'Saved in {year}',
+    'ach.none':'No goal achieved in {year} yet.',
+    'currency.search':'Search a currency (name, code, symbol)…',
+    'currency.common':'Most used',
+    'currency.all':'All currencies',
     'ep.rate':'Savings rate','ep.target.rate.prefix':'Target:',
     'ep.achieved.singular':'goal achieved this year',
     'ep.achieved.plural':'goals achieved this year',
-    'ep.achieved.cta':'See the yearly summary',
+    'ep.achieved.cta':'See in the yearly overview',
     'ep.saved.short':'Saved',
     'ep.prevu.notset':'Planned savings not set — configure it in Budget',
     'ep.goals.title':'Savings goals','ep.goals.note':'Sorted by priority',
@@ -5244,7 +5993,7 @@ function openAddModal(type){
         _id: nextId(),
         date: isoToFR(f.get('date')),
         montant: montant,
-        goal: {fr:goalName, en:goalName},
+        goal: (()=>{ const g = goals.find(x=>x.name.fr===goalName); return g ? {...g.name} : {fr:'', en:''}; })(),
         note: {fr:f.get('note')||(goalName?'':t('ep.general')), en:f.get('note')||(goalName?'':t('ep.general'))},
       };
       savingsMovements.unshift(newMovement);
@@ -5307,6 +6056,7 @@ function openAddModal(type){
         targetDate: targetDateLabel,
         monthsLeft,
         status: current>=target ? 'ok' : 'warn',
+        createdAt: {month: currentMonthIdx+1, year: currentYear},
       });
       renderGoalsFull();
       renderGoalsRepartition();
@@ -5415,6 +6165,10 @@ const rowTableConfig = {
       // movements) instead of being deleted or left pointing at a goal that no
       // longer exists.
       const generalGoal = {fr:'', en:''};
+      for(let i=savingsMovements.length-1; i>=0; i--){
+        const m = savingsMovements[i];
+        if(isTransfer(m) && m.goal && m.goal.fr===removedGoal.name.fr) savingsMovements.splice(i,1);
+      }
       savingsMovements.forEach(m=>{
         if(m.goal && m.goal.fr===removedGoal.name.fr) m.goal = generalGoal;
       });
@@ -5597,6 +6351,49 @@ function openEditModal(tableName, item){
     });
   }
 
+  if(tableName==='savingsMovements' && isTransfer(item)){
+    const goalOptions = goals.map(g=>`<option value="${g.name.fr}" ${g.name.fr===item.goal.fr?'selected':''}>${g.name[currentLang]}</option>`).join('');
+    modalCard.innerHTML = `
+      <div class="modal-title">${t('ep.assign.edit')}</div>
+      <form id="addForm">
+        <div class="modal-field"><label>${t('ep.col.goal')}</label><select name="goal" required>${goalOptions}</select></div>
+        <div class="modal-field"><label>${t('col.amount')}</label><input type="number" step="0.01" min="0.01" name="montant" value="${item.montant}" required>
+          <div style="font-size:12px; font-weight:600; color:var(--danger); margin-top:6px; display:none;" id="assignError"></div>
+        </div>
+        <div class="modal-field"><label>${t('col.date')}</label><input type="date" name="date" value="${frToISO(item.date)}" required></div>
+        <div class="modal-field"><label>${t('col.note')}</label><input type="text" name="note" value="${item.note[currentLang]||''}"></div>
+        <div class="modal-actions">
+          <button type="button" class="modal-cancel" id="modalCancelBtn">${t('modal.cancel')}</button>
+          <button type="submit" class="modal-submit">${t('modal.save')}</button>
+        </div>
+      </form>`;
+    modalCard.querySelector('#modalCancelBtn').addEventListener('click', closeAddModal);
+    modalCard.querySelector('#addForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const f = new FormData(e.target);
+      const newGoal = goals.find(g=>g.name.fr===f.get('goal'));
+      const montant = Math.round(parseFloat(f.get('montant'))*100)/100;
+      const dateFR = isoToFR(f.get('date'));
+      const avail = generalAvailableAt(dateKeyFR(dateFR), item._id);
+      if(!newGoal || !(montant>0)) return;
+      if(montant > avail + 0.005){
+        const err = modalCard.querySelector('#assignError');
+        err.textContent = t('ep.assign.error').replace('{amount}', fmtMoney(avail));
+        err.style.display = 'block';
+        return;
+      }
+      const oldGoal = goals.find(g=>g.name.fr===item.goal.fr);
+      if(oldGoal) oldGoal.current = Math.max(0, oldGoal.current - item.montant);
+      newGoal.current += montant;
+      item.goal = {...newGoal.name}; item.montant = montant; item.date = dateFR;
+      const note = (f.get('note')||'').trim(); item.note = {fr:note, en:note};
+      closeAddModal();
+      refreshMonthDependentViews();
+    });
+    modalOverlay.classList.add('open');
+    return;
+  }
+
   if(tableName==='savingsMovements'){
     const goalOptions = goals.map(g=>`<option value="${g.name.fr}" ${g.name.fr===item.goal.fr?'selected':''}>${g.name[currentLang]}</option>`).join('');
     const linkedRule = item.recurringId ? recurringSavings.find(r=>r._id===item.recurringId) : null;
@@ -5641,7 +6438,8 @@ function openEditModal(tableName, item){
       }
       item.date = isoToFR(f.get('date'));
       item.montant = newMontant;
-      item.goal = {fr:newGoalName, en:newGoalName};
+      const pickedGoal = goals.find(g=>g.name.fr===newGoalName);
+      item.goal = pickedGoal ? {...pickedGoal.name} : {fr:'', en:''};
       item.note = {fr:f.get('note')||'', en:f.get('note')||''};
       const wantsRecurrent = !!f.get('recurrent');
       const recurrence = readRecurrenceFromForm(f);
@@ -5866,13 +6664,14 @@ function renderBudgetTab(){
   const goalWrap = document.getElementById('budgetGoalRows');
   if(goalWrap){
     goalWrap.innerHTML = '';
-    goals.filter(g=>!g.achievedAt).forEach(g=>{
+    const budgetKey = monthKeyOf(currentYear, currentMonthIdx+1);
+    goals.filter(g=> goalShownAsActive(g, budgetKey) || (eff.goalContribs[g._id]||0)>0).forEach(g=>{
       const val = eff.goalContribs[g._id]!=null ? eff.goalContribs[g._id] : '';
-      const remaining = Math.max(0, g.target - g.current);
+      const remaining = Math.max(0, g.target - goalSavedAsOf(g, budgetKey));
       const monthsLeft = computeMonthsLeftLive(g.targetDate);
       const recommended = monthsLeft>0 ? Math.ceil(remaining/monthsLeft) : 0;
       const recoText = recommended>0
-        ? `<div style="font-size:11px; color:var(--ink-faint); margin-top:4px;">${t('ep.recommend')} ${recommended.toLocaleString('fr-FR')} ${curr()}${t('kpi.permonth')} <span data-use-recommended="${g._id}" data-amount="${recommended}" style="color:var(--action-dark); font-weight:600; cursor:pointer; text-decoration:underline;">${t('budget.userecommended')}</span></div>`
+        ? `<div style="font-size:11px; color:var(--ink-faint); margin-top:4px;">${t('ep.recommend')} ${fmtMoney(recommended)}${t('kpi.permonth')} <span data-use-recommended="${g._id}" data-amount="${recommended}" style="color:var(--action-dark); font-weight:600; cursor:pointer; text-decoration:underline;">${t('budget.userecommended')}</span></div>`
         : '';
       goalWrap.insertAdjacentHTML('beforeend', `
         <tr>
@@ -5932,7 +6731,7 @@ function updateBudgetEnvelopePreview(){
     return `<span class="g-diff" style="color:var(--ink-soft);">${sign}${diff.toFixed(0)}pt ${t('param.envelope.vstarget')} ${target}%</span>`;
   }
   function pill(label, pct, amount, target){
-    return `<span class="param-gauge-pill"><span class="g-label">${label}</span><span class="g-pct">${pct.toFixed(1)}% · ${Math.round(amount).toLocaleString('fr-FR')} ${curr()}</span>${diffTag(pct, target)}</span>`;
+    return `<span class="param-gauge-pill"><span class="g-label">${label}</span><span class="g-pct">${pct.toFixed(1)}% · ${fmtNum(amount)}</span>${diffTag(pct, target)}</span>`;
   }
 
   box.innerHTML =
@@ -5963,7 +6762,7 @@ function updateBudgetEpargneCompare(){
   const revenuInput = document.getElementById('budgetRevenuPrevu');
   const refMonthly = revenuInput && parseFloat(revenuInput.value) > 0 ? parseFloat(revenuInput.value) : null;
   const targetEpargne = parseFloat(document.getElementById('paramTargetEpargne')?.value) || 20;
-  const totalPill = `<span class="param-gauge-pill"><span class="g-label">${t('budget.epargne.total')}</span><span class="g-pct">${Math.round(total).toLocaleString('fr-FR')} ${curr()}</span></span>`;
+  const totalPill = `<span class="param-gauge-pill"><span class="g-label">${t('budget.epargne.total')}</span><span class="g-pct">${fmtNum(total)}</span></span>`;
   if(!refMonthly){
     el.innerHTML = totalPill;
     return;
@@ -6051,6 +6850,16 @@ function bindParamProfile(){
     }
   }
   const currencySelect = document.getElementById('paramCurrency');
+  const currencySearch = document.getElementById('paramCurrencySearch');
+  if(currencySearch){
+    currencySearch.placeholder = t('currency.search');
+    currencySearch.setAttribute('aria-label', t('currency.search'));
+    if(!currencySearch.dataset.bound){
+      currencySearch.dataset.bound = '1';
+      currencySearch.addEventListener('input', ()=> populateCurrencySelect(currencySearch.value));
+    }
+  }
+  populateCurrencySelect(currencySearch ? currencySearch.value : '');
   if(currencySelect && !currencySelect.dataset.bound){
     currencySelect.dataset.bound = '1';
     currencySelect.addEventListener('change', (e)=>{
@@ -6319,6 +7128,8 @@ function replaceArrayContents(target, source){
 function applyLoadedState(data){
   if(!data) return;
   replaceArrayContents(expenses, data.expenses);
+  // Champ fundedBy (dépense financée par un objectif) des versions 1.6.2–1.6.3, abandonné en 1.6.4.
+  expenses.forEach(e=>{ if(e && e.fundedBy) delete e.fundedBy; });
   replaceArrayContents(incomeEntries, data.incomeEntries);
   replaceArrayContents(savingsMovements, data.savingsMovements);
   replaceArrayContents(recurringExpenses, data.recurringExpenses);
@@ -6326,8 +7137,13 @@ function applyLoadedState(data){
   replaceArrayContents(recurringSavings, data.recurringSavings);
   replaceArrayContents(categoryDefs, data.categoryDefs);
   replaceArrayContents(goals, data.goals);
+  // v1.6.6 — adoucit les couleurs trop foncées enregistrées par les versions précédentes.
+  categoryDefs.forEach(c=>{ c.color = softenDataColor(c.color); });
+  goals.forEach(g=>{ g.color = softenDataColor(g.color); });
+  expenses.forEach(e=>{ e.catColor = softenDataColor(e.catColor); });
   // Ensure every loaded category has the `active` flag (older exports predate it).
   categoryDefs.forEach(c=>{ if(c.active===undefined) c.active = true; });
+  ensureDefaultCategories();
   Object.keys(monthlyBudgets).forEach(k=> delete monthlyBudgets[k]);
   if(data.monthlyBudgets && typeof data.monthlyBudgets === 'object'){
     Object.assign(monthlyBudgets, data.monthlyBudgets);
@@ -6358,8 +7174,7 @@ function applyLoadedState(data){
   if(typeof data.userName === 'string') userName = data.userName;
   if(typeof data.isDemoActive === 'boolean') isDemoActive = data.isDemoActive;
   if(typeof data.idCounter === 'number') _idCounter = Math.max(_idCounter, data.idCounter);
-  const currSel = document.getElementById('paramCurrency');
-  if(currSel) currSel.value = currentCurrency;
+  if(typeof populateCurrencySelect==='function') populateCurrencySelect('');
 }
 
 /** Minimal shape check — enough to reject corrupted/foreign JSON without being pedantic. */
@@ -6431,14 +7246,21 @@ function exportJSON(){
  */
 function exportHTMLBackup(){
   const seed = JSON.stringify(serializeState()).replace(/</g, '\\u003c');
-  let html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
-  html = html.replace('</body>', `<script>window.__KLEO_SEED__ = ${seed};<\/script>\n</body>`);
+  // On repart du fichier d'origine (jamais de la page affichée, dont les boutons sont
+  // déjà « branchés ») et on remplace uniquement le bloc de données embarquées.
+  const seedTag = '<scr'+'ipt id="kleo-seed">';
+  const endTag = '</scr'+'ipt>';
+  const start = KLEO_SOURCE_HTML.indexOf(seedTag);
+  const end = start>=0 ? KLEO_SOURCE_HTML.indexOf(endTag, start) : -1;
+  const html = (start>=0 && end>start)
+    ? KLEO_SOURCE_HTML.slice(0, start) + seedTag + 'window.__KLEO_SEED__ = ' + seed + ';' + KLEO_SOURCE_HTML.slice(end)
+    : KLEO_SOURCE_HTML;
   const blob = new Blob([html], {type:'text/html'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url; a.download = 'kleo-budget-sauvegarde.html';
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  setTimeout(()=> URL.revokeObjectURL(url), 1000);
   markExported();
 }
 
@@ -6497,7 +7319,7 @@ function exportAllCSV(){
   rows.push([]);
   rows.push([t('nav.epargne')]);
   rows.push([t('col.date'), t('col.amount'), t('ep.col.goal'), t('col.note')]);
-  savingsMovements.forEach(m=> rows.push([m.date, m.montant, m.goal[currentLang]||t('ep.general'), m.note[currentLang]]));
+  savingsMovements.forEach(m=> rows.push([m.date, m.montant, m.goal[currentLang]||t('ep.general'), isTransfer(m) ? t('ep.assign.tag')+(m.note[currentLang]?' · '+m.note[currentLang]:'') : m.note[currentLang]]));
   downloadCSV('kleo-budget-donnees-completes.csv', rows);
 }
 
@@ -6715,17 +7537,26 @@ function withTimeout(promise, ms, fallback){
   // embarquées directement dans le fichier — on les charge en priorité, sans
   // toucher au localStorage de CE navigateur (qui pourrait appartenir à un
   // tout autre budget si ce fichier est ouvert sur un appareil déjà utilisé).
-  if(window.__KLEO_SEED__){
-    applyLoadedState(window.__KLEO_SEED__);
-    applyI18n();
-    return;
-  }
+  // Fichier HTML exporté (v1.6.3) : ses données embarquées sont chargées si ce
+  // navigateur n'a rien de plus récent ; sinon on garde les données plus récentes
+  // (modifications faites après l'export), pour ne jamais revenir en arrière.
+  const seed = (window.__KLEO_SEED__ && isValidPersistedState(window.__KLEO_SEED__)) ? window.__KLEO_SEED__ : null;
   // localStorage is read synchronously first, so we always have this result even
   // if the IndexedDB call below hangs (a known issue in some Safari/private-
   // browsing contexts) — proceed after 2.5s at the latest either way.
   const {lsData, lsCorrupted} = readLocalStorageState();
   const timeoutFallback = lsData ? {status:'ok', data:lsData} : (lsCorrupted ? {status:'corrupted'} : {status:'empty'});
   const result = await withTimeout(loadPersistedState(lsData, lsCorrupted), 2500, timeoutFallback);
+  if(seed){
+    const seedTime = new Date(seed.savedAt||0).getTime();
+    const localTime = result.status==='ok' ? new Date(result.data.savedAt||0).getTime() : -Infinity;
+    if(seedTime >= localTime){
+      applyLoadedState(seed);
+      applyI18n();
+      saveState();
+      return;
+    }
+  }
 
   if(result.status === 'ok'){
     applyLoadedState(result.data);
