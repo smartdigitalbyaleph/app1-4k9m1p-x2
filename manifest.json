@@ -1,6 +1,6 @@
 {
-  "name": "Kleo Budget",
-  "short_name": "Kleo Budget",
+  "name": "Kaxo Budget",
+  "short_name": "Kaxo Budget",
   "description": "Gestion de budget personnel, 100% locale et privée.",
   "start_url": "./index.html",
   "scope": "./",

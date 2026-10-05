@@ -1,7 +1,7 @@
-// Service worker Kleo Budget — mise en cache pour usage hors ligne.
+// Service worker Kaxo Budget — mise en cache pour usage hors ligne.
 // Incrémentez CACHE_NAME à chaque nouvelle version mise en ligne
 // pour forcer les navigateurs à récupérer les fichiers à jour.
-const CACHE_NAME = 'kleo-budget-cache-v1.6.0';
+const CACHE_NAME = 'kaxo-budget-cache-v1.6.8';
 
 const ASSETS_TO_CACHE = [
   './',
@@ -17,7 +17,7 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => cache.addAll(ASSETS_TO_CACHE))
-      .catch((err) => console.warn('Kleo SW: cache initial incomplet', err))
+      .catch((err) => console.warn('Kaxo SW: cache initial incomplet', err))
   );
   self.skipWaiting();
 });

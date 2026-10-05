@@ -1,13 +1,13 @@
 <!--
-  Kleo Budget — application locale, fichier unique (HTML/CSS/JS)
-  Version : 1.6.6
+  Kaxo Budget — application locale, fichier unique (HTML/CSS/JS)
+  Version : 1.6.8
 -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
-<title>Kleo Budget</title>
+<title>Kaxo Budget</title>
 
 <!-- PWA : installation et couleur du navigateur -->
 <link rel="manifest" href="./manifest.json">
@@ -17,7 +17,7 @@
      ces balises spécifiques assurent un bon rendu "Sur l'écran d'accueil" -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Kleo Budget">
+<meta name="apple-mobile-web-app-title" content="Kaxo Budget">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 
 <!-- Icônes générales (Android / desktop) -->
@@ -31,10 +31,8 @@
     --revenus-lighter:#EBFAF5;
     --besoins:#9786E0;
     --depenses:#7164A8; /* total des dépenses (bandeau Dépenses + Dépenses annuelles) — même violet qu'avant la v1.6.5 */
-    --besoins-light:#CBC2F0;
     --besoins-lighter:#EEEBFA;
     --envies:#BE7AAD;
-    --envies-light:#F5D7E0;
     --envies-lighter:#FAEBEF;
     --epargne:#AFCC35;
     --epargne-light:#CFE086;
@@ -60,17 +58,8 @@
     --gauge-track:#DAD7E8;
 
     /* Jauges — tons vifs façon Semrush (saturés, pro, sans effet néon) */
-    --status-ok-fill:#3EBD79;
-    --status-ok-text:#1E8449;
-    --status-ok-bg:#E5F6EC;
 
-    --status-warn-fill:#FFA640;
-    --status-warn-text:#B25F00;
-    --status-warn-bg:#FFF0DE;
 
-    --status-bad-fill:#FF6250;
-    --status-bad-text:#D63A28;
-    --status-bad-bg:#FFE7E3;
 
     --font-display:'Century Gothic','Futura','Segoe UI Semibold','Segoe UI',sans-serif;
     --font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
@@ -374,21 +363,8 @@
   .myp-year-grid button:hover{background:var(--action-light); color:var(--action-dark);}
   .myp-year-grid button.active{background:var(--action); color:#fff;}
 
-  .kpi-merged-row{display:grid; grid-template-columns:1fr 1fr 1fr;}
-  .kpi-merged-row > div{padding:0 20px; min-width:0;}
-  .kpi-merged-row > div:first-child{padding-left:0;}
-  .kpi-merged-row > div:last-child{padding-right:0;}
-  .kpi-merged-row > div + div{border-left:1px solid var(--line);}
-  .kpi-merged-row .kpi-value{font-size:clamp(14px, 4.2vw, 19px); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-  .kpi-merged-row .kpi-label{font-size:clamp(9px, 2.3vw, 11.5px); letter-spacing:.2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-  .kpi-merged-row .kpi-delta{font-size:clamp(8px, 2vw, 10px); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
   @media (max-width:760px){
-    .kpi-merged-row{gap:0;}
-    .kpi-merged-row > div{padding:0 6px;}
-    .kpi-merged-row > div:first-child{padding-left:0;}
-    .kpi-merged-row > div:last-child{padding-right:0;}
-    .kpi-merged-row .env-bar-track{margin-top:10px !important;}
-    .kpi-merged-row .kpi-delta{white-space:normal; overflow:visible; text-overflow:clip; line-height:1.3;}
+
     .kpi-prevu-legend{gap:4px !important; font-size:clamp(7px, 2vw, 8.5px) !important; flex-wrap:nowrap !important;}
     .kpi-prevu-legend span{white-space:nowrap;}
     #revPrevuInline, #epPrevuInline{display:block; max-width:70px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin-left:auto;}
@@ -530,13 +506,7 @@
     padding:18px 20px;
     box-shadow:0 1px 3px rgba(28,27,46,0.04);
   }
-  .kpi-label{
-    font-size:11.5px;
-    color:var(--ink-faint);
-    text-transform:uppercase;
-    letter-spacing:.5px;
-    margin-bottom:8px;
-  }
+  
   .card-band{
     margin:-18px -20px 14px -20px;
     padding:10px 14px;
@@ -570,30 +540,6 @@
   .kpi-delta.pos{color:var(--action-dark);}
   .kpi-delta.neg{color:var(--danger);}
 
-  .income-micro-bar{
-    display:flex;
-    height:6px;
-    border-radius:100px;
-    overflow:hidden;
-    margin-top:10px;
-    background:#EFEDF9;
-  }
-  .income-micro-seg{height:100%;}
-  .income-micro-legend{
-    display:flex;
-    gap:10px;
-    margin-top:7px;
-    flex-wrap:wrap;
-  }
-  .income-micro-legend span{
-    display:inline-flex;
-    align-items:center;
-    gap:4px;
-    font-size:10px;
-    color:var(--ink-faint);
-  }
-  .income-micro-legend .dot{width:6px; height:6px; border-radius:50%; flex-shrink:0;}
-
   /* ---------- ENVELOPES ---------- */
   .section-heading{
     display:flex; align-items:center; justify-content:space-between;
@@ -617,7 +563,7 @@
   .env-status.ok{background:var(--action-light); color:var(--action-dark);}
   .env-status.warn{background:var(--action-light); color:var(--action-dark);}
   .env-status.bad{background:var(--danger-light); color:var(--danger);}
-  .env-status.nodata{background:#F0EFF6; color:var(--ink-faint);}
+  
   .goal-status{
     font-size:10px;
     font-weight:700;
@@ -654,37 +600,12 @@
   .env-bar-track.thin{
     height:8px;
   }
-  .env-bar-track.thin .env-bar-target{
-    top:-2px; bottom:-2px;
-  }
+  
   .env-bar-fill{
     height:100%;
     border-radius:100px;
     transition:width .3s ease;
   }
-  .env-bar-target{
-    position:absolute;
-    top:-4px;
-    bottom:-4px;
-    width:2px;
-    background:var(--ink);
-    opacity:.35;
-  }
-  .env-bar-target::after{
-    content:attr(data-label);
-    position:absolute;
-    top:-19px;
-    left:50%;
-    transform:translateX(-50%);
-    font-size:10px;
-    color:var(--ink-faint);
-    white-space:nowrap;
-    font-weight:600;
-  }
-
-  .env-figures{display:flex; align-items:baseline; justify-content:space-between;}
-  .env-amount{font-family:var(--font-display); font-size:19px; font-weight:700;}
-  .env-pct{font-size:13px; color:var(--ink-faint);}
 
   /* ---------- GUIDE ---------- */
   .guide-step{
@@ -784,8 +705,7 @@
     padding:22px 24px;
     margin-top:8px;
   }
-  .chart-card-head{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px; flex-wrap:wrap; gap:8px;}
-  .chart-title{font-weight:700; font-size:14.5px;}
+
   .chart-legend{display:flex; gap:16px; font-size:12px; color:var(--ink-soft);}
   .legend-dot{display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:5px; position:relative; top:1px;}
 
@@ -793,9 +713,6 @@
   .two-col > *{min-width:0;}
   .two-col-wide{grid-template-columns:2.1fr 1fr;}
   .two-col-goals{grid-template-columns:1.6fr 1fr;}
-  .kpi-row-3{grid-template-columns:repeat(3,1fr);}
-
-  .goal-list{display:flex; flex-direction:column; gap:14px;}
 
   .goal-full-list{display:flex; flex-direction:column; gap:18px;}
   .goal-full-item{padding-bottom:18px; border-bottom:1px solid var(--line);}
@@ -810,7 +727,7 @@
     border-radius:100px;
   }
   .goal-full-name{font-weight:700; font-size:14.5px;}
-  .goal-full-amounts{font-size:13px; color:var(--ink-faint); white-space:nowrap;}
+  
   .goal-full-meta{
     display:flex; justify-content:space-between; align-items:center;
     margin-top:8px;
@@ -821,11 +738,7 @@
   }
   .goal-recommend{font-weight:600; color:var(--epargne);}
   .goal-full-top .goal-recommend{font-size:12px;}
-  .goal-item{padding-bottom:12px; border-bottom:1px solid var(--line);}
-  .goal-item:last-child{border-bottom:none; padding-bottom:0;}
-  .goal-top{display:flex; justify-content:space-between; font-size:13.5px; margin-bottom:7px;}
-  .goal-name{font-weight:600;}
-  .goal-amounts{color:var(--ink-faint);}
+
   .bar-track{background:#EFEDF9; height:8px; border-radius:100px; overflow:hidden;}
   .bar-fill{height:100%; border-radius:100px;}
 
@@ -884,32 +797,16 @@
   .breakdown-top{display:flex; justify-content:space-between; font-size:13px; margin-bottom:6px;}
   .breakdown-cat{font-weight:600;}
   .breakdown-amt{color:var(--ink-faint);}
-  .cat-budget-row{display:grid; grid-template-columns:84px 1fr; align-items:start; gap:10px; margin-bottom:16px;}
-  .cat-budget-row:last-child{margin-bottom:0;}
-  .cat-budget-row .cat-budget-name{font-size:12px; font-weight:600; color:var(--ink); word-break:break-word; padding-top:2px;}
-  .cat-budget-row .cat-budget-gauge{min-width:0;}
 
   .empty-state-block{
     text-align:center;
     padding:36px 20px;
     color:var(--ink-faint);
   }
-  .empty-state-icon{font-size:30px; margin-bottom:10px; line-height:1;}
+  
   .empty-state-title{font-weight:700; color:var(--ink); font-size:14.5px; margin-bottom:6px; font-family:var(--font-display);}
   .empty-state-text{font-size:12.5px; line-height:1.55; max-width:320px; margin:0 auto;}
   .empty-state-block.compact{padding:20px 16px;}
-
-  .ghost-chart{position:relative;}
-  .ghost-chart svg{opacity:0.35; filter:grayscale(1);}
-  .ghost-chart-caption{
-    position:absolute; inset:0;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    text-align:center; padding:0 24px;
-    pointer-events:none;
-  }
-  .ghost-chart-caption .empty-state-icon{margin-bottom:8px;}
-  .ghost-chart-caption .empty-state-title{font-size:13.5px;}
-  .ghost-chart-caption .empty-state-text{font-size:11.5px;}
 
   .ghost-bars-wrap{padding-top:2px;}
   .ghost-bars-wrap .empty-state-title{text-align:center; margin-top:6px;}
@@ -1135,58 +1032,58 @@
 
 <!-- ===== Écran de code d'accès ===== -->
 <style>
-  #kleo-lock{
+  #kaxo-lock{
     position:fixed; inset:0; z-index:99999;
     display:flex; align-items:center; justify-content:center;
     background:linear-gradient(160deg,#7164A8,#57497f);
     padding:24px; font-family:inherit;
   }
-  #kleo-lock .lock-card{
+  #kaxo-lock .lock-card{
     background:#fff; border-radius:20px; padding:36px 28px;
     max-width:360px; width:100%; text-align:center;
     box-shadow:0 20px 60px rgba(0,0,0,.25);
   }
-  #kleo-lock .lock-mark{
+  #kaxo-lock .lock-mark{
     width:56px; height:56px; border-radius:14px; margin:0 auto 18px;
     background:#7164A8; display:flex; align-items:center; justify-content:center;
     color:#fff; font-weight:700; font-size:26px;
   }
-  #kleo-lock h2{ margin:0 0 8px; font-size:19px; color:#2b2b2b; }
-  #kleo-lock p{ margin:0 0 20px; font-size:14px; color:#6b6b6b; line-height:1.5; }
-  #kleo-lock input{
+  #kaxo-lock h2{ margin:0 0 8px; font-size:19px; color:#2b2b2b; }
+  #kaxo-lock p{ margin:0 0 20px; font-size:14px; color:#6b6b6b; line-height:1.5; }
+  #kaxo-lock input{
     width:100%; box-sizing:border-box; padding:12px 14px; font-size:15px;
     border:1.5px solid #ddd; border-radius:10px; text-align:center;
     letter-spacing:0.5px; margin-bottom:12px;
   }
-  #kleo-lock input:focus{ outline:none; border-color:#7164A8; }
-  #kleo-lock button{
+  #kaxo-lock input:focus{ outline:none; border-color:#7164A8; }
+  #kaxo-lock button{
     width:100%; padding:12px; font-size:15px; font-weight:600;
     background:#7164A8; color:#fff; border:none; border-radius:10px;
     cursor:pointer;
   }
-  #kleo-lock button:active{ opacity:.85; }
-  #kleo-lock .lock-error{
+  #kaxo-lock button:active{ opacity:.85; }
+  #kaxo-lock .lock-error{
     color:#c0392b; font-size:13px; margin-top:10px; min-height:16px;
   }
 </style>
-<div id="kleo-lock">
+<div id="kaxo-lock">
   <div class="lock-card">
     <div class="lock-mark">K</div>
-    <h2>Accès à Kleo Budget</h2>
+    <h2>Accès à Kaxo Budget</h2>
     <p>Entrez le code d'accès fourni avec votre achat.</p>
-    <input id="kleo-lock-input" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Code d'accès">
-    <button id="kleo-lock-submit">Déverrouiller</button>
-    <div class="lock-error" id="kleo-lock-error"></div>
+    <input id="kaxo-lock-input" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Code d'accès">
+    <button id="kaxo-lock-submit">Déverrouiller</button>
+    <div class="lock-error" id="kaxo-lock-error"></div>
   </div>
 </div>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   // Empreinte SHA-256 du code d'accès — le code en clair n'apparaît jamais ici.
-  var KLEO_CODE_HASH = "ffe6c324c7bb831d32cbc9d562f6c43491a34c0e9cb38a0e98c9fc107869a411";
-  var STORAGE_KEY = "kleo_unlocked_v1";
+  var KAXO_CODE_HASH = "ffe6c324c7bb831d32cbc9d562f6c43491a34c0e9cb38a0e98c9fc107869a411";
+  var STORAGE_KEY = "kaxo_unlocked_v1";
 
   function showApp(){
-    document.getElementById('kleo-lock').style.display = 'none';
+    document.getElementById('kaxo-lock').style.display = 'none';
     document.getElementById('app-root').style.display = '';
   }
 
@@ -1204,12 +1101,12 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 
   async function tryUnlock(){
-    var input = document.getElementById('kleo-lock-input');
-    var errorEl = document.getElementById('kleo-lock-error');
+    var input = document.getElementById('kaxo-lock-input');
+    var errorEl = document.getElementById('kaxo-lock-error');
     var value = (input.value || '').trim();
     if (!value){ return; }
     var hash = await sha256Hex(value);
-    if (hash === KLEO_CODE_HASH){
+    if (hash === KAXO_CODE_HASH){
       try{ localStorage.setItem(STORAGE_KEY, '1'); }catch(e){}
       showApp();
     } else {
@@ -1219,8 +1116,8 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   }
 
-  document.getElementById('kleo-lock-submit').addEventListener('click', tryUnlock);
-  document.getElementById('kleo-lock-input').addEventListener('keydown', function(e){
+  document.getElementById('kaxo-lock-submit').addEventListener('click', tryUnlock);
+  document.getElementById('kaxo-lock-input').addEventListener('keydown', function(e){
     if (e.key === 'Enter'){ tryUnlock(); }
   });
 });
@@ -1233,7 +1130,7 @@ document.addEventListener('DOMContentLoaded', function(){
     <div class="brand">
       <div class="brand-mark"></div>
       <div>
-        <div class="brand-name" data-i18n="brand.name">Kleo Budget</div>
+        <div class="brand-name" data-i18n="brand.name">Kaxo Budget</div>
       </div>
     </div>
 
@@ -2098,13 +1995,13 @@ document.addEventListener('DOMContentLoaded', function(){
       <div class="topbar">
         <div>
           <div class="page-title" data-i18n="guide.title">Guide de démarrage rapide</div>
-          <div class="page-sub" data-i18n="guide.sub">Tout ce qu'il faut pour bien démarrer avec Kleo Budget</div>
+          <div class="page-sub" data-i18n="guide.sub">Tout ce qu'il faut pour bien démarrer avec Kaxo Budget</div>
         </div>
       </div>
 
       <div class="guide-welcome">
-        <div class="guide-welcome-title" data-i18n-html="guide.welcome.title">Bienvenue à Kleo Budget<br>votre budget personnel en toute simplicité</div>
-        <div class="guide-welcome-text" data-i18n-html="guide.welcome.text">Kleo Budget est une application de gestion de budget personnel qui suit la méthode 50/30/20 (Besoins / Envies / Épargne). Elle tourne <strong>entièrement en local</strong>, directement dans votre navigateur : <strong>pas de compte à créer, pas d'abonnement, aucune donnée envoyée sur un serveur</strong>. Vous ouvrez le fichier, vous saisissez votre budget, et tout reste chez vous.</div>
+        <div class="guide-welcome-title" data-i18n-html="guide.welcome.title">Bienvenue à Kaxo Budget<br>votre budget personnel en toute simplicité</div>
+        <div class="guide-welcome-text" data-i18n-html="guide.welcome.text">Kaxo Budget est une application de gestion de budget personnel qui suit la méthode 50/30/20 (Besoins / Envies / Épargne). Elle tourne <strong>entièrement en local</strong>, directement dans votre navigateur : <strong>pas de compte à créer, pas d'abonnement, aucune donnée envoyée sur un serveur</strong>. Vous ouvrez le fichier, vous saisissez votre budget, et tout reste chez vous.</div>
       </div>
 
       <div class="guide-offline">
@@ -2114,7 +2011,7 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="guide-offline-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
             <div>
               <div class="guide-offline-item-title" data-i18n="guide.device.item1.title">Idéal sur ordinateur</div>
-              <div class="guide-offline-item-text" data-i18n="guide.device.item1.text">Kleo Budget est conçu avant tout pour un usage sur ordinateur, avec un navigateur récent (Chrome, Edge, Firefox ou Safari).</div>
+              <div class="guide-offline-item-text" data-i18n="guide.device.item1.text">Kaxo Budget est conçu avant tout pour un usage sur ordinateur, avec un navigateur récent (Chrome, Edge, Firefox ou Safari).</div>
             </div>
           </div>
           <div class="guide-offline-item">
@@ -2176,7 +2073,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
       <div class="guide-backup">
         <div class="guide-backup-title" data-i18n="guide.backup.title">📦 Vos données, toujours en sécurité</div>
-        <div class="guide-backup-text" data-i18n="guide.backup.text">Kleo Budget fonctionne entièrement hors-ligne : rien n'est jamais envoyé sur un serveur. Vos données restent dans ce navigateur, sur cet appareil — vous pouvez à tout moment en garder une copie et les retrouver sur un autre appareil.</div>
+        <div class="guide-backup-text" data-i18n="guide.backup.text">Kaxo Budget fonctionne entièrement hors-ligne : rien n'est jamais envoyé sur un serveur. Vos données restent dans ce navigateur, sur cet appareil — vous pouvez à tout moment en garder une copie et les retrouver sur un autre appareil.</div>
         <ul class="guide-backup-list">
           <li data-i18n="guide.backup.item1">Utilisation 100% hors-ligne, aucune connexion requise</li>
           <li data-i18n="guide.backup.item2">Sauvegarde exportable et réutilisable sur n'importe quel autre appareil</li>
@@ -2187,7 +2084,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
       <div class="guide-help">
         <div class="guide-help-title" data-i18n="guide.help.title">Besoin d'aide ?</div>
-        <div class="guide-help-text" data-i18n="guide.help.text">Si vous avez une question ou rencontrez un problème avec Kleo Budget, contactez-nous via notre boutique Etsy.</div>
+        <div class="guide-help-text" data-i18n="guide.help.text">Si vous avez une question ou rencontrez un problème avec Kaxo Budget, contactez-nous via notre boutique Etsy.</div>
         <a class="guide-help-link" href="https://www.etsy.com/shop/smartdigitalbyaleph" target="_blank" rel="noopener noreferrer">
           <span data-i18n="guide.help.link">Contacter smartdigitalbyaleph sur Etsy</span>
         </a>
@@ -2221,9 +2118,9 @@ const KLEO_SOURCE_HTML = (function(){
 /* ---------------- APP VERSION ---------------- */
 // Bump this on any release; stored alongside the data on export/save so a future
 // version of this file can detect and migrate an older backup if needed.
-const APP_VERSION = '1.6.6';
+const APP_VERSION = '1.6.8';
 {
-  const versionText = '© 2026 Kleo Budget · v' + APP_VERSION;
+  const versionText = '© 2026 Kaxo Budget · v' + APP_VERSION;
   ['appVersionTag','mobileMoreVersionTag'].forEach(id=>{
     const tag = document.getElementById(id);
     if(tag){
@@ -2447,7 +2344,6 @@ function refreshAllMoneyDisplays(){
   renderRecurringExpenses();
   renderIncomeRows();
   renderIncomeBreakdown();
-  renderIncomeMicroBar();
   renderRecurringIncome();
   renderSavingsMovements();
   renderRecurringSavings();
@@ -2659,7 +2555,7 @@ document.addEventListener('click', (e)=>{
   }
 });
 
-function emptyStateHTML(icon, titleKey, textKey, compact){
+function emptyStateHTML(titleKey, textKey, compact){
   return `<div class="empty-state-block${compact?' compact':''}">
     <div class="empty-state-title">${t(titleKey)}</div>
     <div class="empty-state-text">${t(textKey)}</div>
@@ -2686,7 +2582,6 @@ function ghostBarsHTML(titleKey, textKey){
  */
 function refreshDashboardWidgets(){
   renderDashboardKpis();
-  renderIncomeMicroBar();
   renderEpargneKpis();
   renderMonthDetail();
   renderDashCategoryDetails();
@@ -2825,10 +2720,6 @@ function renderEpargneKpis(){
   }
 }
 
-
-function slugify(s){
-  return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]+/g,'-');
-}
 
 function downloadCSV(filename, rows){
   const csv = rows.map(r=>r.map(cell=>{
@@ -3032,8 +2923,6 @@ function getIncomeSourceNames(){
 
 let _idCounter = 1;
 function nextId(){ return _idCounter++; }
-function assignIds(arr){ arr.forEach(x=>{ if(x._id===undefined) x._id = nextId(); }); return arr; }
-
 const incomeEntries = [];
 const recurringIncome = [];
 const recurringExpenses = [];
@@ -3105,37 +2994,6 @@ function computeMonthAggregates(month1based, year){
     enviePct: revenu>0 ? envie/revenu*100 : 0,
     epargnePct: revenu>0 ? epargne/revenu*100 : 0,
   };
-}
-
-/** Ensures recurring baseline entries exist for every month of the given year, then aggregates all 12. */
-function buildYearAggregates(year){
-  const months = [];
-  for(let m=1; m<=12; m++){
-    ensureRecurringForSpecificMonth(m-1, year);
-    months.push(computeMonthAggregates(m, year));
-  }
-  return months;
-}
-
-function categoryAmountForMonth(catNameFr, month1based, year){
-  return expenses
-    .filter(e=> e.cat.fr===catNameFr && (()=>{ const d=parseFRDate(e.date); return d.month===month1based && d.year===year; })())
-    .reduce((s,e)=>s+e.montant,0);
-}
-function categoryAmountForYear(catNameFr, year){
-  let total=0;
-  for(let m=1;m<=12;m++) total += categoryAmountForMonth(catNameFr, m, year);
-  return total;
-}
-function incomeSourceAmountForMonth(sourceFr, month1based, year){
-  return incomeEntries
-    .filter(e=> e.source.fr===sourceFr && (()=>{ const d=parseFRDate(e.date); return d.month===month1based && d.year===year; })())
-    .reduce((s,e)=>s+e.montant,0);
-}
-function incomeSourceAmountForYear(sourceFr, year){
-  let total=0;
-  for(let m=1;m<=12;m++) total += incomeSourceAmountForMonth(sourceFr, m, year);
-  return total;
 }
 
 // Category-level monthly breakdown (mock), used for Top 5 / Top categories features
@@ -3252,68 +3110,6 @@ function copyPreviousMonthBudget(year, month1based){
   return monthlyBudgets[key];
 }
 
-/** Budget d'une catégorie pour un mois donné — utilisé partout ailleurs dans l'app (ex. barres de Dépenses). */
-function getCategoryBudgetForMonth(catKey, year, month1based){
-  const eff = getEffectiveMonthlyBudget(year, month1based);
-  if(eff.categoryBudgets && eff.categoryBudgets[catKey]!=null) return eff.categoryBudgets[catKey];
-  // Filet de sécurité pour une catégorie jamais configurée dans Budget (ou import d'une ancienne sauvegarde) :
-  // retombe sur l'ancien champ plat categoryDefs[].budget.
-  const cat = categoryDefs.find(c=>c.key===catKey);
-  return cat ? (cat.budget||0) : 0;
-}
-
-/**
- * Compare le payé au budget prévu pour une catégorie donnée. Plus utilisée dans
- * l'onglet Dépenses (qui affiche une simple répartition par montant) — conservées
- * ici pour la vue "suis-je dans les clous ce mois-ci" du Dashboard Mensuel (bloc 9),
- * où ce type de comparaison a plus sa place.
- */
-function getCategoryBudget(nameFr){
-  const c = categoryDefs.find(c=>c.name.fr===nameFr);
-  if(!c) return null;
-  return getCategoryBudgetForMonth(c.key, currentYear, currentMonthIdx+1);
-}
-/**
- * Renders a horizontal breakdown row with a target-budget tick mark,
- * mirroring the envelope-bar visual language: fill vs. budget, self-scaled per row.
- */
-function categoryBudgetBarHTML(name, amount, budget, color, env){
-  const fmt = fmtNum;
-  const track = 'var(--gauge-track)';
-  const scale = budget ? Math.max(amount, budget) * 1.15 : amount * 1.3;
-  const fillPct = budget ? Math.min(amount, scale)/scale*100 : 100;
-  const pct = budget ? Math.round(amount/budget*100) : null;
-  return `
-    <div class="cat-budget-row">
-      <div class="cat-budget-name">${name}</div>
-      <div class="cat-budget-gauge">
-        <div class="env-bar-track thin" style="margin:0; background:${track};">
-          <div class="env-bar-fill" style="width:${fillPct}%; background:${color}; opacity:${budget?1:0.55};"></div>
-        </div>
-        <div class="kpi-prevu-legend" style="display:flex; justify-content:space-between; align-items:flex-start; font-size:10px; color:var(--ink-faint); margin-top:6px;">
-          <span style="text-align:left;">
-            <span style="display:inline-flex; align-items:center; gap:5px;">
-              <span style="width:8px; height:8px; border-radius:2px; background:${color}; display:inline-block;"></span>
-              <span>${t('rev.paid.short')}</span>
-            </span>
-            <div style="font-weight:600; color:var(--ink-soft);">${fmt(amount)}</div>
-          </span>
-          <span style="text-align:right;">
-            <span style="display:inline-flex; align-items:center; gap:5px; justify-content:flex-end;">
-              <span style="width:8px; height:8px; border-radius:2px; background:${track}; display:inline-block;"></span>
-              <span>${t('rev.prevu.short')}</span>
-            </span>
-            <div style="font-weight:600; color:${budget?'var(--ink-soft)':'var(--ink-faint)'};">${budget ? `${fmt(budget)} · ${pct}%` : t('param.nobudget')}</div>
-          </span>
-        </div>
-      </div>
-    </div>`;
-}
-/** Couleur d'une catégorie par son nom (FR) — source unique de vérité : categoryDefs. */
-function catColorFor(nameFr){
-  const c = categoryDefs.find(c=>c.name.fr===nameFr);
-  return c ? c.color : defaultShadeForEnv('besoin');
-}
 const expenses = [];
 
 /* ---------------- ÉPARGNE À LA DATE DU MOIS AFFICHÉ (v1.6.3) ----------------
@@ -3694,27 +3490,6 @@ function computeCategoryTotals(){
     map[e.cat.fr].amount += e.montant;
   });
   return Object.values(map);
-}
-
-/* ---------------- INCOME MICRO BAR (dashboard, only if >1 source) ---------------- */
-function renderIncomeMicroBar(){
-  const wrap = document.getElementById('incomeMicroBar');
-  if(!wrap) return;
-  const sources = computeIncomeSourceTotalsMonth();
-  if(sources.length <= 1){
-    wrap.innerHTML = '';
-    return;
-  }
-  const total = sources.reduce((s,x)=>s+x.amount,0);
-  const segments = sources.map(src=>{
-    const pct = (src.amount/total*100).toFixed(0);
-    return `<div class="income-micro-seg" style="width:${pct}%; background:${src.color};" title="${src.name[currentLang]} — ${src.amount.toLocaleString('fr-FR')} (${pct}%)"></div>`;
-  }).join('');
-  const legend = sources.map(src=>{
-    const pct = (src.amount/total*100).toFixed(0);
-    return `<span><span class="dot" style="background:${src.color}"></span>${src.name[currentLang]} ${pct}%</span>`;
-  }).join('');
-  wrap.innerHTML = `<div class="income-micro-bar">${segments}</div><div class="income-micro-legend">${legend}</div>`;
 }
 
 /* ---------------- ENVELOPES (horizontal progress bar) ---------------- */
@@ -4408,7 +4183,7 @@ function renderExpenses(){
   });
 
   if(monthExpenses.length===0){
-    rowsWrap.innerHTML = `<tr><td colspan="7" style="padding:0;">${emptyStateHTML('💸','empty.expenses.title','empty.expenses.text', true)}</td></tr>`;
+    rowsWrap.innerHTML = `<tr><td colspan="7" style="padding:0;">${emptyStateHTML('empty.expenses.title','empty.expenses.text', true)}</td></tr>`;
     return;
   }
   if(filtered.length===0){
@@ -4585,7 +4360,7 @@ function renderIncomeRows(){
   });
 
   if(monthIncome.length===0){
-    wrap.innerHTML = `<tr><td colspan="6" style="padding:0;">${emptyStateHTML('💰','empty.income.title','empty.income.text', true)}</td></tr>`;
+    wrap.innerHTML = `<tr><td colspan="6" style="padding:0;">${emptyStateHTML('empty.income.title','empty.income.text', true)}</td></tr>`;
     return;
   }
   if(filtered.length===0){
@@ -4677,7 +4452,7 @@ function renderGoalsFull(){
   const active = goals.filter(g=>goalShownAsActive(g, key));
   const generalCard = generalSavingsCardHTML(key);
   if(active.length===0){
-    wrap.innerHTML = (generalCard ? `<div class="goal-full-list">${generalCard}</div>` : emptyStateHTML('🎯','empty.goals.title','empty.goals.text'));
+    wrap.innerHTML = (generalCard ? `<div class="goal-full-list">${generalCard}</div>` : emptyStateHTML('empty.goals.title','empty.goals.text'));
     if(achievedCount>0) wrap.innerHTML += achievedGoalsLinkHTML(achievedCount);
     return;
   }
@@ -4895,7 +4670,7 @@ function renderSavingsMovements(){
   });
 
   if(monthMovements.length===0){
-    wrap.innerHTML = `<tr><td colspan="5" style="padding:0;">${emptyStateHTML('🏦','empty.savingsmov.title','empty.savingsmov.text', true)}</td></tr>`;
+    wrap.innerHTML = `<tr><td colspan="5" style="padding:0;">${emptyStateHTML('empty.savingsmov.title','empty.savingsmov.text', true)}</td></tr>`;
     return;
   }
   if(filtered.length===0){
@@ -5094,7 +4869,7 @@ function ensureRecurringForMonth(){
 /* ---------------- i18n ---------------- */
 const dict = {
   fr:{
-    'brand.name':'Kleo Budget',
+    'brand.name':'Kaxo Budget',
     'nav.dashboard':'Tableau de bord','nav.revenus':'Revenus','nav.depenses':'Dépenses',
     'nav.epargne':'Épargne','nav.budget':'Budget','nav.parametres':'Paramètres','nav.backup':'Backup & Restore','nav.guide':'Guide & Support',
     'nav.dashboard.mensuel':'Mensuel','nav.dashboard.annuel':'Annuel','nav.more':'Plus',
@@ -5140,14 +4915,14 @@ const dict = {
     'kpi.noentries':'Aucune saisie ce mois-ci',
     'kpi.newthismonth':'Nouveau ce mois-ci',
     'env.besoin':'Besoin','env.envie':'Envie','env.epargne':'Épargne',
-    'status.epargne.warn':'Sous l\'objectif','status.epargne.bad':'Objectif non atteint',
+    'status.epargne.bad':'Objectif non atteint',
     'status.goal.reached':'Objectif atteint','status.goal.progress':'En cours','status.goal.missed':'Date dépassée',
     'dep.sub':'Journal de vos sorties d\'argent',
     'filter.allcat':'Toutes les catégories','filter.allenv':'Toutes les enveloppes','filter.search':'Rechercher une dépense…',
     'filter.noresults':'Aucun résultat pour ces filtres.',
     'modal.choice.title':'Que voulez-vous ajouter ?','modal.cancel':'Annuler','modal.save':'Enregistrer',
     'modal.edit.title':'Modifier','modal.delete.title':'Supprimer',
-    'welcome.title':'Bienvenue dans Kleo Budget',
+    'welcome.title':'Bienvenue dans Kaxo Budget',
     'welcome.text':'Comment souhaitez-vous commencer ? Vous pouvez explorer l\'outil avec des données d\'exemple (dépenses, revenus, objectifs fictifs) pour voir comment tout fonctionne, ou démarrer directement avec un budget entièrement vide.',
     'welcome.demo':'Explorer avec des données de démonstration','welcome.blank':'Commencer avec un budget vide',
     'demo.banner.text':'Vous consultez des données de démonstration — pensez à les effacer avant de saisir votre propre budget.',
@@ -5157,18 +4932,18 @@ const dict = {
     'data.clear.button':'Effacer et repartir à zéro',
     'welcome.name.label':'Comment souhaitez-vous être appelé(e) ?','welcome.name.placeholder':'Votre prénom (facultatif)',
     'welcome.risk.title':'⚠ Où sont vos données ?',
-    'welcome.risk.text':'Kleo Budget fonctionne entièrement hors ligne : vos données restent stockées dans <strong>ce navigateur</strong>, liées à <strong>cet exact fichier</strong>. Si vous déplacez ou renommez ce fichier, videz le cache du navigateur, ou ouvrez Kleo depuis un autre navigateur ou un autre ordinateur, vos données ne seront pas accessibles. Pensez à exporter régulièrement une sauvegarde (JSON) depuis Backup & Restore pour ne jamais rien perdre.',
+    'welcome.risk.text':'Kaxo Budget fonctionne entièrement hors ligne : vos données restent stockées dans <strong>ce navigateur</strong>, liées à <strong>cet exact fichier</strong>. Si vous déplacez ou renommez ce fichier, videz le cache du navigateur, ou ouvrez Kaxo depuis un autre navigateur ou un autre ordinateur, vos données ne seront pas accessibles. Pensez à exporter régulièrement une sauvegarde (JSON) depuis Backup & Restore pour ne jamais rien perdre.',
     'integrity.title':'⚠ Anomalie détectée',
     'integrity.text':'Une sauvegarde a été trouvée dans ce navigateur, mais elle n\'a pas pu être lue correctement (fichier possiblement corrompu, ou modifié par un autre programme). Vos données existantes n\'ont pas été effacées. Si vous avez déjà exporté une sauvegarde JSON, importez-la ci-dessous. Sinon, vous pouvez continuer avec un budget vide — mais essayez d\'abord de vérifier ce navigateur ou cet appareil.',
     'integrity.import':'📂 Importer une sauvegarde JSON',
     'integrity.startfresh':'Continuer avec un budget vide',
     'integrity.startfresh.confirm.title':'Continuer sans les anciennes données ?',
-    'integrity.startfresh.confirm.text':'La sauvegarde illisible restera en mémoire dans ce navigateur (elle ne sera écrasée qu\'à votre prochaine modification), mais Kleo va démarrer avec un budget vide. Si vous retrouvez un fichier de sauvegarde JSON plus tard, vous pourrez l\'importer depuis Réglages.',
+    'integrity.startfresh.confirm.text':'La sauvegarde illisible restera en mémoire dans ce navigateur (elle ne sera écrasée qu\'à votre prochaine modification), mais Kaxo va démarrer avec un budget vide. Si vous retrouvez un fichier de sauvegarde JSON plus tard, vous pourrez l\'importer depuis Réglages.',
     'integrity.startfresh.button':'Oui, continuer avec un budget vide',
     'param.name.label':'Votre prénom',
     'greeting.day':'Bonjour','greeting.evening':'Bonsoir','greeting.night':'Bonsoir',
-    'empty.chart.title':'Ton graphique prendra vie ici','empty.chart.text':'Ajoute ta première transaction pour voir où part ton argent.',
-    'empty.dashboard.title':'Bienvenue dans ton tableau de bord','empty.dashboard.text':'Une fois que tu auras ajouté quelques transactions, tu verras ici l\'évolution de ton solde, tes dépenses par catégorie et bien plus.',
+    'empty.chart.text':'Ajoute ta première transaction pour voir où part ton argent.',
+    'empty.dashboard.text':'Une fois que tu auras ajouté quelques transactions, tu verras ici l\'évolution de ton solde, tes dépenses par catégorie et bien plus.',
     'empty.expenses.title':'Aucune dépense pour le moment','empty.expenses.text':'Ajoute ta première dépense pour commencer à suivre ton budget.',
     'empty.income.title':'Aucun revenu pour le moment','empty.income.text':'Ajoute ton premier revenu pour voir ta situation financière prendre forme.',
     'empty.goals.title':'Pas encore d\'objectif','empty.goals.text':'Crée ton premier objectif d\'épargne pour donner un cap à tes économies.',
@@ -5222,7 +4997,7 @@ const dict = {
     'backup.howto.text':`
       <p>Vos données sont sauvegardées automatiquement dans ce navigateur, mais uniquement sur cet appareil et ce navigateur précis. Si vous videz les données de navigation, changez d'ordinateur, ou réinstallez votre navigateur, elles ne vous suivront pas automatiquement — d'où l'intérêt de faire une sauvegarde de temps en temps.</p>
       <p><strong>Option recommandée — Sauvegarde HTML (multi-appareils, sans import)</strong><br>
-      Exportez le fichier HTML et enregistrez-le dans un espace cloud personnel (Google Drive, OneDrive ou équivalent) — comme n'importe quel document. Sur un autre appareil, téléchargez ce fichier depuis le cloud et ouvrez-le directement : vos données apparaissent aussitôt, sans rien importer. Kleo Budget ne se connecte à aucun de ces services : aucun compte à créer, aucune permission à donner côté application — c'est un simple espace de stockage que vous choisissez vous-même.</p>
+      Exportez le fichier HTML et enregistrez-le dans un espace cloud personnel (Google Drive, OneDrive ou équivalent) — comme n'importe quel document. Sur un autre appareil, téléchargez ce fichier depuis le cloud et ouvrez-le directement : vos données apparaissent aussitôt, sans rien importer. Kaxo Budget ne se connecte à aucun de ces services : aucun compte à créer, aucune permission à donner côté application — c'est un simple espace de stockage que vous choisissez vous-même.</p>
       <p><strong>Sauvegarde JSON (aller-retour, fichier plus léger)</strong><br>
       Exportez le JSON et enregistrez-le dans ce même espace cloud. Sur un autre appareil (ou une autre copie du fichier HTML), allez dans Backup &amp; Restore, puis sélectionnez ce fichier JSON pour recharger vos données.</p>
       <p><strong>💡 Pourquoi un simple fichier HTML plutôt qu'une appli en ligne ?</strong><br>
@@ -5289,12 +5064,12 @@ const dict = {
     'filter.allgoals':'Tous les objectifs',
     'ep.col.goal':'Objectif','ep.general':'Épargne générale',
     'ep.recurring.title':'Épargne récurrente',
-    'guide.title':'Guide de démarrage rapide','guide.sub':'Tout ce qu\'il faut pour bien démarrer avec Kleo Budget',
-    'guide.welcome.title':'Bienvenue à Kleo Budget<br>votre budget personnel en toute simplicité',
-    'guide.welcome.text':'Kleo Budget est une application de gestion de budget personnel organisée autour de trois enveloppes (Besoins, Envies, Épargne) dont la répartition est entièrement réglable selon vos objectifs (50/30/20 par défaut, à ajuster comme vous le souhaitez). Elle tourne <strong>entièrement en local</strong>, directement dans votre navigateur : <strong>pas de compte à créer, pas d\'abonnement, aucune donnée envoyée sur un serveur</strong>. Vous ouvrez le fichier, vous saisissez votre budget, et tout reste chez vous.',
+    'guide.title':'Guide de démarrage rapide','guide.sub':'Tout ce qu\'il faut pour bien démarrer avec Kaxo Budget',
+    'guide.welcome.title':'Bienvenue à Kaxo Budget<br>votre budget personnel en toute simplicité',
+    'guide.welcome.text':'Kaxo Budget est une application de gestion de budget personnel organisée autour de trois enveloppes (Besoins, Envies, Épargne) dont la répartition est entièrement réglable selon vos objectifs (50/30/20 par défaut, à ajuster comme vous le souhaitez). Elle tourne <strong>entièrement en local</strong>, directement dans votre navigateur : <strong>pas de compte à créer, pas d\'abonnement, aucune donnée envoyée sur un serveur</strong>. Vous ouvrez le fichier, vous saisissez votre budget, et tout reste chez vous.',
     'guide.device.title':'Navigateur & appareil recommandés',
     'guide.device.item1.title':'Idéal sur ordinateur',
-    'guide.device.item1.text':'Kleo Budget est conçu avant tout pour un usage sur ordinateur, avec un navigateur récent (Chrome, Edge, Firefox ou Safari).',
+    'guide.device.item1.text':'Kaxo Budget est conçu avant tout pour un usage sur ordinateur, avec un navigateur récent (Chrome, Edge, Firefox ou Safari).',
     'guide.device.item2.title':'Sur mobile',
     'guide.device.item2.text':'L\'application s\'adapte aux petits écrans, mais l\'expérience est plus confortable sur ordinateur ou tablette pour la saisie régulière.',
     'guide.device.item3.title':'Navigateur à jour',
@@ -5310,17 +5085,17 @@ const dict = {
     'guide.step5.title':'Suivez le Dashboard Mensuel et Annuel',
     'guide.step5.text':'Le Dashboard Mensuel résume votre mois en un coup d\'œil : indicateurs clés, détail par catégorie et avancement de vos objectifs. Le Dashboard Annuel prend du recul sur les 12 mois : tendance, répartition et tableau récapitulatif détaillé.',
     'guide.backup.title':'📦 Vos données, toujours en sécurité',
-    'guide.backup.text':'Kleo Budget fonctionne entièrement hors-ligne : rien n\'est jamais envoyé sur un serveur. Vos données restent dans ce navigateur, sur cet appareil — vous pouvez à tout moment en garder une copie et les retrouver sur un autre appareil.',
+    'guide.backup.text':'Kaxo Budget fonctionne entièrement hors-ligne : rien n\'est jamais envoyé sur un serveur. Vos données restent dans ce navigateur, sur cet appareil — vous pouvez à tout moment en garder une copie et les retrouver sur un autre appareil.',
     'guide.backup.item1':'Utilisation 100% hors-ligne, aucune connexion requise',
     'guide.backup.item2':'Sauvegarde exportable et réutilisable sur n\'importe quel autre appareil',
     'guide.backup.item3':'Vos données restent les vôtres : aucun compte, aucun cloud, aucun tiers',
     'guide.backup.cta':'Pour tous les détails et exporter votre première sauvegarde, direction l\'onglet Backup & Restore.',
     'guide.help.title':'Besoin d\'aide ?',
-    'guide.help.text':'Si vous avez une question ou rencontrez un problème avec Kleo Budget, contactez-nous via notre boutique Etsy.',
+    'guide.help.text':'Si vous avez une question ou rencontrez un problème avec Kaxo Budget, contactez-nous via notre boutique Etsy.',
     'guide.help.link':'Contacter smartdigitalbyaleph sur Etsy',
   },
   en:{
-    'brand.name':'Kleo Budget',
+    'brand.name':'Kaxo Budget',
     'nav.dashboard':'Dashboard','nav.revenus':'Income','nav.depenses':'Expenses',
     'nav.epargne':'Savings','nav.budget':'Budget','nav.parametres':'Settings','nav.backup':'Backup & Restore','nav.guide':'Guide & Support',
     'nav.dashboard.mensuel':'Monthly','nav.dashboard.annuel':'Yearly','nav.more':'More',
@@ -5366,14 +5141,14 @@ const dict = {
     'kpi.noentries':'No entries this month',
     'kpi.newthismonth':'New this month',
     'env.besoin':'Need','env.envie':'Want','env.epargne':'Savings',
-    'status.epargne.warn':'Below target','status.epargne.bad':'Goal not reached',
+    'status.epargne.bad':'Goal not reached',
     'status.goal.reached':'Goal reached','status.goal.progress':'In progress','status.goal.missed':'Past due',
     'dep.sub':'Track of your spending',
     'filter.allcat':'All categories','filter.allenv':'All envelopes','filter.search':'Search an expense…',
     'filter.noresults':'No results for these filters.',
     'modal.choice.title':'What would you like to add?','modal.cancel':'Cancel','modal.save':'Save',
     'modal.edit.title':'Edit','modal.delete.title':'Delete',
-    'welcome.title':'Welcome to Kleo Budget',
+    'welcome.title':'Welcome to Kaxo Budget',
     'welcome.text':'How would you like to start? You can explore the tool with sample data (example expenses, income, goals) to see how everything works, or start right away with a completely empty budget.',
     'welcome.demo':'Explore with sample data','welcome.blank':'Start with an empty budget',
     'demo.banner.text':'You\'re viewing sample data — remember to clear it before entering your own budget.',
@@ -5383,18 +5158,18 @@ const dict = {
     'data.clear.button':'Clear and start fresh',
     'welcome.name.label':'What should we call you?','welcome.name.placeholder':'Your first name (optional)',
     'welcome.risk.title':'⚠ Where does your data live?',
-    'welcome.risk.text':'Kleo Budget works entirely offline: your data is stored in <strong>this browser</strong>, tied to <strong>this exact file</strong>. If you move or rename this file, clear your browser cache, or open Kleo from a different browser or computer, your data won\'t be accessible. Remember to regularly export a backup (JSON) from Backup & Restore so you never lose anything.',
+    'welcome.risk.text':'Kaxo Budget works entirely offline: your data is stored in <strong>this browser</strong>, tied to <strong>this exact file</strong>. If you move or rename this file, clear your browser cache, or open Kaxo from a different browser or computer, your data won\'t be accessible. Remember to regularly export a backup (JSON) from Backup & Restore so you never lose anything.',
     'integrity.title':'⚠ Issue detected',
     'integrity.text':'A saved backup was found in this browser, but it could not be read correctly (the file may be corrupted, or was modified by another program). Your existing data has not been erased. If you already exported a JSON backup, import it below. Otherwise, you can continue with an empty budget — but try checking this browser or device first.',
     'integrity.import':'📂 Import a JSON backup',
     'integrity.startfresh':'Continue with an empty budget',
     'integrity.startfresh.confirm.title':'Continue without the previous data?',
-    'integrity.startfresh.confirm.text':'The unreadable backup will stay in this browser\'s memory (it will only be overwritten the next time you make a change), but Kleo will start with an empty budget. If you find a JSON backup file later, you can import it from Settings.',
+    'integrity.startfresh.confirm.text':'The unreadable backup will stay in this browser\'s memory (it will only be overwritten the next time you make a change), but Kaxo will start with an empty budget. If you find a JSON backup file later, you can import it from Settings.',
     'integrity.startfresh.button':'Yes, continue with an empty budget',
     'param.name.label':'Your first name',
     'greeting.day':'Good morning','greeting.evening':'Good evening','greeting.night':'Good evening',
-    'empty.chart.title':'Your chart will come to life here','empty.chart.text':'Add your first transaction to see where your money goes.',
-    'empty.dashboard.title':'Welcome to your dashboard','empty.dashboard.text':'Once you\'ve added a few transactions, you\'ll see your balance evolve, spending by category, and more, right here.',
+    'empty.chart.text':'Add your first transaction to see where your money goes.',
+    'empty.dashboard.text':'Once you\'ve added a few transactions, you\'ll see your balance evolve, spending by category, and more, right here.',
     'empty.expenses.title':'No expenses yet','empty.expenses.text':'Add your first expense to start tracking your budget.',
     'empty.income.title':'No income yet','empty.income.text':'Add your first income entry to see your financial picture take shape.',
     'empty.goals.title':'No goal yet','empty.goals.text':'Create your first savings goal to give your savings a direction.',
@@ -5448,7 +5223,7 @@ const dict = {
     'backup.howto.text':`
       <p>Your data is saved automatically in this browser, but only on this specific device and browser. If you clear your browsing data, switch computers, or reinstall your browser, it won't follow you automatically — which is why it's worth backing up from time to time.</p>
       <p><strong>Recommended option — HTML backup (multi-device, no import)</strong><br>
-      Export the HTML file and save it to a personal cloud space (Google Drive, OneDrive, or similar) — like any other document. On another device, download this file from the cloud and open it directly: your data shows up right away, nothing to import. Kleo Budget doesn't connect to any of these services: no account to create, no permission to grant from the app — it's just a storage space of your own choosing.</p>
+      Export the HTML file and save it to a personal cloud space (Google Drive, OneDrive, or similar) — like any other document. On another device, download this file from the cloud and open it directly: your data shows up right away, nothing to import. Kaxo Budget doesn't connect to any of these services: no account to create, no permission to grant from the app — it's just a storage space of your own choosing.</p>
       <p><strong>JSON backup (round-trip, lighter file)</strong><br>
       Export the JSON and save it to that same cloud space. On another device (or another copy of the HTML file), go to Backup &amp; Restore, then select this JSON file to reload your data.</p>
       <p><strong>💡 Why a plain HTML file instead of an online app?</strong><br>
@@ -5515,12 +5290,12 @@ const dict = {
     'filter.allgoals':'All goals',
     'ep.col.goal':'Goal','ep.general':'General savings',
     'ep.recurring.title':'Recurring savings',
-    'guide.title':'Quick start guide','guide.sub':'Everything you need to get started with Kleo Budget',
-    'guide.welcome.title':'Welcome to Kleo Budget<br>your personal budget made simple',
-    'guide.welcome.text':'Kleo Budget is a personal budgeting app built around three envelopes (Needs, Wants, Savings) whose split is fully adjustable to fit your own goals (50/30/20 by default, change it as you like). It runs <strong>entirely locally</strong>, right in your browser: <strong>no account to create, no subscription, no data ever sent to a server</strong>. You open the file, enter your budget, and everything stays with you.',
+    'guide.title':'Quick start guide','guide.sub':'Everything you need to get started with Kaxo Budget',
+    'guide.welcome.title':'Welcome to Kaxo Budget<br>your personal budget made simple',
+    'guide.welcome.text':'Kaxo Budget is a personal budgeting app built around three envelopes (Needs, Wants, Savings) whose split is fully adjustable to fit your own goals (50/30/20 by default, change it as you like). It runs <strong>entirely locally</strong>, right in your browser: <strong>no account to create, no subscription, no data ever sent to a server</strong>. You open the file, enter your budget, and everything stays with you.',
     'guide.device.title':'Recommended browser & device',
     'guide.device.item1.title':'Best on desktop',
-    'guide.device.item1.text':'Kleo Budget is designed first and foremost for desktop use, with a recent browser (Chrome, Edge, Firefox or Safari).',
+    'guide.device.item1.text':'Kaxo Budget is designed first and foremost for desktop use, with a recent browser (Chrome, Edge, Firefox or Safari).',
     'guide.device.item2.title':'On mobile',
     'guide.device.item2.text':'The app adapts to small screens, but the experience is more comfortable on desktop or tablet for regular entry.',
     'guide.device.item3.title':'Keep your browser updated',
@@ -5536,13 +5311,13 @@ const dict = {
     'guide.step5.title':'Follow the Monthly and Yearly Dashboard',
     'guide.step5.text':'The Monthly Dashboard sums up your month at a glance: key metrics, category detail and progress on your goals. The Yearly Dashboard steps back to look at all 12 months: trend, breakdown and a detailed summary table.',
     'guide.backup.title':'📦 Your data, always safe',
-    'guide.backup.text':'Kleo Budget runs entirely offline: nothing is ever sent to a server. Your data stays in this browser, on this device — you can keep a copy at any time and pick up where you left off on another device.',
+    'guide.backup.text':'Kaxo Budget runs entirely offline: nothing is ever sent to a server. Your data stays in this browser, on this device — you can keep a copy at any time and pick up where you left off on another device.',
     'guide.backup.item1':'100% offline use, no connection required',
     'guide.backup.item2':'Exportable backup, reusable on any other device',
     'guide.backup.item3':'Your data stays yours: no account, no cloud, no third party',
     'guide.backup.cta':'For all the details and to export your first backup, head to the Backup & Restore tab.',
     'guide.help.title':'Need help?',
-    'guide.help.text':'If you have a question or run into an issue with Kleo Budget, reach out to us through our Etsy shop.',
+    'guide.help.text':'If you have a question or run into an issue with Kaxo Budget, reach out to us through our Etsy shop.',
     'guide.help.link':'Contact smartdigitalbyaleph on Etsy',
   }
 };
@@ -5584,7 +5359,6 @@ function applyI18n(){
   renderDemoBanner();
   bindDemoBanner();
   renderDashboardKpis();
-  renderIncomeMicroBar();
   renderIncomeRows();
   renderIncomeBreakdown();
   renderRecurringIncome();
@@ -5938,7 +5712,6 @@ function openAddModal(type){
       }
       renderIncomeRows();
       renderIncomeBreakdown();
-      renderIncomeMicroBar();
       populateSourceFilter();
       refreshDashboardWidgets();
       saveState();
@@ -6136,7 +5909,7 @@ const rowTableConfig = {
   },
   incomeEntries: {
     array: incomeEntries,
-    render: ()=>{ renderIncomeRows(); renderIncomeBreakdown(); renderIncomeMicroBar(); populateSourceFilter(); refreshDashboardWidgets(); },
+    render: ()=>{ renderIncomeRows(); renderIncomeBreakdown(); populateSourceFilter(); refreshDashboardWidgets(); },
   },
   recurringIncome: {
     array: recurringIncome,
@@ -7232,7 +7005,7 @@ function exportJSON(){
   const blob = new Blob([JSON.stringify(serializeState(), null, 2)], {type:'application/json'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url; a.download = 'kleo-budget-sauvegarde.json';
+  a.href = url; a.download = 'kaxo-budget-sauvegarde.json';
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   URL.revokeObjectURL(url);
   markExported();
@@ -7258,7 +7031,7 @@ function exportHTMLBackup(){
   const blob = new Blob([html], {type:'text/html'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url; a.download = 'kleo-budget-sauvegarde.html';
+  a.href = url; a.download = 'kaxo-budget-sauvegarde.html';
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   setTimeout(()=> URL.revokeObjectURL(url), 1000);
   markExported();
@@ -7320,7 +7093,7 @@ function exportAllCSV(){
   rows.push([t('nav.epargne')]);
   rows.push([t('col.date'), t('col.amount'), t('ep.col.goal'), t('col.note')]);
   savingsMovements.forEach(m=> rows.push([m.date, m.montant, m.goal[currentLang]||t('ep.general'), isTransfer(m) ? t('ep.assign.tag')+(m.note[currentLang]?' · '+m.note[currentLang]:'') : m.note[currentLang]]));
-  downloadCSV('kleo-budget-donnees-completes.csv', rows);
+  downloadCSV('kaxo-budget-donnees-completes.csv', rows);
 }
 
 function renderDemoBanner(){
@@ -7585,7 +7358,7 @@ function withTimeout(promise, ms, fallback){
 if ('serviceWorker' in navigator && location.protocol === 'https:') {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js').catch((err) => {
-      console.warn('Kleo: service worker non enregistré', err);
+      console.warn('Kaxo: service worker non enregistré', err);
     });
   });
 }
