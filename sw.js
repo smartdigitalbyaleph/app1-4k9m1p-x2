@@ -1,7 +1,7 @@
 // Service worker Kaxo Budget — mise en cache pour usage hors ligne.
 // Incrémentez CACHE_NAME à chaque nouvelle version mise en ligne
 // pour forcer les navigateurs à récupérer les fichiers à jour.
-const CACHE_NAME = 'kaxo-budget-cache-v1.6.8-logoX';
+const CACHE_NAME = 'kaxo-budget-cache-v1.6.8-logoX2';
 
 const ASSETS_TO_CACHE = [
   './',
